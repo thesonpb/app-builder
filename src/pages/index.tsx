@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { Layout } from "antd";
 import PageNotFound from "./PageNotFound";
 import Header from "../layouts/Header";
 import Sider from "../layouts/Sider";
+import PopupSelectTemplate from "../components/popups/PopupSelectTemplate";
 
 const { Content } = Layout;
 
 function Pages() {
+  const [type, setType] = useState("");
+  const [visible, setVisible] = useState(false);
   return (
     <div>
       <Layout>
         <Header />
         <Layout>
-          <Sider />
+          <Sider setType={setType} setVisible={setVisible} />
           <Layout>
-            <Content className="m-0 ml-60 p-6 h-screen">
+            <Content className="m-0 ml-60 p-6 h-screen bg-editor">
               <Routes>
                 <Route index element={<Navigate to="/home" />} />
                 <Route path="/home" element={<div>home page</div>} />
@@ -34,6 +37,11 @@ function Pages() {
           </Layout>
         </Layout>
       </Layout>
+      <PopupSelectTemplate
+        visible={visible}
+        type={type}
+        setVisible={setVisible}
+      />
 
       <Outlet />
     </div>

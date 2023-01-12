@@ -16,7 +16,11 @@ interface Shortcut {
   name: string;
   id: number;
 }
-function Sider() {
+interface Props {
+  setType: Function;
+  setVisible: Function;
+}
+function Sider({ setType, setVisible }: Props) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const renderShortcut = ({ type, name, id }: Shortcut) => (
@@ -39,7 +43,7 @@ function Sider() {
 
   return (
     <AntSider
-      className="overflow-hidden hover:overflow-auto fixed top-0 overflow-auto h-screen pt-16"
+      className="overflow-hidden hover:overflow-auto fixed top-0 h-screen pt-16"
       style={{
         borderRight: "1px solid #525866",
         backgroundColor: "#343a40",
@@ -55,7 +59,10 @@ function Sider() {
         <div
           className="w-full flex items-center justify-between rounded-md text-light p-4 hover:bg-lightGray cursor-pointer"
           style={{ border: "1px solid #525866" }}
-          onClick={() => navigate("/create-page")}
+          onClick={() => {
+            setType("PAGE");
+            setVisible(true);
+          }}
         >
           <div className="flex gap-x-2 items-center">
             <div className="text-green-400">
@@ -68,7 +75,10 @@ function Sider() {
         <div
           className="w-full flex items-center justify-between rounded-md text-light p-4 hover:bg-lightGray cursor-pointer"
           style={{ border: "1px solid #525866" }}
-          onClick={() => navigate("/create-app")}
+          onClick={() => {
+            setType("APP");
+            setVisible(true);
+          }}
         >
           <div className="flex gap-x-2 items-center">
             <div className="text-blue-400">

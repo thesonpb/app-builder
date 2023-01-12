@@ -13,7 +13,8 @@ module.exports = {
                 light: '#e9ecef',
                 textDark: '#212529',
                 textLight: '#f8f9fa',
-                border: '#525866'
+                border: '#525866',
+                editor: '#dee2e6',
             }
         },
     },
