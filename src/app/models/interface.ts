@@ -1,3 +1,5 @@
+declare const permissionArray: ["view", "edit"];
+export declare type Perrmissions = (typeof permissionArray)[number];
 export interface Template {
   id: number;
   name: string;

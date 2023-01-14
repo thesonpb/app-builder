@@ -15,6 +15,7 @@ module.exports = {
                 textLight: '#f8f9fa',
                 border: '#525866',
                 editor: '#dee2e6',
+                greenest: '#2d9d78'
             }
         },
     },

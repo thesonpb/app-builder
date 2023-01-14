@@ -7,7 +7,7 @@ function Homepage() {
     <div>
       <Layout>
         <Header isCreateScreen={false} />
-        <Content className="h-screen">Hompage content</Content>
+        <Content>Hompage content</Content>
       </Layout>
     </div>
   );

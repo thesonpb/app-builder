@@ -7,7 +7,7 @@ import {
   Row,
   Grid,
 } from "../../components/dragDropContainer";
-import { Button, Text } from "../../components/dragDropItem";
+import { Button, Paragraph, Text } from "../../components/dragDropItem";
 import GridLayout from "../../app/icons/GridLayout";
 import ContainerLayout from "../../app/icons/ContainerLayout";
 import ColumnLayout from "../../app/icons/ColumnLayout";
@@ -79,7 +79,7 @@ const items = [
         name: "Paragraph",
         isContainer: false,
         icon: <ParagraphItem />,
-        renderItem: Text,
+        renderItem: Paragraph,
       },
     ],
   },

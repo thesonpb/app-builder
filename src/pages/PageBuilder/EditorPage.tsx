@@ -11,7 +11,7 @@ function EditorPage() {
           className="overflow-auto"
           is={Container}
           paddingTop="1rem"
-          paddingBottom="1rem"
+          paddingBottom="5rem"
           paddingLeft="1rem"
           paddingRight="1rem"
           marginTop="0"

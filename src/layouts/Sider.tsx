@@ -25,6 +25,7 @@ function Sider({ setType, setVisible }: Props) {
   const { pathname } = useLocation();
   const renderShortcut = ({ type, name, id }: Shortcut) => (
     <div
+      key={id}
       className="flex gap-x-2 items-center hover:bg-lightGray py-1 px-2 cursor-pointer rounded-md"
       onClick={() => navigate(`/${type}/${id}`)}
     >
