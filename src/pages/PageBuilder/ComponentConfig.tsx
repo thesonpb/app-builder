@@ -1,29 +1,17 @@
 import { Layout } from "antd";
-import styled from "styled-components";
 import { useContext } from "react";
 import { PageBuilderContext } from "../../app/context/PageBuilderContext";
 const { Sider } = Layout;
 
-const CustomSider = styled(Sider)`
-  ::-webkit-scrollbar {
-    width: 4px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: rgb(177, 177, 177);
-  }
-  ::-webkit-scrollbar-track {
-    background-color: #495057;
-  }
-`;
 export default function ComponentConfig() {
   const { isPreviewEditor } = useContext(PageBuilderContext);
   return (
-    <CustomSider
+    <Sider
       collapsedWidth={0}
       trigger={null}
       collapsible
       collapsed={isPreviewEditor}
-      className={`overflow-auto fixed right-0 top-16 h-screen ${
+      className={`small-scroll-bar overflow-auto fixed right-0 top-16 h-screen ${
         !isPreviewEditor && "px-4"
       } text-light`}
       style={{
@@ -40,6 +28,6 @@ export default function ComponentConfig() {
           </div>
         </div>
       </div>
-    </CustomSider>
+    </Sider>
   );
 }

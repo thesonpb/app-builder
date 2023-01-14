@@ -12,7 +12,7 @@ function PageBuilder() {
   const { isPreviewEditor } = useContext(PageBuilderContext);
   return (
     <>
-      <div className="flex ">
+      <div className="flex">
         <Editor resolver={{ ...DragDropItem, ...DragDropContainer }}>
           <ComponentPicker />
           {!isPreviewEditor ? <EditorPage /> : <PreviewPage />}

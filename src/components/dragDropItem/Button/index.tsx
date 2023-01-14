@@ -20,7 +20,12 @@ interface Props {
   children?: React.ReactNode;
 }
 
-export const Button = ({ size, type, color, children }: Props) => {
+export const Button = ({
+  size,
+  type = "primary",
+  color,
+  children = "Button",
+}: Props) => {
   const {
     connectors: { connect, drag },
   } = useNode();

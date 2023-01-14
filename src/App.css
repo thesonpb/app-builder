@@ -8,3 +8,13 @@
 ::-webkit-scrollbar-track {
     background-color: transparent;
 }
+
+.small-scroll-bar::-webkit-scrollbar {
+    width: 6px;
+}
+.small-scroll-bar::-webkit-scrollbar-thumb {
+    background-color: #767e87;
+}
+.small-scroll-bar::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.15);
+}
