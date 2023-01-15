@@ -1,5 +1,7 @@
 import React from "react";
 import { useNode } from "@craftjs/core";
+import { USER_COMPONENT_NAME } from "../../../app/constants/userComponentName";
+import ContainerConfig from "./ContainerConfig";
 
 interface Props {
   backgroundColor?: string;
@@ -31,63 +33,39 @@ interface Props {
   className?: string;
 }
 
-export const Container = ({
-  className = "",
-  backgroundColor = "#e9ecef",
-  borderBottomLeftRadius,
-  borderBottomRightRadius,
-  borderRadius,
-  borderTopLeftRadius,
-  borderTopRightRadius,
-  height,
-  minHeight = "10rem",
-  minWidth,
-  width,
-  borderColor = "#5c6b73",
-  borderStyle = "solid",
-  borderWidth = "1px",
-  children,
-  marginBottom = "0",
-  marginLeft,
-  marginRight,
-  marginTop = "0",
-  paddingBottom = "0",
-  paddingLeft = "0",
-  paddingRight = "0",
-  paddingTop = "0",
-}: Props) => {
+const defaultProps = {
+  backgroundColor: "white",
+  minHeight: "10rem",
+  padding: "1rem",
+  borderRadius: "1rem",
+  borderColor: "#f2f2f2",
+  borderStyle: "solid",
+  borderWidth: "1px",
+};
+
+export const Container = (props: Props) => {
   const {
     connectors: { connect, drag },
   } = useNode();
+
+  props = { ...defaultProps, ...props };
+  const { className, children } = props;
   return (
     <div
       ref={(ref: any) => connect(drag(ref))}
-      className={className}
       style={{
-        backgroundColor,
-        borderBottomLeftRadius,
-        borderBottomRightRadius,
-        borderRadius,
-        borderTopLeftRadius,
-        borderTopRightRadius,
-        height,
-        minHeight,
-        minWidth,
-        width,
-        borderColor,
-        borderStyle,
-        borderWidth,
-        marginBottom,
-        marginLeft,
-        marginRight,
-        marginTop,
-        paddingBottom,
-        paddingLeft,
-        paddingRight,
-        paddingTop,
+        ...props,
       }}
+      className={className}
     >
       {children}
     </div>
   );
+};
+Container.craft = {
+  displayName: USER_COMPONENT_NAME.CONTAINER,
+  props: defaultProps,
+  related: {
+    settings: ContainerConfig,
+  },
 };

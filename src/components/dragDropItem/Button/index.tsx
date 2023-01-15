@@ -28,7 +28,9 @@ export const Button = ({
 }: Props) => {
   const {
     connectors: { connect, drag },
-  } = useNode();
+  } = useNode((node) => ({
+    selected: node.events.selected,
+  }));
   return (
     <AntButton
       ref={(ref: any) => connect(drag(ref))}

@@ -47,11 +47,12 @@ const defaultProps = {
   backgroundColor: "white",
   gapX: "0",
   gapY: "0",
-  borderColor: "#5c6b73",
-  borderStyle: "solid",
-  borderWidth: "1px",
   minHeight: "10rem",
   padding: "1rem",
+  borderRadius: "1rem",
+  borderColor: "#f2f2f2",
+  borderStyle: "solid",
+  borderWidth: "1px",
 };
 
 export const Grid = (props: Props) => {

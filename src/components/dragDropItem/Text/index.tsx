@@ -1,5 +1,6 @@
 import React from "react";
-import { useNode } from "@craftjs/core";
+import { useEditor, useNode } from "@craftjs/core";
+import ContentEditable from "react-contenteditable";
 
 interface Props {
   text?: string;
@@ -9,25 +10,30 @@ interface Props {
   isUnderline?: boolean;
 }
 
-export const Text = ({
-  text = "Text",
-  fontSize,
-  isBold,
-  isItalic,
-  isUnderline,
-}: Props) => {
+export const Text = (props: Props) => {
   const {
-    connectors: { connect, drag },
+    connectors: { connect },
+    setProp,
   } = useNode();
+  const { enabled } = useEditor((state: any) => ({
+    enabled: state.options.enabled,
+  }));
+
+  const { text = "Text", isBold, isItalic, isUnderline } = props;
+
   return (
-    <span
-      ref={(ref: any) => connect(drag(ref))}
-      className={`m-0 ${isBold ? "font-bold" : ""} ${
-        isItalic ? "italic" : ""
-      } ${isUnderline ? "underline" : ""} `}
-      style={{ fontSize }}
-    >
-      {text}
-    </span>
+    <ContentEditable
+      innerRef={connect}
+      html={text}
+      disabled={!enabled}
+      onChange={(e) => {
+        setProp((prop) => (prop.text = e.target.value), 500);
+      }}
+      tagName="h2"
+      className={`${isBold ? "font-bold" : ""} ${isItalic ? "italic" : ""} ${
+        isUnderline ? "underline" : ""
+      } `}
+      style={{ ...props }}
+    />
   );
 };
