@@ -14,22 +14,26 @@ interface Props {
   borderStyle?: string;
   borderColor?: string;
   children?: React.ReactNode;
+  padding?: string;
   paddingLeft?: string;
   paddingRight?: string;
   paddingTop?: string;
   paddingBottom?: string;
+  margin?: string;
   marginLeft?: string;
   marginRight?: string;
   marginTop?: string;
   marginBottom?: string;
   minHeight?: string;
   minWidth?: string;
+  maxWidth?: string;
+  maxHeight?: string;
   className?: string;
 }
 
 export const Container = ({
   className = "",
-  backgroundColor = "white",
+  backgroundColor = "#e9ecef",
   borderBottomLeftRadius,
   borderBottomRightRadius,
   borderRadius,
@@ -39,18 +43,18 @@ export const Container = ({
   minHeight = "10rem",
   minWidth,
   width,
-  borderColor = "black",
+  borderColor = "#5c6b73",
   borderStyle = "solid",
   borderWidth = "1px",
   children,
-  marginBottom = "0.5rem",
+  marginBottom = "0",
   marginLeft,
   marginRight,
-  marginTop = "0.5rem",
-  paddingBottom = "1rem",
-  paddingLeft = "1rem",
-  paddingRight = "1rem",
-  paddingTop = "1rem",
+  marginTop = "0",
+  paddingBottom = "0",
+  paddingLeft = "0",
+  paddingRight = "0",
+  paddingTop = "0",
 }: Props) => {
   const {
     connectors: { connect, drag },

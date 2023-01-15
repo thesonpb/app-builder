@@ -1,10 +1,28 @@
 import { Layout } from "antd";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { PageBuilderContext } from "../../app/context/PageBuilderContext";
+import { useEditor } from "@craftjs/core";
 const { Sider } = Layout;
 
 export default function ComponentConfig() {
   const { isPreviewEditor } = useContext(PageBuilderContext);
+  const { selected } = useEditor((state: any) => {
+    const [currentNodeId] = state.events.selected;
+    let selected;
+
+    if (currentNodeId) {
+      selected = {
+        id: currentNodeId,
+        name: state.nodes[currentNodeId].data.name,
+        settings:
+          state.nodes[currentNodeId].related &&
+          state.nodes[currentNodeId].related.settings,
+      };
+    }
+    return {
+      selected,
+    };
+  });
   return (
     <Sider
       collapsedWidth={0}
@@ -20,14 +38,12 @@ export default function ComponentConfig() {
       }}
       width={240}
     >
-      <div className="flex flex-col gap-y-4 pb-20">
-        <div className="flex flex-col">
-          <h4>Background</h4>
-          <div className="w-full rounded-md text-sm font-semibold cursor-pointer h-8 flex items-center justify-center bg-lightGray">
-            Background
-          </div>
-        </div>
-      </div>
+      {selected && (
+        <>
+          <h3 className="uppercase my-4">{selected.name}</h3>
+          {selected.settings && React.createElement(selected.settings)}
+        </>
+      )}
     </Sider>
   );
 }

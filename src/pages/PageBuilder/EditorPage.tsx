@@ -8,6 +8,7 @@ function EditorPage() {
     <div className=" fixed left-60 right-60 top-16 small-scroll-bar">
       <Frame>
         <Element
+          backgroundColor="white"
           className="overflow-auto"
           is={Container}
           paddingTop="1rem"
@@ -16,7 +17,6 @@ function EditorPage() {
           paddingRight="1rem"
           marginTop="0"
           marginBottom="0"
-          backgroundColor="#e9ecef"
           height="100vh"
           borderColor="none"
           borderStyle="none"
