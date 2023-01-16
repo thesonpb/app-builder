@@ -53,6 +53,7 @@ const defaultProps = {
   borderColor: "#f2f2f2",
   borderStyle: "solid",
   borderWidth: "1px",
+  marginTop: "1rem",
 };
 
 export const Grid = (props: Props) => {

@@ -24,7 +24,7 @@ function EditorPage() {
       >
         <Frame>
           <Element
-            backgroundColor="white"
+            backgroundColor="#eceff3"
             className="overflow-auto"
             is={Container}
             paddingTop="1rem"
@@ -37,6 +37,7 @@ function EditorPage() {
             borderColor="none"
             borderStyle="none"
             borderWidth="none"
+            borderRadius="0"
             canvas
           >
             <Button />

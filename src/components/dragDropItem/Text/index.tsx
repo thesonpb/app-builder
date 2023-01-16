@@ -30,9 +30,9 @@ export const Text = (props: Props) => {
         setProp((prop) => (prop.text = e.target.value), 500);
       }}
       tagName="h2"
-      className={`${isBold ? "font-bold" : ""} ${isItalic ? "italic" : ""} ${
-        isUnderline ? "underline" : ""
-      } `}
+      className={`mt-4 mb-0 ${isBold ? "font-bold" : ""} ${
+        isItalic ? "italic" : ""
+      } ${isUnderline ? "underline" : ""} `}
       style={{ ...props }}
     />
   );
