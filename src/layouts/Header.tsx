@@ -24,6 +24,7 @@ import Logout from "../app/icons/Logout";
 import { Perrmissions } from "../app/models/interface";
 import styled from "styled-components";
 import Lock from "../app/icons/Lock";
+import { useUser } from "../app/hooks/useUser";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -319,6 +320,7 @@ const ExportPopup = () => {
 };
 
 function Header({ isCreateScreen }: Props) {
+  const { user } = useUser();
   const { isPreviewEditor, setPreviewEditor } = useContext(PageBuilderContext);
   const navigate = useNavigate();
 
@@ -390,15 +392,26 @@ function Header({ isCreateScreen }: Props) {
             </Popover>
           </>
         )}
-        <Dropdown
-          trigger={["click"]}
-          menu={{ items: userItems }}
-          placement="bottomRight"
-        >
-          <div>
-            <Button className="w-8 h-8 rounded-full bg-amber-500 border-none"></Button>
+        {!user.id ? (
+          <div className="flex gap-x-2">
+            <Button type="primary" onClick={() => navigate("/login")}>
+              Login
+            </Button>
+            <Button type="default" onClick={() => navigate("/signup")}>
+              Signup
+            </Button>
           </div>
-        </Dropdown>
+        ) : (
+          <Dropdown
+            trigger={["click"]}
+            menu={{ items: userItems }}
+            placement="bottomRight"
+          >
+            <div>
+              <Button className="w-8 h-8 rounded-full bg-amber-500 border-none"></Button>
+            </div>
+          </Dropdown>
+        )}
       </div>
     </header>
   );

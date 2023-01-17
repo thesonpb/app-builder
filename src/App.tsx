@@ -3,6 +3,8 @@ import { Route, Routes } from "react-router-dom";
 import React from "react";
 import "./App.css";
 import Homepage from "./pages/Homepage";
+import Login from "./pages/Login";
+import { AppProvider } from "./app/context/AppContext";
 
 const OtherPage = React.lazy(() => import("./pages"));
 
@@ -19,12 +21,14 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Routes>
-        <Route path="/login" element={<div>Login</div>} />
-        <Route path="/signup" element={<div>Signup</div>} />
-        <Route path="/home" element={<Homepage />} />
-        <Route path="/*" element={<OtherPage />} />
-      </Routes>
+      <AppProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<div>Signup</div>} />
+          <Route path="/home" element={<Homepage />} />
+          <Route path="/*" element={<OtherPage />} />
+        </Routes>
+      </AppProvider>
     </QueryClientProvider>
   );
 }
