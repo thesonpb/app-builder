@@ -24,7 +24,7 @@ import Logout from "../app/icons/Logout";
 import { Perrmissions } from "../app/models/interface";
 import styled from "styled-components";
 import Lock from "../app/icons/Lock";
-import { useUser } from "../app/hooks/useUser";
+import { useUser } from "../app/hooks";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -107,45 +107,6 @@ const items: MenuProps["items"] = [
         ),
       },
     ],
-  },
-];
-const userItems: MenuProps["items"] = [
-  {
-    label: (
-      <Link className="flex gap-x-2 items-center" to={`/profile`}>
-        <User />
-        <div className="text-sm font-semibold">My profile</div>
-      </Link>
-    ),
-    key: "profile",
-  },
-  {
-    type: "divider",
-  },
-  {
-    label: (
-      <Link className="flex gap-x-2 items-center" to={`/likes`}>
-        <Heart />
-        <div className="text-sm font-semibold">My likes</div>
-      </Link>
-    ),
-    key: "likes",
-  },
-  {
-    type: "divider",
-  },
-  {
-    label: (
-      <Link
-        className="flex gap-x-2 items-center"
-        to="#"
-        onClick={() => alert("Logout")}
-      >
-        <Logout />
-        <div className="text-sm font-semibold">Logout</div>
-      </Link>
-    ),
-    key: "logout",
   },
 ];
 
@@ -323,6 +284,45 @@ function Header({ isCreateScreen }: Props) {
   const { user } = useUser();
   const { isPreviewEditor, setPreviewEditor } = useContext(PageBuilderContext);
   const navigate = useNavigate();
+  const userItems: MenuProps["items"] = [
+    {
+      label: (
+        <Link className="flex gap-x-2 items-center" to={`/profile/${user?.id}`}>
+          <User />
+          <div className="text-sm font-semibold">My profile</div>
+        </Link>
+      ),
+      key: "profile",
+    },
+    {
+      type: "divider",
+    },
+    {
+      label: (
+        <Link className="flex gap-x-2 items-center" to={`/likes`}>
+          <Heart />
+          <div className="text-sm font-semibold">My likes</div>
+        </Link>
+      ),
+      key: "likes",
+    },
+    {
+      type: "divider",
+    },
+    {
+      label: (
+        <Link
+          className="flex gap-x-2 items-center"
+          to="#"
+          onClick={() => alert("Logout")}
+        >
+          <Logout />
+          <div className="text-sm font-semibold">Logout</div>
+        </Link>
+      ),
+      key: "logout",
+    },
+  ];
 
   return (
     <header
@@ -392,7 +392,7 @@ function Header({ isCreateScreen }: Props) {
             </Popover>
           </>
         )}
-        {!user.id ? (
+        {!user?.id ? (
           <div className="flex gap-x-2">
             <Button type="primary" onClick={() => navigate("/login")}>
               Login

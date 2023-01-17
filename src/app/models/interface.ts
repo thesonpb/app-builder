@@ -1,6 +1,14 @@
 declare const permissionArray: ["view", "edit"];
 export declare type Perrmissions = (typeof permissionArray)[number];
 
+export interface UserInterface {
+  id: number;
+  userName: string;
+  firstName: string;
+  lastName: string;
+  photos: string;
+}
+
 export interface SuccessLogin {
   token: string;
   type: string;

@@ -1,7 +1,8 @@
 import { useState, createContext } from "react";
+import { UserInterface } from "../models/interface";
 
 const useValue = () => {
-  const [user, setUser] = useState(false);
+  const [user, setUser] = useState<UserInterface | null>();
   return {
     user,
     setUser,
