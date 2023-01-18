@@ -38,7 +38,32 @@ function Homepage() {
           </Button>
         </div>
       </div>
-      <div className="h-screen w-full bg-teal-300 snap-start"></div>
+      <div className="h-screen w-full bg-teal-300 snap-start flex items-center">
+        <section className="w-full">
+          <div className="h-full max-w-screen-xl px-4 mx-auto text-center lg:px-6">
+            <dl className="h-full grid  gap-8 mx-auto text-gray-900 sm:grid-cols-3">
+              <div className="flex flex-col items-center justify-center h-full bg-light py-8 lg:py-16">
+                <dt className="mb-2 text-3xl md:text-4xl font-extrabold">
+                  73M+
+                </dt>
+                <dd className="font-light text-gray-500">developers</dd>
+              </div>
+              <div className="flex flex-col items-center justify-center h-full bg-light py-8 lg:py-16">
+                <dt className="mb-2 text-3xl md:text-4xl font-extrabold">
+                  1B+
+                </dt>
+                <dd className="font-light text-gray-500">contributors</dd>
+              </div>
+              <div className="flex flex-col items-center justify-center h-full bg-light py-8 lg:py-16">
+                <dt className="mb-2 text-3xl md:text-4xl font-extrabold">
+                  4M+
+                </dt>
+                <dd className="font-light text-gray-500">organizations</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+      </div>
       <div className="h-screen w-full bg-blue-300 snap-start"></div>
       <div className="h-screen w-full bg-red-300 snap-start"></div>
       <div className="h-screen w-full bg-gray-500 snap-start"></div>
