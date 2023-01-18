@@ -17,7 +17,7 @@ const catchError = (error: any) => {
 const setToken = (token: any) => {
   if (token) {
     Cookie.set("access_token", token, {
-      expires: 3600,
+      expires: 1 / 24,
       sameSite: "Lax",
     });
   } else {
@@ -33,5 +33,10 @@ class Auth extends Base {
   };
 
   signup = (body: SignupRequest) => this.apiPost(`/api/auth/signup`, body);
+
+  logout = () => {
+    localStorage.removeItem("user");
+    setToken(null);
+  };
 }
 export default new Auth();

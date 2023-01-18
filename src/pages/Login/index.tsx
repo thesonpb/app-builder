@@ -17,8 +17,6 @@ function Login() {
   const [form] = Form.useForm();
 
   const handleSuccess = async (value: SuccessLogin) => {
-    //TODO: gọi api lấy profile của người dùng để setUser vào localstorage
-    //Lấy các thông tin đấy để ví udj lấy ảnh cho vào ava...
     const res = await User.getUserDetail(value.id);
     setUser({ ...res, id: value.id });
     localStorage.setItem("user", JSON.stringify({ ...res, id: value.id }));

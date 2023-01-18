@@ -25,6 +25,8 @@ import { Perrmissions } from "../app/models/interface";
 import styled from "styled-components";
 import Lock from "../app/icons/Lock";
 import { useUser } from "../app/hooks";
+import { AppContext } from "../app/context/AppContext";
+import Auth from "../app/models/Auth";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -281,6 +283,7 @@ const ExportPopup = () => {
 };
 
 function Header({ isCreateScreen }: Props) {
+  const { setUser } = useContext(AppContext);
   const { user } = useUser();
   const { isPreviewEditor, setPreviewEditor } = useContext(PageBuilderContext);
   const navigate = useNavigate();
@@ -314,7 +317,11 @@ function Header({ isCreateScreen }: Props) {
         <Link
           className="flex gap-x-2 items-center"
           to="#"
-          onClick={() => alert("Logout")}
+          onClick={async () => {
+            setUser(null);
+            await Auth.logout();
+            navigate("/");
+          }}
         >
           <Logout />
           <div className="text-sm font-semibold">Logout</div>
