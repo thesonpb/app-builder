@@ -8,6 +8,7 @@ import PopupSelectTemplate from "../components/popups/PopupSelectTemplate";
 import PageBuilder from "./PageBuilder";
 import { PageBuilderProvider } from "../app/context/PageBuilderContext";
 import { useUser } from "../app/hooks";
+import Homepage from "./Homepage";
 
 const { Content } = Layout;
 
@@ -23,23 +24,25 @@ function Pages() {
     <div>
       <PageBuilderProvider>
         <Layout>
-          <Header isCreateScreen={isCreateScreen} />
+          {pathname !== "/" && <Header isCreateScreen={isCreateScreen} />}
           <Layout>
-            {!isCreateScreen && pathname !== "/home" && user?.id && (
+            {!isCreateScreen && user?.id && (
               <Sider setType={setType} setVisible={setVisible} />
             )}
             <Layout>
               <Content
                 className={`m-0 ${
-                  !isCreateScreen &&
-                  pathname !== "/home" &&
-                  user?.id &&
-                  "ml-60 p-6"
+                  !isCreateScreen && user?.id && "ml-60 p-6"
                 } bg-editor`}
               >
                 <Routes>
-                  <Route index element={<Navigate to="/home" />} />
-                  <Route path="/home" element={<div>home page</div>} />
+                  <Route
+                    index
+                    element={
+                      !user?.id ? <Homepage /> : <Navigate to="/recent" />
+                    }
+                  />
+
                   {user?.id && (
                     <>
                       <Route path="/create-page/*" element={<PageBuilder />} />
@@ -50,9 +53,12 @@ function Pages() {
                       <Route path="/page/*" element={<div>page</div>} />
                       <Route path="/app/*" element={<div>app</div>} />
                       <Route path="/recent/*" element={<div>recent</div>} />
+                      <Route
+                        path="/community/*"
+                        element={<div>community</div>}
+                      />
                     </>
                   )}
-                  <Route path="/community/*" element={<div>community</div>} />
                   <Route path="*" element={<PageNotFound />} />
                 </Routes>
               </Content>

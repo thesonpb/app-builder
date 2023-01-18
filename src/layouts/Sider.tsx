@@ -26,7 +26,7 @@ function Sider({ setType, setVisible }: Props) {
   const renderShortcut = ({ type, name, id }: Shortcut) => (
     <div
       key={id}
-      className="flex gap-x-2 items-center hover:bg-lightGray py-1 px-2 cursor-pointer rounded-md"
+      className="select-none flex gap-x-2 items-center hover:bg-lightGray py-1 px-2 cursor-pointer rounded-md"
       onClick={() => navigate(`/${type}/${id}`)}
     >
       {type === "page" ? (
@@ -58,7 +58,7 @@ function Sider({ setType, setVisible }: Props) {
         }}
       >
         <div
-          className="w-full flex items-center justify-between rounded-md text-light p-4 hover:bg-lightGray cursor-pointer"
+          className="w-full select-none flex items-center justify-between rounded-md text-light p-4 hover:bg-lightGray cursor-pointer"
           style={{ border: "1px solid #525866" }}
           onClick={() => {
             setType("PAGE");
@@ -74,7 +74,7 @@ function Sider({ setType, setVisible }: Props) {
           <AddIcon />
         </div>
         <div
-          className="w-full flex items-center justify-between rounded-md text-light p-4 hover:bg-lightGray cursor-pointer"
+          className="w-full select-none flex items-center justify-between rounded-md text-light p-4 hover:bg-lightGray cursor-pointer"
           style={{ border: "1px solid #525866" }}
           onClick={() => {
             setType("APP");
@@ -97,7 +97,7 @@ function Sider({ setType, setVisible }: Props) {
         }}
       >
         <div
-          className={`flex px-4 gap-x-2 hover:bg-lightGray py-1.5 items-center ${
+          className={`select-none flex px-4 gap-x-2 hover:bg-lightGray py-1.5 items-center ${
             pathname === "/recent" && "bg-lightGray"
           }`}
           onClick={() => navigate("/recent")}
@@ -106,7 +106,7 @@ function Sider({ setType, setVisible }: Props) {
           <div className="text-sm font-semibold">Recent</div>
         </div>
         <div
-          className={`flex px-4 gap-x-2 hover:bg-lightGray py-1.5 items-center ${
+          className={`select-none flex px-4 gap-x-2 hover:bg-lightGray py-1.5 items-center ${
             pathname === "/community" && "bg-lightGray"
           }`}
           onClick={() => navigate("/community")}

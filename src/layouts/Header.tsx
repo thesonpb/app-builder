@@ -15,7 +15,6 @@ import ClockIcon from "../app/icons/ClockIcon";
 import DownIcon from "../app/icons/DownIcon";
 import FileSmall from "../app/icons/FileSmall";
 import GlobalIcon from "../app/icons/GlobalIcon";
-import HomeSmall from "../app/icons/HomeSmall";
 import EditPageIcon from "../app/icons/EditPageIcon";
 import EyeIcon from "../app/icons/EyeIcon";
 import Heart from "../app/icons/Heart";
@@ -41,18 +40,6 @@ interface Props {
   isCreateScreen: boolean;
 }
 const items: MenuProps["items"] = [
-  {
-    label: (
-      <Link className="flex gap-x-2 items-center" to={`/home`}>
-        <HomeSmall />
-        <div className="text-sm font-semibold">Homepage</div>
-      </Link>
-    ),
-    key: "home",
-  },
-  {
-    type: "divider",
-  },
   {
     label: (
       <Link className="flex gap-x-2 items-center" to={`/recent`}>
@@ -379,8 +366,8 @@ function Header({ isCreateScreen }: Props) {
           <h1
             className={`${
               isCreateScreen && "w-40"
-            } text-textLight text-3xl cursor-pointer`}
-            onClick={() => navigate("/home")}
+            } text-textLight text-3xl cursor-pointer select-none`}
+            onClick={() => navigate("/")}
           >
             LOGO
           </h1>
@@ -399,16 +386,7 @@ function Header({ isCreateScreen }: Props) {
             </Popover>
           </>
         )}
-        {!user?.id ? (
-          <div className="flex gap-x-2">
-            <Button type="primary" onClick={() => navigate("/login")}>
-              Login
-            </Button>
-            <Button type="default" onClick={() => navigate("/signup")}>
-              Signup
-            </Button>
-          </div>
-        ) : (
+        {user?.id && (
           <Dropdown
             trigger={["click"]}
             menu={{ items: userItems }}

@@ -2,9 +2,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { Route, Routes } from "react-router-dom";
 import React, { useContext, useEffect } from "react";
 import "./App.css";
-import Homepage from "./pages/Homepage";
-import Login from "./pages/Login";
 import { AppContext } from "./app/context/AppContext";
+import Cookie from "js-cookie";
 
 const OtherPage = React.lazy(() => import("./pages"));
 
@@ -22,19 +21,20 @@ function App() {
   const { setUser } = useContext(AppContext);
 
   useEffect(() => {
+    const token = Cookie.get("access_token");
     const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
+    if (token && loggedInUser) {
       const foundUser = JSON.parse(loggedInUser);
       setUser(foundUser);
+    } else {
+      Cookie.remove("access_token");
+      localStorage.removeItem("user");
     }
   }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<div>Signup</div>} />
-        <Route path="/home" element={<Homepage />} />
         <Route path="/*" element={<OtherPage />} />
       </Routes>
     </QueryClientProvider>
