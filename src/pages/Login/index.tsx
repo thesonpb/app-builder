@@ -1,10 +1,6 @@
 import React, { useContext } from "react";
 import { Button, Form, Input, message, Modal } from "antd";
-import UsernameIcon from "../../app/icons/UsernameIcon";
-import PasswordIcon from "../../app/icons/PasswordIcon";
-import LoginIcon from "../../app/icons/LoginIcon";
-import SignupIcon from "../../app/icons/SignupIcon";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Auth from "../../app/models/Auth";
 import { useMutation } from "react-query";
 import { AppContext } from "../../app/context/AppContext";
@@ -37,60 +33,61 @@ function Login({ isOpenLogin, setOpenLogin }: Props) {
 
   return (
     <Modal
+      width={400}
       destroyOnClose
       closable={false}
       onCancel={() => setOpenLogin(false)}
       open={isOpenLogin}
       footer={null}
     >
-      <div className="font-medium self-center text-xl sm:text-2xl uppercase text-gray-800">
-        Login
-      </div>
+      <div className="flex flex-col justify-center items-center py-6">
+        <div className="font-medium mb-4 self-center text-3xl uppercase text-gray-800">
+          Login
+        </div>
 
-      <div className="mt-10">
-        <Form form={form} onFinish={loginMutation.mutate} layout="vertical">
-          <div className="flex flex-col mb-6">
-            <Form.Item required name="username" label={<div>Username</div>}>
-              <Input
+        <div className="mt-4 w-full">
+          <Form form={form} onFinish={loginMutation.mutate} layout="vertical">
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                  message: "Username is required",
+                },
+              ]}
+              required
+              name="username"
+            >
+              <Input className="h-12" size="large" placeholder="Username" />
+            </Form.Item>
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                  message: "Password is required",
+                },
+              ]}
+              required
+              name="password"
+            >
+              <Input.Password
+                className="h-12"
                 size="large"
-                placeholder="Username"
-                prefix={<UsernameIcon />}
+                placeholder="Password"
               />
             </Form.Item>
-          </div>
-          <div className="flex flex-col mb-6">
-            <div className="flex flex-col mb-6">
-              <Form.Item required name="password" label={<div>Password</div>}>
-                <Input.Password
-                  size="large"
-                  placeholder="Password"
-                  prefix={<PasswordIcon />}
-                />
-              </Form.Item>
-            </div>
-          </div>
 
-          <div className="flex w-full">
-            <Button
-              htmlType="submit"
-              type="primary"
-              size="large"
-              className="w-full flex items-center justify-center"
-            >
-              <span className="mr-2 uppercase">Login</span>
-              <LoginIcon />
-            </Button>
-          </div>
-        </Form>
-      </div>
-      <div className="flex justify-center items-center mt-6">
-        <Link
-          to="/signup"
-          className="flex items-center font-bold text-blue-500 hover:text-blue-700 text-sm text-center"
-        >
-          <SignupIcon />
-          <div className="ml-2">Sign up</div>
-        </Link>
+            <div className="flex w-full">
+              <Button
+                htmlType="submit"
+                type="primary"
+                size="large"
+                className="w-full flex items-center justify-center h-12 hover:-translate-y-0.5"
+              >
+                <span className="mr-2 uppercase">Login</span>
+              </Button>
+            </div>
+          </Form>
+        </div>
       </div>
     </Modal>
   );

@@ -9,7 +9,7 @@ interface Props {
 export default function PageNotFound({ url = "/" }: Props) {
   const navigate = useNavigate();
   return (
-    <div className=" pt-22 flex fixed top-16 left-0 z-50 w-screen h-screen flex-col items-center bg-light">
+    <div className=" pt-22 flex fixed top-0 left-0 z-50 w-screen h-screen flex-col items-center bg-light">
       <h1 style={{ fontSize: "200px" }} className="m-0">
         Oops!
       </h1>
