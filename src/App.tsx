@@ -4,6 +4,7 @@ import React, { useContext, useEffect } from "react";
 import "./App.css";
 import { AppContext } from "./app/context/AppContext";
 import Cookie from "js-cookie";
+import Page from "./pages/Page";
 
 const OtherPage = React.lazy(() => import("./pages"));
 
@@ -35,6 +36,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Routes>
+        <Route path="/page/*" element={<Page />} />
+        <Route path="/app/*" element={<div>app</div>} />
         <Route path="/*" element={<OtherPage />} />
       </Routes>
     </QueryClientProvider>

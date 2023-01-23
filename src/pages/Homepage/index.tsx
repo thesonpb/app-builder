@@ -6,7 +6,8 @@ import Signup from "../Signup";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Mousewheel, Pagination } from "swiper";
+import "swiper/css/navigation";
+import { Mousewheel, Pagination, Autoplay, Navigation } from "swiper";
 import TemplateCard from "../../components/cards/TemplateCard";
 
 const CustomSwiper = styled(Swiper)`
@@ -214,7 +215,13 @@ function TemplateContentPreview() {
         pagination={{
           clickable: true,
         }}
-        modules={[Pagination]}
+        navigation={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        loop={true}
+        modules={[Autoplay, Navigation]}
         className="mySwipersub h-full w-screen"
       >
         <SwiperSlide>

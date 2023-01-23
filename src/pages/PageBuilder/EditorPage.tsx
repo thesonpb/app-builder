@@ -25,7 +25,7 @@ function EditorPage() {
         <Frame>
           <Element
             backgroundColor="#eceff3"
-            className="overflow-auto"
+            // className="overflow-auto"
             is={Container}
             paddingTop="1rem"
             paddingBottom="5rem"

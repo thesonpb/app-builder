@@ -50,8 +50,6 @@ function Pages() {
                         path="/create-app/*"
                         element={<div>build app</div>}
                       />
-                      <Route path="/page/*" element={<div>page</div>} />
-                      <Route path="/app/*" element={<div>app</div>} />
                       <Route path="/recent/*" element={<div>recent</div>} />
                       <Route
                         path="/community/*"

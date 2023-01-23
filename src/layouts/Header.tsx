@@ -373,6 +373,9 @@ function Header({ isCreateScreen }: Props) {
           </h1>
         )}
       </div>
+      {isCreateScreen && (
+        <h1 className="text-light text-xl">Current project name</h1>
+      )}
       <div className="w-60 flex items-center gap-x-4 justify-end pr-4">
         {isCreateScreen && (
           <>

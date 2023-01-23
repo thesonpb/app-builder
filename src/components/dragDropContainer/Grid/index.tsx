@@ -75,7 +75,7 @@ export const Grid = (props: Props) => {
   return (
     <div
       ref={(ref: any) => connect(drag(ref))}
-      className={`w-full grid`}
+      className="grid"
       style={{
         ...props,
         ...layout,
