@@ -8,7 +8,7 @@ function Page() {
   return (
     <div>
       <Routes>
-        <Route path="/:username/:pagename/:id" element={<PageView />} />
+        <Route path="/:username/:pagename" element={<PageView />} />
         <Route path="/:username/:pagename/:id/edit" element={<PageBuilder />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>

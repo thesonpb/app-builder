@@ -1,13 +1,16 @@
 import { useState, createContext } from "react";
 
 const useValue = () => {
-  const [serializeJson, setSerializeJson] = useState({});
   const [isPreviewEditor, setPreviewEditor] = useState(false);
+  const [currentProjectName, setCurrentProjectName] = useState("");
+  const [currentProjectId, setCurrentProjectId] = useState(-1);
   return {
     isPreviewEditor,
     setPreviewEditor,
-    serializeJson,
-    setSerializeJson,
+    currentProjectName,
+    setCurrentProjectName,
+    currentProjectId,
+    setCurrentProjectId,
   };
 };
 

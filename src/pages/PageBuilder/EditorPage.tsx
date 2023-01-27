@@ -1,18 +1,14 @@
-import React, { useContext, useEffect } from "react";
-import { Frame, Element, useEditor } from "@craftjs/core";
+import React, { useContext } from "react";
+import { Element, Frame } from "@craftjs/core";
 import { Container } from "../../components/dragDropContainer";
-import { Button, Text } from "../../components/dragDropItem";
 import { PageBuilderContext } from "../../app/context/PageBuilderContext";
 
-function EditorPage() {
-  const { setSerializeJson, isPreviewEditor } = useContext(PageBuilderContext);
-  const { query } = useEditor((state) => ({
-    enabled: state.options.enabled,
-  }));
-  useEffect(() => {
-    console.log(query.serialize());
-    setSerializeJson(query.serialize());
-  }, [query]);
+interface Props {
+  data: string;
+}
+
+function EditorPage({ data }: Props) {
+  const { isPreviewEditor } = useContext(PageBuilderContext);
 
   return (
     <div className="page-container">
@@ -22,7 +18,7 @@ function EditorPage() {
         } top-16 small-scroll-bar`}
         // ref={(ref: any) => connectors.select(connectors.hover(ref, null), null)}
       >
-        <Frame>
+        <Frame data={data}>
           <Element
             backgroundColor="#eceff3"
             // className="overflow-auto"
@@ -39,12 +35,7 @@ function EditorPage() {
             borderWidth="none"
             borderRadius="0"
             canvas
-          >
-            <Button />
-            <Button />
-            <Text />
-            <Button />
-          </Element>
+          ></Element>
         </Frame>
       </div>
     </div>

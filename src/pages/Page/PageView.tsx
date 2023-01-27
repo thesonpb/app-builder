@@ -7,9 +7,12 @@ import { DragDropItem } from "../../components/dragDropItem";
 import { DragDropContainer } from "../../components/dragDropContainer";
 
 function PageView() {
-  const { username, pagename, id } = useParams();
-  const { data: pageDetail } = useQuery(["getPageDetail"], async () => {
-    return await Page.getPageDetail(Number(id));
+  const { username, pagename } = useParams();
+  const { data: pageDetail } = useQuery(["getPageDetailJson"], async () => {
+    // @ts-ignore
+    const res = await Page.getPageJson(username, pagename);
+    if (res === "Page not found" || !res) return null;
+    return res;
   });
   return (
     <div>
@@ -19,7 +22,7 @@ function PageView() {
             resolver={{ ...DragDropItem, ...DragDropContainer }}
             enabled={false}
           >
-            <Frame data={pageDetail.json} />
+            <Frame data={pageDetail} />
           </Editor>
         </div>
       ) : (

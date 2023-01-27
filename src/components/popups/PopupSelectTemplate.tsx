@@ -1,8 +1,11 @@
-import { Form, Button, Input, Modal } from "antd";
+import { Form, Button, Input, Modal, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import TemplatePreview from "../display/TemplatePreview";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import Page from "../../app/models/Page";
+import { PageBuilderContext } from "../../app/context/PageBuilderContext";
+import { useQuery } from "react-query";
 
 interface Props {
   visible: boolean;
@@ -15,14 +18,26 @@ const CustomModal = styled(Modal)`
     background-color: #343a40;
   }
 `;
-
+const defaultJson =
+  '{\\"ROOT\\":{\\"type\\":{\\"resolvedName\\":\\"Container\\"},\\"isCanvas\\":true,\\"props\\":{\\"backgroundColor\\":\\"#eceff3\\",\\"minHeight\\":\\"10rem\\",\\"padding\\":\\"1rem\\",\\"borderRadius\\":\\"0\\",\\"borderColor\\":\\"none\\",\\"borderStyle\\":\\"none\\",\\"borderWidth\\":\\"none\\",\\"marginTop\\":\\"0\\",\\"paddingTop\\":\\"1rem\\",\\"paddingBottom\\":\\"5rem\\",\\"paddingLeft\\":\\"1rem\\",\\"paddingRight\\":\\"1rem\\",\\"marginBottom\\":\\"0\\",\\"height\\":\\"auto\\"},\\"displayName\\":\\"Container\\",\\"custom\\":{},\\"hidden\\":false,\\"nodes\\":[],\\"linkedNodes\\":{}}}';
 export default function PopupSelectTemplate({
   visible,
   type,
   setVisible,
 }: Props) {
+  const { setCurrentProjectName, setCurrentProjectId } =
+    useContext(PageBuilderContext);
   const navigate = useNavigate();
   const [selectedTemplate, setSelectedTemplate] = useState<number>(-1);
+  const [projectName, setProjectName] = useState<string>("Untitled");
+
+  const { data: listCurrentPageName } = useQuery(
+    ["getListCurrentPageName"],
+    async () => {
+      return await Page.getListCurrentPageName();
+    }
+  );
+
   return (
     <CustomModal
       className="text-light"
@@ -43,14 +58,20 @@ export default function PopupSelectTemplate({
           <Button
             key="submit"
             type="primary"
-            onClick={() => {
-              setVisible(false);
-              navigate(
-                `/create-${type.toLowerCase()}/${
-                  selectedTemplate !== -1 ? selectedTemplate : ""
-                }`
-              );
-              setSelectedTemplate(-1);
+            onClick={async () => {
+              if (listCurrentPageName?.includes(projectName)) {
+                message.error("Duplicate project name");
+              } else {
+                setVisible(false);
+                setCurrentProjectName(projectName);
+                const res = await Page.createPage({
+                  name: projectName,
+                  json: defaultJson,
+                });
+                setCurrentProjectId(res);
+                navigate(`/create-${type.toLowerCase()}/${res}`);
+                setSelectedTemplate(-1);
+              }
             }}
           >
             Submit
@@ -67,7 +88,11 @@ export default function PopupSelectTemplate({
             </div>
           }
         >
-          <Input defaultValue={`New ${type.toLowerCase()}`} autoFocus />
+          <Input
+            defaultValue={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+            autoFocus
+          />
         </Form.Item>
         <TemplatePreview
           type={type}

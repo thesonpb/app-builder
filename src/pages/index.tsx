@@ -24,7 +24,7 @@ function Pages() {
     <div>
       <PageBuilderProvider>
         <Layout>
-          {pathname !== "/" && <Header isCreateScreen={isCreateScreen} />}
+          {pathname !== "/" && !isCreateScreen && <Header />}
           <Layout>
             {!isCreateScreen && user?.id && (
               <Sider setType={setType} setVisible={setVisible} />
@@ -63,12 +63,13 @@ function Pages() {
             </Layout>
           </Layout>
         </Layout>
-        <PopupSelectTemplate
-          visible={visible}
-          type={type}
-          setVisible={setVisible}
-        />
-
+        {visible && (
+          <PopupSelectTemplate
+            visible={visible}
+            type={type}
+            setVisible={setVisible}
+          />
+        )}
         <Outlet />
       </PageBuilderProvider>
     </div>

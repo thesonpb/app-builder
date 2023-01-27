@@ -7,6 +7,15 @@ class Page extends Base {
   getPageDetail = (id: number | string) =>
     this.apiGet(`/api/page/detail/${id}`);
 
+  getPageJson = (userName: string, pageName: string) =>
+    this.apiGet(`/api/page/get-page-json/${userName}/${pageName}`);
+
+  getListCurrentPageName = () =>
+    this.apiGet(`/api/page/get-list-current-page-name`);
+
+  updatePageJson = (body: any) =>
+    this.apiPut(`/api/page/update-json/${body.id}`, body.page);
+
   editPage = (body: PageInterface) =>
     this.apiPut(`/api/page/edit/${body.id}`, body);
 

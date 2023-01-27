@@ -1,10 +1,8 @@
-import { Button, Layout, message } from "antd";
+import { Layout } from "antd";
 import ComponentList from "./ComponentList";
 import { useContext } from "react";
 import { PageBuilderContext } from "../../app/context/PageBuilderContext";
-import { useEditor } from "@craftjs/core";
-import { useMutation } from "react-query";
-import Page from "../../app/models/Page";
+
 const { Sider } = Layout;
 
 // const items: TabsProps["items"] = [
@@ -25,16 +23,7 @@ const { Sider } = Layout;
 //     },
 // ];
 function ComponentPicker() {
-  const { query } = useEditor();
   const { isPreviewEditor } = useContext(PageBuilderContext);
-  const createPageMutation = useMutation(Page.createPage, {
-    onSuccess: () => {
-      message.info("create sucess");
-    },
-    onError: () => {
-      message.error("error when creating page");
-    },
-  });
   return (
     <Sider
       collapsedWidth={0}
@@ -50,17 +39,6 @@ function ComponentPicker() {
       }}
       width={240}
     >
-      <Button
-        type="primary"
-        onClick={() =>
-          createPageMutation.mutate({
-            name: "Very new page",
-            json: query.serialize(),
-          })
-        }
-      >
-        Create Page
-      </Button>
       {/* <Tabs defaultActiveKey="1" items={items} /> */}
       <ComponentList type={1} />
     </Sider>

@@ -7,22 +7,46 @@ import { Editor } from "@craftjs/core";
 import { DragDropItem } from "../../components/dragDropItem";
 import { DragDropContainer } from "../../components/dragDropContainer";
 import { RenderNode } from "../../components/editor/RenderNode";
+import EditorHeader from "../../layouts/EditorHeader";
+import { useQuery } from "react-query";
+import Page from "../../app/models/Page";
+import { useLocation } from "react-router-dom";
 
 function PageBuilder() {
-  const { isPreviewEditor } = useContext(PageBuilderContext);
+  const { pathname } = useLocation();
+  const pathnameArray = pathname.split("/");
+  const { isPreviewEditor, setCurrentProjectName } =
+    useContext(PageBuilderContext);
+  const { data: pageJson } = useQuery(
+    ["getPageDetail"],
+    async () => {
+      // @ts-ignore
+      const res = await Page.getPageDetail(
+        Number(pathnameArray[pathnameArray.length - 1])
+      );
+      setCurrentProjectName(res.name);
+      return res.json;
+    },
+    { initialData: "" }
+  );
   return (
     <>
-      <div className="flex">
+      {pageJson ? (
         <Editor
           enabled={!isPreviewEditor}
           resolver={{ ...DragDropItem, ...DragDropContainer }}
           onRender={RenderNode}
         >
-          <ComponentPicker />
-          <EditorPage />
-          <ComponentConfig />
+          <EditorHeader />
+          <div className="flex">
+            <ComponentPicker />
+            <EditorPage data={pageJson} />
+            <ComponentConfig />
+          </div>
         </Editor>
-      </div>
+      ) : (
+        <div>error</div>
+      )}
     </>
   );
 }
