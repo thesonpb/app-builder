@@ -4,6 +4,7 @@ const useValue = () => {
   const [isPreviewEditor, setPreviewEditor] = useState(false);
   const [currentProjectName, setCurrentProjectName] = useState("");
   const [currentProjectId, setCurrentProjectId] = useState(-1);
+  const [currentProjectUserId, setCurrentProjectUserId] = useState(-1);
   return {
     isPreviewEditor,
     setPreviewEditor,
@@ -11,6 +12,8 @@ const useValue = () => {
     setCurrentProjectName,
     currentProjectId,
     setCurrentProjectId,
+    currentProjectUserId,
+    setCurrentProjectUserId,
   };
 };
 

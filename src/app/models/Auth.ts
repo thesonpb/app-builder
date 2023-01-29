@@ -29,6 +29,7 @@ class Auth extends Base {
   getTokenByUsernamePassword = async (data: LoginRequest) => {
     const res = await this.login(data).catch(catchError);
     setToken(res.token);
+    this.getToken();
     return res;
   };
 

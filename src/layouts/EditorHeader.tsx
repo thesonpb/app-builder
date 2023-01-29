@@ -18,17 +18,17 @@ import GlobalIcon from "../app/icons/GlobalIcon";
 import EditPageIcon from "../app/icons/EditPageIcon";
 import EyeIcon from "../app/icons/EyeIcon";
 import Heart from "../app/icons/Heart";
-import User from "../app/icons/User";
+import UserIcon from "../app/icons/User";
 import Logout from "../app/icons/Logout";
-import { Perrmissions } from "../app/models/interface";
 import styled from "styled-components";
 import Lock from "../app/icons/Lock";
 import { useUser } from "../app/hooks";
 import { AppContext } from "../app/context/AppContext";
 import Auth from "../app/models/Auth";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import Page from "../app/models/Page";
 import { useEditor } from "@craftjs/core";
+import User from "../app/models/User";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -99,39 +99,48 @@ const items: MenuProps["items"] = [
   },
 ];
 
-interface SelectedUser {
-  id: number;
-  email: string;
-  perrmission: Perrmissions;
+interface SharePopupProps {
+  pageId: string;
 }
-const SharePopup = () => {
-  //TODO: trong truong hop xem chi tiet thi can loc ra nhung nguoi da duoc them
-  const [lstUsers, setLstUsers] = useState<Array<any>>([
-    {
-      value: 1,
-      label: "mot@gmail.com",
+const SharePopup = ({ pageId }: SharePopupProps) => {
+  const [searchUsername, setSearchUsername] = useState("");
+  const [optionsUser, setOptionsUser] = useState();
+  const [privacy, setPrivacy] = useState();
+  const updateListUserMutation = useMutation(Page.updatePageListUser, {
+    onSuccess: () => {
+      refetchListSelectedUser();
     },
-    {
-      value: 2,
-      label: "hai@gmail.com",
+  });
+  const updatePagePrivacyMutation = useMutation(Page.updatePagePrivacy, {
+    onSuccess: (value) => {
+      setPrivacy(value.privacy);
     },
-    {
-      value: 3,
-      label: "a@gmail.com",
-    },
-    {
-      value: 4,
-      label: "b@gmail.com",
-    },
-    {
-      value: 5,
-      label: "c@gmail.com",
-    },
-  ]);
-  //TODO: khoi tao gia tri bang nhung nguoi da duoc them
-  const [selectedUsers, setSelectedUsers] = useState<Array<SelectedUser>>([]);
-  //TODO: khoi tao gia tri bang privacy cua page
-  const [privacy, setPrivacy] = useState<string>("public");
+  });
+  const { data: pagePrivacy } = useQuery(
+    ["getPagePrivacy", privacy],
+    async () => {
+      const res = await Page.getPagePrivacy(pageId);
+      setPrivacy(privacy);
+      return res;
+    }
+  );
+
+  const { data: pageListUser, refetch: refetchListSelectedUser } = useQuery(
+    ["getPageListUser"],
+    async () => {
+      return await Page.getPageListUser(pageId);
+    }
+  );
+
+  useQuery(["getlist", searchUsername], async () => {
+    const res = await User.getListUser(searchUsername);
+    const temp = res.map((item: any) => ({
+      value: item.id,
+      label: item.userName,
+    }));
+    setOptionsUser(temp);
+  });
+  // @ts-ignore
   return (
     <div
       style={{ borderTop: "1px solid #e9ecef4f", minWidth: "22rem" }}
@@ -141,51 +150,34 @@ const SharePopup = () => {
         placeholder="Add people"
         className="w-full"
         showSearch
-        options={lstUsers}
-        onSearch={(value) => console.log(value)}
-        onChange={(value: any, d: any) => {
-          setSelectedUsers([
-            ...selectedUsers,
-            { email: d.label, id: value, perrmission: "view" },
-          ]);
-          setLstUsers(lstUsers?.filter((item) => item.value !== value));
+        filterOption={(input, option) =>
+          (option?.label?.toString() || "")
+            .toLowerCase()
+            .includes(input.toLowerCase())
+        }
+        options={optionsUser}
+        onSearch={(value) => setSearchUsername(value)}
+        onChange={(value: any) => {
+          updateListUserMutation.mutate({
+            id: pageId,
+            listUser: [...pageListUser.map((item: any) => item.id), value],
+          });
         }}
       />
       <div className="my-4 flex flex-col gap-y-2">
-        {selectedUsers?.map((item) => (
+        {pageListUser?.map((item: any) => (
           <div key={item.id} className="flex justify-between items-center">
-            <div>{item.email}</div>
+            <div>{item.userName}</div>
             <div className="flex gap-x-2">
-              <CustomSelect
-                defaultValue="view"
-                bordered={false}
-                onChange={(value) => {
-                  //TODO: update hear
-                  alert(
-                    `update permission of user ${item.id} to value ${value} with this page`
-                  );
-                }}
-                options={[
-                  {
-                    value: "view",
-                    label: "Can view",
-                  },
-                  {
-                    value: "edit",
-                    label: "Can edit",
-                  },
-                ]}
-              />
               <Button
-                onClick={() => {
-                  setSelectedUsers(
-                    selectedUsers?.filter((user) => user.id !== item.id)
-                  );
-                  setLstUsers([
-                    ...lstUsers,
-                    { label: item.email, value: item.id },
-                  ]);
-                }}
+                onClick={() =>
+                  updateListUserMutation.mutate({
+                    id: pageId,
+                    listUser: pageListUser
+                      .map((el: any) => el.id)
+                      .filter((el: any) => el !== item.id),
+                  })
+                }
                 type="primary"
                 className="bg-red-600"
               >
@@ -198,27 +190,30 @@ const SharePopup = () => {
       <div className="pt-2" style={{ borderTop: "1px solid #e9ecef4f" }}>
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            {privacy === "public" ? <GlobalIcon /> : <Lock />}
+            {pagePrivacy === "PUBLIC" ? <GlobalIcon /> : <Lock />}
             <CustomSelect
-              defaultValue="public"
+              defaultValue="PUBLIC"
               bordered={false}
               onChange={(value: any) => {
-                //TODO: update hear
-                setPrivacy(value);
+                updatePagePrivacyMutation.mutate({
+                  page: {
+                    privacy: value,
+                  },
+                  id: pageId,
+                });
               }}
               options={[
                 {
-                  value: "public",
-                  label: "Anyone with the link",
+                  value: "PUBLIC",
+                  label: "Public",
                 },
                 {
-                  value: "private",
-                  label: "Only people added to this page",
+                  value: "PRIVATE",
+                  label: "Private",
                 },
               ]}
             />
           </div>
-          <div>{privacy === "public" ? "can view" : "can access"}</div>
         </div>
         <Button type="primary" className="w-full mt-2">
           Copy link
@@ -234,14 +229,18 @@ function EditorHeader() {
   const { query } = useEditor();
   const { setUser } = useContext(AppContext);
   const { user } = useUser();
-  const { isPreviewEditor, setPreviewEditor, currentProjectName } =
-    useContext(PageBuilderContext);
+  const {
+    isPreviewEditor,
+    setPreviewEditor,
+    currentProjectName,
+    currentProjectUserId,
+  } = useContext(PageBuilderContext);
   const navigate = useNavigate();
   const userItems: MenuProps["items"] = [
     {
       label: (
         <Link className="flex gap-x-2 items-center" to={`/profile/${user?.id}`}>
-          <User />
+          <UserIcon />
           <div className="text-sm font-semibold">My profile</div>
         </Link>
       ),
@@ -335,9 +334,17 @@ function EditorHeader() {
       <h1 className="text-light text-xl">{currentProjectName}</h1>
       <div className="w-60 flex items-center gap-x-4 justify-end pr-4">
         <>
-          <Popover content={<SharePopup />} title="Share" trigger="click">
-            <Button type="primary">Share</Button>
-          </Popover>
+          {user?.id === currentProjectUserId && (
+            <Popover
+              content={
+                <SharePopup pageId={pathnameArray[pathnameArray.length - 1]} />
+              }
+              title="Share"
+              trigger="click"
+            >
+              <Button type="primary">Share</Button>
+            </Popover>
+          )}
           <Button
             type="primary"
             className="bg-greenest"

@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Page from "../../app/models/Page";
 import { PageBuilderContext } from "../../app/context/PageBuilderContext";
 import { useQuery } from "react-query";
+import { defaultJson } from "../../app/constants/pageJson";
 
 interface Props {
   visible: boolean;
@@ -18,8 +19,7 @@ const CustomModal = styled(Modal)`
     background-color: #343a40;
   }
 `;
-const defaultJson =
-  '{\\"ROOT\\":{\\"type\\":{\\"resolvedName\\":\\"Container\\"},\\"isCanvas\\":true,\\"props\\":{\\"backgroundColor\\":\\"#eceff3\\",\\"minHeight\\":\\"10rem\\",\\"padding\\":\\"1rem\\",\\"borderRadius\\":\\"0\\",\\"borderColor\\":\\"none\\",\\"borderStyle\\":\\"none\\",\\"borderWidth\\":\\"none\\",\\"marginTop\\":\\"0\\",\\"paddingTop\\":\\"1rem\\",\\"paddingBottom\\":\\"5rem\\",\\"paddingLeft\\":\\"1rem\\",\\"paddingRight\\":\\"1rem\\",\\"marginBottom\\":\\"0\\",\\"height\\":\\"auto\\"},\\"displayName\\":\\"Container\\",\\"custom\\":{},\\"hidden\\":false,\\"nodes\\":[],\\"linkedNodes\\":{}}}';
+
 export default function PopupSelectTemplate({
   visible,
   type,
