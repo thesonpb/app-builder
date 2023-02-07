@@ -59,3 +59,11 @@
 .ant-popover-inner-content {
     color: #e9ecef !important;
 }
+
+.ant-switch {
+    background-color: #495057 !important;
+}
+
+.ant-switch-checked {
+    background-color: #2d9d78 !important;
+}

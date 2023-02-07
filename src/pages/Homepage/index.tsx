@@ -9,6 +9,8 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Mousewheel, Pagination, Autoplay, Navigation } from "swiper";
 import TemplateCard from "../../components/cards/TemplateCard";
+import { useQuery } from "react-query";
+import ProofModel from "../../app/models/Proof";
 
 const CustomSwiper = styled(Swiper)`
   height: 100vh;
@@ -43,28 +45,40 @@ function Logo({ setOpenLogin, setOpenSignup }: any) {
   );
 }
 function Proof() {
+  const { data: numUsers } = useQuery(["getNumberOfUsers"], async () => {
+    return await ProofModel.getNumberOfUsers();
+  });
+  const { data: numWebsites } = useQuery(["getNumberOfWebsites"], async () => {
+    return await ProofModel.getNumberOfWebsites();
+  });
+  const { data: numTemplates } = useQuery(
+    ["getNumberOfTemplates"],
+    async () => {
+      return await ProofModel.getNumberOfTemplates();
+    }
+  );
   return (
     <>
       <section className="w-full">
         <div className="h-full max-w-screen-xl px-4 mx-auto text-center lg:px-6">
           <dl className="h-full grid  gap-8 mx-auto text-gray-900 sm:grid-cols-3">
             <div className="select-none rounded-2xl flex flex-col items-center justify-center h-full bg-light py-8 lg:py-16">
-              <dt className="mb-2 text-3xl md:text-4xl font-extrabold">73M+</dt>
-              <dd className="font-semibold text-gray-500 mx-auto">
-                developers
-              </dd>
+              <dt className="mb-2 text-3xl md:text-4xl font-extrabold">
+                {numUsers || 0}
+              </dt>
+              <dd className="font-semibold text-gray-500 mx-auto">users</dd>
             </div>
             <div className="select-none rounded-2xl flex flex-col items-center justify-center h-full bg-light py-8 lg:py-16">
-              <dt className="mb-2 text-3xl md:text-4xl font-extrabold">1B+</dt>
-              <dd className="font-semibold text-gray-500 mx-auto">
-                contributors
-              </dd>
+              <dt className="mb-2 text-3xl md:text-4xl font-extrabold">
+                {numWebsites || 0}
+              </dt>
+              <dd className="font-semibold text-gray-500 mx-auto">websites</dd>
             </div>
             <div className="select-none rounded-2xl flex flex-col items-center justify-center h-full bg-light py-8 lg:py-16">
-              <dt className="mb-2 text-3xl md:text-4xl font-extrabold">4M+</dt>
-              <dd className="font-semibold text-gray-500 mx-auto">
-                organizations
-              </dd>
+              <dt className="mb-2 text-3xl md:text-4xl font-extrabold">
+                {numTemplates || 0}
+              </dt>
+              <dd className="font-semibold text-gray-500 mx-auto">templates</dd>
             </div>
           </dl>
         </div>
@@ -225,25 +239,31 @@ function TemplateContentPreview() {
         className="mySwipersub h-full w-screen"
       >
         <SwiperSlide>
-          <TemplateCard />
+          <TemplateCard item={1} />
         </SwiperSlide>
         <SwiperSlide>
-          <TemplateCard />
+          <TemplateCard item={1} />
         </SwiperSlide>
         <SwiperSlide>
-          <TemplateCard />
+          <TemplateCard item={1} />
         </SwiperSlide>
         <SwiperSlide>
-          <TemplateCard />
+          <TemplateCard item={1} />
         </SwiperSlide>
         <SwiperSlide>
-          <TemplateCard />
+          <TemplateCard item={1} />
         </SwiperSlide>
         <SwiperSlide>
-          <TemplateCard />
+          <TemplateCard item={1} />
         </SwiperSlide>
         <SwiperSlide>
-          <TemplateCard />
+          <TemplateCard item={1} />
+        </SwiperSlide>
+        <SwiperSlide>
+          <TemplateCard item={1} />
+        </SwiperSlide>
+        <SwiperSlide>
+          <TemplateCard item={1} />
         </SwiperSlide>
       </Swiper>
     </div>

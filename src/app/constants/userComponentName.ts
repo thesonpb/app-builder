@@ -6,4 +6,5 @@ export const USER_COMPONENT_NAME = {
   BUTTON: "Button",
   TEXT: "Text",
   PARAGRAPH: "Paragraph",
+  INPUT: "Input",
 };

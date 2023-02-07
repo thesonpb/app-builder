@@ -11,16 +11,68 @@ function GridConfig() {
     numRows,
     gapX,
     gapY,
+    padding,
+    paddingTop,
+    paddingBottom,
+    paddingLeft,
+    paddingRight,
+    margin,
+    marginTop,
+    marginBottom,
+    marginLeft,
+    marginRight,
+    borderRadius,
+    borderTopLeftRadius,
+    borderTopRightRadius,
+    borderBottomLeftRadius,
+    borderBottomRightRadius,
+    backgroundColor,
+    borderWidth,
+    borderStyle,
+    borderColor,
+    showBorder,
   } = useNode((node: any) => ({
     isCol: node.data.props.isCol,
     numCols: node.data.props.numCols,
     numRows: node.data.props.numRows,
     gapX: node.data.props.gapX,
     gapY: node.data.props.gapY,
+    padding: node.data.props.padding,
+    paddingTop: node.data.props.paddingTop,
+    paddingBottom: node.data.props.paddingBottom,
+    paddingLeft: node.data.props.paddingLeft,
+    paddingRight: node.data.props.paddingRight,
+    margin: node.data.props.margin,
+    marginTop: node.data.props.marginTop,
+    marginBottom: node.data.props.marginBottom,
+    marginLeft: node.data.props.marginLeft,
+    marginRight: node.data.props.marginRight,
+    borderRadius: node.data.props.borderRadius,
+    borderTopLeftRadius: node.data.props.borderTopLeftRadius,
+    borderTopRightRadius: node.data.props.borderTopRightRadius,
+    borderBottomLeftRadius: node.data.props.borderBottomLeftRadius,
+    borderBottomRightRadius: node.data.props.borderBottomRightRadius,
+    backgroundColor: node.data.props.backgroundColor,
+    borderWidth: node.data.props.borderWidth,
+    borderStyle: node.data.props.borderStyle,
+    borderColor: node.data.props.borderColor,
+    showBorder: node.data.props.showBorder,
   }));
 
   return (
     <div className="flex flex-col gap-y-4 pb-20">
+      <ComponentConfigTemplate configName="General">
+        <div className="flex gap-x-2 items-center justify-between">
+          <div className="w-1/2">Padding</div>
+          <Input
+            className="w-1/2"
+            defaultValue={padding}
+            onChange={(e) =>
+              setProp((props: any) => (props.padding = e.target.value))
+            }
+          />
+        </div>
+      </ComponentConfigTemplate>
       <ComponentConfigTemplate configName="Layout">
         <div className="flex gap-x-2 items-center justify-between">
           <div className="w-1/2">Display</div>

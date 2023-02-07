@@ -7,7 +7,7 @@ import {
   Row,
   Grid,
 } from "../../components/dragDropContainer";
-import { Button, Paragraph, Text } from "../../components/dragDropItem";
+import { Button, Input, Paragraph, Text } from "../../components/dragDropItem";
 import GridLayout from "../../app/icons/GridLayout";
 import ContainerLayout from "../../app/icons/ContainerLayout";
 import ColumnLayout from "../../app/icons/ColumnLayout";
@@ -16,6 +16,7 @@ import ButtonItem from "../../app/icons/ButtonItem";
 import ParagraphItem from "../../app/icons/ParagraphItem";
 import TextItem from "../../app/icons/TextItem";
 import { Component, GroupComponent } from "../../app/models/interface";
+import InputIcon from "../../app/icons/InputIcon";
 
 interface Props {
   type: number;
@@ -80,6 +81,13 @@ const items = [
         isContainer: false,
         icon: <ParagraphItem />,
         renderItem: Paragraph,
+      },
+      {
+        id: 4,
+        name: "Input",
+        isContainer: false,
+        icon: <InputIcon />,
+        renderItem: Input,
       },
     ],
   },

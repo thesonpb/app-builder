@@ -49,7 +49,6 @@ export const Container = (props: Props) => {
     connectors: { connect, drag },
   } = useNode();
 
-  props = { ...defaultProps, ...props };
   const { className, children } = props;
   return (
     <div
@@ -63,6 +62,9 @@ export const Container = (props: Props) => {
     </div>
   );
 };
+
+Container.defaultProps = defaultProps;
+
 Container.craft = {
   displayName: USER_COMPONENT_NAME.CONTAINER,
   props: defaultProps,
