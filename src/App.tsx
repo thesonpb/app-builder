@@ -5,6 +5,7 @@ import "./App.css";
 import { AppContext } from "./app/context/AppContext";
 import Cookie from "js-cookie";
 import Page from "./pages/Page";
+import Homepage from "./pages/Homepage";
 
 const OtherPage = React.lazy(() => import("./pages"));
 
@@ -19,7 +20,7 @@ const queryClient = new QueryClient({
   },
 });
 function App() {
-  const { setUser } = useContext(AppContext);
+  const { setUser, user } = useContext(AppContext);
 
   useEffect(() => {
     const token = Cookie.get("access_token");
@@ -38,7 +39,7 @@ function App() {
       <Routes>
         <Route path="/page/*" element={<Page />} />
         <Route path="/app/*" element={<div>app</div>} />
-        <Route path="/*" element={<OtherPage />} />
+        <Route path="/*" element={!user?.id ? <Homepage /> : <OtherPage />} />
       </Routes>
     </QueryClientProvider>
   );

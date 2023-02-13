@@ -11,11 +11,11 @@ function EditorPage({ data }: Props) {
   const { isPreviewEditor } = useContext(PageBuilderContext);
 
   return (
-    <div className="page-container">
+    <div
+      className={`page-container w-full ${!isPreviewEditor ? "mx-60" : "mx-0"}`}
+    >
       <div
-        className={`fixed craftjs-renderer ${
-          !isPreviewEditor ? "left-60 right-60" : "left-0 right-0"
-        } top-16 small-scroll-bar`}
+        className={`craftjs-renderer top-16 small-scroll-bar`}
         // ref={(ref: any) => connectors.select(connectors.hover(ref, null), null)}
       >
         <Frame data={data}>
@@ -34,6 +34,7 @@ function EditorPage({ data }: Props) {
             borderStyle="none"
             borderWidth="none"
             borderRadius="0"
+            minHeight="100vh"
             canvas
           ></Element>
         </Frame>

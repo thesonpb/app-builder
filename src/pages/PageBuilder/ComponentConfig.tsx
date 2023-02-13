@@ -33,7 +33,6 @@ export default function ComponentConfig() {
         !isPreviewEditor && "px-4"
       } text-light`}
       style={{
-        borderRight: "1px solid #525866",
         backgroundColor: "#343a40",
       }}
       width={240}
