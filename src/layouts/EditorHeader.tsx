@@ -29,7 +29,10 @@ import { useMutation, useQuery } from "react-query";
 import Page from "../app/models/Page";
 import { useEditor } from "@craftjs/core";
 import User from "../app/models/User";
-import { convertSerializeToString } from "../app/common/JsonToString";
+import {
+  convertNodeNameToCode,
+  convertSerializeToString,
+} from "../app/common/JsonToString";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -364,12 +367,32 @@ function EditorHeader() {
           <Button
             type="primary"
             className="bg-greenest"
-            onClick={() =>
-              console.log(
-                1111,
-                convertSerializeToString(JSON.parse(query.serialize()), "ROOT")
-              )
-            }
+            onClick={() => {
+              // lay ra code cua tung file con
+
+              // lay ra ten cua cac node
+              let displayNameArray = Object.values(
+                JSON.parse(query.serialize())
+              )?.map((item: any) => item.displayName);
+              const set = new Set(displayNameArray);
+              displayNameArray = [...set];
+
+              let fileCode = "";
+              let importStatement = "";
+              displayNameArray?.forEach((item: string) => {
+                // lay ra doan code import
+                importStatement += `\n import ${item} from './${item}';`;
+
+                // lay ra code tung file con
+                fileCode = convertNodeNameToCode(item);
+              });
+              console.log({ fileCode });
+              // lay ra doan code return
+              const returnStatement = convertSerializeToString(
+                JSON.parse(query.serialize()),
+                "ROOT"
+              );
+            }}
           >
             Export
           </Button>

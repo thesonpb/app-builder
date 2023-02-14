@@ -1,26 +1,4 @@
-export function grid({
-  numCols,
-  numRows,
-  gapX,
-  gapY,
-  padding,
-  paddingTop,
-  paddingBottom,
-  paddingLeft,
-  paddingRight,
-  margin,
-  marginTop,
-  marginBottom,
-  marginLeft,
-  marginRight,
-  borderRadius,
-  borderTopLeftRadius,
-  borderTopRightRadius,
-  borderBottomLeftRadius,
-  borderBottomRightRadius,
-  borderWidth,
-}: any) {
-  return `
+export const grid = `
 import React from "react";
 
 interface Props {
@@ -107,10 +85,10 @@ export const Grid = (props: Props) => {
 
   const layout = isCol
     ? {
-        gridTemplateColumns: 'repeat(${numCols}, minmax(0, 1fr))',
+        gridTemplateColumns: 'repeat(\${numCols}, minmax(0, 1fr))',
       }
     : {
-        gridTemplateRows: 'repeat(${numRows}, minmax(0, 1fr))',
+        gridTemplateRows: 'repeat(\${numRows}, minmax(0, 1fr))',
         gridAutoFlow: "column",
       };
   return (
@@ -119,24 +97,24 @@ export const Grid = (props: Props) => {
       style={{
         ...props,
         ...layout,
-        columnGap: '${gapX}px',
-        rowGap: '${gapY}px',
-        padding: '${padding}px',
-        paddingTop: '${paddingTop}px',
-        paddingBottom: '${paddingBottom}px',
-        paddingLeft: '${paddingLeft}px',
-        paddingRight: '${paddingRight}px',
-        margin: '${margin}px',
-        marginTop: '${marginTop}px',
-        marginBottom: '${marginBottom}px',
-        marginLeft: '${marginLeft}px',
-        marginRight: '${marginRight}px',
-        borderRadius: '${borderRadius}px',
-        borderTopLeftRadius: '${borderTopLeftRadius}px',
-        borderTopRightRadius: '${borderTopRightRadius}px',
-        borderBottomLeftRadius: '${borderBottomLeftRadius}px',
-        borderBottomRightRadius: '${borderBottomRightRadius}px',
-        borderWidth: showBorder ? '${borderWidth}px' : "0",
+        columnGap: '\${gapX}px',
+        rowGap: '\${gapY}px',
+        padding: '\${padding}px',
+        paddingTop: '\${paddingTop}px',
+        paddingBottom: '\${paddingBottom}px',
+        paddingLeft: '\${paddingLeft}px',
+        paddingRight: '\${paddingRight}px',
+        margin: '\${margin}px',
+        marginTop: '\${marginTop}px',
+        marginBottom: '\${marginBottom}px',
+        marginLeft: '\${marginLeft}px',
+        marginRight: '\${marginRight}px',
+        borderRadius: '\${borderRadius}px',
+        borderTopLeftRadius: '\${borderTopLeftRadius}px',
+        borderTopRightRadius: '\${borderTopRightRadius}px',
+        borderBottomLeftRadius: '\${borderBottomLeftRadius}px',
+        borderBottomRightRadius: '\${borderBottomRightRadius}px',
+        borderWidth: showBorder ? '\${borderWidth}px' : "0",
       }}
     >
       {children}
@@ -146,10 +124,8 @@ export const Grid = (props: Props) => {
 
 Grid.defaultProps = defaultProps;
 `;
-}
 
-export function container() {
-  return `
+export const container = `
 import React from "react";
 
 interface Props {
@@ -209,9 +185,8 @@ export const Container = (props: Props) => {
 
 Container.defaultProps = defaultProps;
   `;
-}
-export function button() {
-  return `
+
+export const button = `
 import React from "react";
 import { Button as AntButton } from "antd";
 import { SizeType } from "antd/lib/config-provider/SizeContext";
@@ -258,10 +233,8 @@ export const Button = (props: Props) => {
 
 Button.defaultProps = defaultProps;
   `;
-}
 
-export function input() {
-  return `
+export const input = `
 import React from "react";
 import { Form, Input as InputAntd } from "antd";
 
@@ -319,10 +292,8 @@ export const Input = (props: Props) => {
 
 Input.defaultProps = defaultProps;
   `;
-}
 
-export function paragraph({ isBold, isItalic, isUnderline }: any) {
-  return `
+export const paragraph = `
 import React from "react";
 
 interface Props {
@@ -343,9 +314,9 @@ export const Paragraph = ({
   return (
     <p
      
-      className='m-0 ${isBold ? "font-bold" : ""} ${isItalic ? "italic" : ""} ${
-    isUnderline ? "underline" : ""
-  }'
+      className='m-0 \${isBold ? "font-bold" : ""} \${isItalic ? "italic" : ""} \${
+  isUnderline ? "underline" : ""
+}'
       style={{ fontSize }}
     >
       {text}
@@ -353,10 +324,8 @@ export const Paragraph = ({
   );
 };
   `;
-}
 
-export function text({ isBold, isItalic, isUnderline }: any) {
-  return `
+export const text = `
 import React from "react";
 import ContentEditable from "react-contenteditable";
 
@@ -392,9 +361,9 @@ export const Text = (props: Props) => {
         setProp((prop) => (prop.text = e.target.value), 500);
       }}
       tagName="div"
-      className='mt-4 mb-0 ${isBold ? "font-bold" : ""} ${
-    isItalic ? "italic" : ""
-  } ${isUnderline ? "underline" : ""} '
+      className='mt-4 mb-0 \${isBold ? "font-bold" : ""} \${
+  isItalic ? "italic" : ""
+} \${isUnderline ? "underline" : ""} '
       style={{ fontSize, textAlign, color }}
     />
   );
@@ -402,4 +371,3 @@ export const Text = (props: Props) => {
 
 Text.defaultProps = defaultProps;
   `;
-}

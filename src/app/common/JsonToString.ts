@@ -7,24 +7,8 @@ import {
   text,
 } from "../constants/stringTemplate";
 
-interface Type {
-  resolvedName: string;
-}
-
-interface NodeData {
-  type: Type;
-  isCanvas: boolean;
-  props: object;
-  displayName: string;
-  custom?: object;
-  hidden: boolean;
-  nodes: string[];
-  linkedNodes?: object;
-  parent?: string;
-}
-
 const STRING_TEMPLATE_OF_COMPONENTS: {
-  [index: string]: (json: any) => string;
+  [index: string]: string;
 } = {
   Grid: grid,
   Container: container,
@@ -35,19 +19,27 @@ const STRING_TEMPLATE_OF_COMPONENTS: {
 };
 
 // dung de viet code vao tung file be'
-export function convertJsonToString(json: NodeData) {
-  const func = STRING_TEMPLATE_OF_COMPONENTS[json.type.resolvedName];
-  return func(json.props);
+export function convertNodeNameToCode(name: string) {
+  return STRING_TEMPLATE_OF_COMPONENTS[name];
 }
 
 // dung de viet code vao file to
-export function convertSerializeToString(nodeObjectsById: any, nodeId: string) {
-  const node = nodeObjectsById[nodeId];
+export function convertSerializeToString(serialize: any, nodeId: string) {
+  const node = serialize[nodeId];
   let result = "";
   if (node) {
-    result += `<${node.displayName}>`;
+    result += `<${node.displayName} ${Object.keys(node.props)
+      .map(
+        (item: string) =>
+          `${item}=${
+            typeof node.props[item] === "string"
+              ? `'${node.props[item]}'`
+              : `{${node.props[item]}}`
+          }`
+      )
+      ?.join(" ")}>`;
     for (const childId of node.nodes) {
-      result += convertSerializeToString(nodeObjectsById, childId);
+      result += convertSerializeToString(serialize, childId);
     }
     result += `</${node.displayName}>`;
   }
