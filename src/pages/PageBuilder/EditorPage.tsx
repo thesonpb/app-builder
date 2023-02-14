@@ -13,6 +13,7 @@ function EditorPage({ data }: Props) {
   return (
     <div
       className={`page-container w-full ${!isPreviewEditor ? "mx-60" : "mx-0"}`}
+      style={{ transition: isPreviewEditor ? "all 0.25s" : "all 0.2s" }}
     >
       <div
         className={`craftjs-renderer top-16 small-scroll-bar`}

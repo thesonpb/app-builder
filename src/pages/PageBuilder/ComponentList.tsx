@@ -1,17 +1,10 @@
 import { Tooltip } from "antd";
 import React from "react";
-import { useEditor, Element } from "@craftjs/core";
-import {
-  Container,
-  Column,
-  Row,
-  Grid,
-} from "../../components/dragDropContainer";
+import { Element, useEditor } from "@craftjs/core";
+import { Container, Grid } from "../../components/dragDropContainer";
 import { Button, Input, Paragraph, Text } from "../../components/dragDropItem";
 import GridLayout from "../../app/icons/GridLayout";
 import ContainerLayout from "../../app/icons/ContainerLayout";
-import ColumnLayout from "../../app/icons/ColumnLayout";
-import RowLayout from "../../app/icons/RowLayout";
 import ButtonItem from "../../app/icons/ButtonItem";
 import ParagraphItem from "../../app/icons/ParagraphItem";
 import TextItem from "../../app/icons/TextItem";
@@ -41,20 +34,20 @@ const items = [
         icon: <GridLayout />,
         renderItem: Grid,
       },
-      {
-        id: 3,
-        name: "Row",
-        isContainer: false,
-        icon: <RowLayout />,
-        renderItem: Row,
-      },
-      {
-        id: 4,
-        name: "Column",
-        isContainer: false,
-        icon: <ColumnLayout />,
-        renderItem: Column,
-      },
+      // {
+      //   id: 3,
+      //   name: "Row",
+      //   isContainer: false,
+      //   icon: <RowLayout />,
+      //   renderItem: Row,
+      // },
+      // {
+      //   id: 4,
+      //   name: "Column",
+      //   isContainer: false,
+      //   icon: <ColumnLayout />,
+      //   renderItem: Column,
+      // },
     ],
   },
   {

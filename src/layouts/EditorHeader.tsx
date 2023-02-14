@@ -29,6 +29,7 @@ import { useMutation, useQuery } from "react-query";
 import Page from "../app/models/Page";
 import { useEditor } from "@craftjs/core";
 import User from "../app/models/User";
+import { convertSerializeToString } from "../app/common/JsonToString";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -342,12 +343,13 @@ function EditorHeader() {
               title="Share"
               trigger="click"
             >
-              <Button type="primary">Share</Button>
+              <Button type="primary" className="bg-orange-400">
+                Share
+              </Button>
             </Popover>
           )}
           <Button
             type="primary"
-            className="bg-greenest"
             onClick={() =>
               updatePageJsonMutation.mutate({
                 id: pathnameArray[pathnameArray.length - 1],
@@ -358,6 +360,18 @@ function EditorHeader() {
             }
           >
             Save
+          </Button>
+          <Button
+            type="primary"
+            className="bg-greenest"
+            onClick={() =>
+              console.log(
+                1111,
+                convertSerializeToString(JSON.parse(query.serialize()), "ROOT")
+              )
+            }
+          >
+            Export
           </Button>
         </>
         {user?.id && (
