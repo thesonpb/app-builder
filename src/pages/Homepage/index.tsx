@@ -20,7 +20,7 @@ function Logo({ setOpenLogin, setOpenSignup }: any) {
   return (
     <>
       <h1 className="select-none text-light text-9xl font-extrabold my-0">
-        Web Maker
+        Component Craft
       </h1>
       <h1 className="select-none text-light text-3xl font-normal">
         Create static website and webapp with templates
@@ -95,8 +95,8 @@ function Feature() {
             Designed for everyone
           </h2>
           <p className="text-gray-500 sm:text-xl dark:text-gray-400">
-            Web Maker provides tools needed to create static website and somes
-            templates for creating web application
+            Component Craft provides tools needed to create static website and
+            somes templates for creating web application
           </p>
         </div>
         <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
@@ -221,7 +221,7 @@ function TemplateContentPreview() {
   return (
     <div className="flex flex-col items-center justify-center">
       <h1 className="text-4xl tracking-tight font-extrabold text-white">
-        Made by Web Maker
+        Made by Component Craft
       </h1>
       <Swiper
         slidesPerView={3}

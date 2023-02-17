@@ -32,7 +32,9 @@ import User from "../app/models/User";
 import {
   convertNodeNameToCode,
   convertSerializeToString,
-} from "../app/common/JsonToString";
+  downloadZipFile,
+} from "../app/common/componentConvert";
+import { File } from "../app/common/componentConvert";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -377,21 +379,36 @@ function EditorHeader() {
               const set = new Set(displayNameArray);
               displayNameArray = [...set];
 
-              let fileCode = "";
+              let fileCode: File[] = [];
               let importStatement = "";
               displayNameArray?.forEach((item: string) => {
                 // lay ra doan code import
-                importStatement += `\n import ${item} from './${item}';`;
+                importStatement += `\n import ${item} from './components/${item}';`;
 
                 // lay ra code tung file con
-                fileCode = convertNodeNameToCode(item);
+                fileCode.push({
+                  name: `${item}.tsx`,
+                  code: convertNodeNameToCode(item),
+                });
               });
-              console.log({ fileCode });
               // lay ra doan code return
-              const returnStatement = convertSerializeToString(
-                JSON.parse(query.serialize()),
-                "ROOT"
-              );
+              const returnStatement =
+                "\n\nfunction App() {\n" +
+                "  return (" +
+                convertSerializeToString(
+                  JSON.parse(query.serialize()),
+                  "ROOT"
+                ) +
+                ")\n" +
+                "}\n" +
+                "\n" +
+                "export default App;";
+              downloadZipFile({
+                importStatement,
+                returnStatement,
+                componentsList: fileCode,
+                zipName: currentProjectName,
+              });
             }}
           >
             Export
