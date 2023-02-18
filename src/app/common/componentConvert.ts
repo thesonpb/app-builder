@@ -155,6 +155,15 @@ export function downloadZipFile({
       "}\n"
   );
   zip.file(
+    "postcss.config.cjs",
+    "module.exports = {\n" +
+      "  plugins: {\n" +
+      "    tailwindcss: {},\n" +
+      "    autoprefixer: {},\n" +
+      "  },\n" +
+      "}\n"
+  );
+  zip.file(
     "tailwind.config.cjs",
     "/** @type {import('tailwindcss').Config} */\n" +
       "module.exports = {\n" +

@@ -325,49 +325,48 @@ export const Paragraph = ({
 };
   `;
 
-export const text = `
-import React from "react";
-import ContentEditable from "react-contenteditable";
-
-interface Props {
-  text?: string;
-  fontSize?: number;
-  isBold?: boolean;
-  isItalic?: boolean;
-  isUnderline?: boolean;
-  textAlign?: string;
-  color?: string;
-}
-
-const defaultProps = {
-  text: "Text",
-  fontSize: 16,
-  isBold: false,
-  isItalic: false,
-  isUnderline: false,
-  textAlign: "left",
-  color: "black",
-};
-
-export const Text = (props: Props) => {
-  const { text, fontSize, isBold, isItalic, isUnderline, textAlign, color } =
-    props;
-
-  return (
-    <ContentEditable
-      html={text || ""}
-      disabled={!enabled}
-      onChange={(e) => {
-        setProp((prop) => (prop.text = e.target.value), 500);
-      }}
-      tagName="div"
-      className='mt-4 mb-0 \${isBold ? "font-bold" : ""} \${
-  isItalic ? "italic" : ""
-} \${isUnderline ? "underline" : ""} '
-      style={{ fontSize, textAlign, color }}
-    />
-  );
-};
-
-Text.defaultProps = defaultProps;
-  `;
+export const text =
+  'import React from "react";\n' +
+  'import ContentEditable from "react-contenteditable";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "    text?: string;\n" +
+  "    fontSize?: number;\n" +
+  "    isBold?: boolean;\n" +
+  "    isItalic?: boolean;\n" +
+  "    isUnderline?: boolean;\n" +
+  "    textAlign?: string;\n" +
+  "    color?: string;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '    text: "Text",\n' +
+  "    fontSize: 16,\n" +
+  "    isBold: false,\n" +
+  "    isItalic: false,\n" +
+  "    isUnderline: false,\n" +
+  '    textAlign: "left",\n' +
+  '    color: "black",\n' +
+  "};\n" +
+  "\n" +
+  "export const Text = (props: Props) => {\n" +
+  "    const { text, fontSize, isBold, isItalic, isUnderline, textAlign, color } =\n" +
+  "        props;\n" +
+  "\n" +
+  "    return (\n" +
+  "        <ContentEditable\n" +
+  '            html={text || ""}\n' +
+  "            disabled={false}\n" +
+  "            onChange={(e) => {\n" +
+  "                setProp((prop) => (prop.text = e.target.value), 500);\n" +
+  "            }}\n" +
+  '            tagName="div"\n' +
+  '            className={`mt-4 mb-0 ${isBold ? "font-bold" : ""} ${\n' +
+  '                isItalic ? "italic" : ""\n' +
+  '            } ${isUnderline ? "underline" : ""}`}\n' +
+  "            style={{ fontSize, textAlign, color }}\n" +
+  "        />\n" +
+  "    );\n" +
+  "};\n" +
+  "\n" +
+  "Text.defaultProps = defaultProps;\n";
