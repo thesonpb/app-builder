@@ -2,7 +2,15 @@ import { Tooltip } from "antd";
 import React from "react";
 import { Element, useEditor } from "@craftjs/core";
 import { Container, Grid } from "../../components/dragDropContainer";
-import { Button, Input, Paragraph, Text } from "../../components/dragDropItem";
+import {
+  Button,
+  DateTimePicker,
+  Input,
+  Paragraph,
+  Radiobox,
+  Text,
+  Checkbox,
+} from "../../components/dragDropItem";
 import GridLayout from "../../app/icons/GridLayout";
 import ContainerLayout from "../../app/icons/ContainerLayout";
 import ButtonItem from "../../app/icons/ButtonItem";
@@ -10,6 +18,9 @@ import ParagraphItem from "../../app/icons/ParagraphItem";
 import TextItem from "../../app/icons/TextItem";
 import { Component, GroupComponent } from "../../app/models/interface";
 import InputIcon from "../../app/icons/InputIcon";
+import CheckboxIcon from "../../app/icons/CheckboxIcon";
+import RadioboxIcon from "../../app/icons/RadioboxIcon";
+import DateIcon from "../../app/icons/DateIcon";
 
 interface Props {
   type: number;
@@ -81,6 +92,27 @@ const items = [
         isContainer: false,
         icon: <InputIcon />,
         renderItem: Input,
+      },
+      {
+        id: 5,
+        name: "Radiobox",
+        isContainer: false,
+        icon: <RadioboxIcon />,
+        renderItem: Radiobox,
+      },
+      {
+        id: 6,
+        name: "Checkbox",
+        isContainer: false,
+        icon: <CheckboxIcon />,
+        renderItem: Checkbox,
+      },
+      {
+        id: 7,
+        name: "Time Picker",
+        isContainer: false,
+        icon: <DateIcon />,
+        renderItem: DateTimePicker,
       },
     ],
   },

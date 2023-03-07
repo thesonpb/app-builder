@@ -1,9 +1,12 @@
 import {
   button,
+  checkbox,
   container,
+  datetimepicker,
   grid,
   input,
   paragraph,
+  radiobox,
   text,
 } from "../constants/stringTemplate";
 import * as JSZip from "jszip";
@@ -18,6 +21,9 @@ const STRING_TEMPLATE_OF_COMPONENTS: {
   Input: input,
   Paragraph: paragraph,
   Text: text,
+  Radiobox: radiobox,
+  Checkbox: checkbox,
+  DateTimePicker: datetimepicker,
 };
 
 // dung de viet code vao tung file be'

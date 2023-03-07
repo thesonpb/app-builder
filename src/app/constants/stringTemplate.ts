@@ -370,3 +370,118 @@ export const text =
   "};\n" +
   "\n" +
   "Text.defaultProps = defaultProps;\n";
+
+export const radiobox =
+  'import React from "react";\n' +
+  'import { Form, Radio, Space } from "antd";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "  title?: string;\n" +
+  "  listOption?: string[];\n" +
+  "  isVertical?: boolean;\n" +
+  "  showTitle?: boolean;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  "  isVertical: true,\n" +
+  '  listOption: ["Option 1", "Options 2"],\n' +
+  '  title: "Title",\n' +
+  "  showTitle: true,\n" +
+  "};\n" +
+  "\n" +
+  "export const Radiobox = (props: Props) => {\n" +
+  "  const { isVertical, listOption, title, showTitle } = props;\n" +
+  "  return (\n" +
+  "    <div>\n" +
+  "      <Form.Item>\n" +
+  "        <div>\n" +
+  '          {showTitle && <label className="mr-4 font-bold">{title}</label>}\n' +
+  '          <Space direction={isVertical ? "vertical" : "horizontal"}>\n' +
+  "            {listOption?.map((item) => (\n" +
+  "              <Radio>{item}</Radio>\n" +
+  "            ))}\n" +
+  "          </Space>\n" +
+  "        </div>\n" +
+  "      </Form.Item>\n" +
+  "    </div>\n" +
+  "  );\n" +
+  "};\n" +
+  "\n" +
+  "Radiobox.defaultProps = defaultProps;";
+
+export const checkbox =
+  'import React from "react";\n' +
+  'import { Checkbox as AntCheckbox, Form, Space } from "antd";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "  title?: string;\n" +
+  "  listOption?: string[];\n" +
+  "  isVertical?: boolean;\n" +
+  "  showTitle?: boolean;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  "  isVertical: true,\n" +
+  '  listOption: ["Option 1", "Options 2"],\n' +
+  '  title: "Title",\n' +
+  "  showTitle: true,\n" +
+  "};\n" +
+  "\n" +
+  "export const Checkbox = (props: Props) => {\n" +
+  "  const { isVertical, listOption, title, showTitle } = props;\n" +
+  "  return (\n" +
+  "    <div>\n" +
+  "      <Form.Item>\n" +
+  "        <div>\n" +
+  '          {showTitle && <label className="mr-4 font-bold">{title}</label>}\n' +
+  '          <Space direction={isVertical ? "vertical" : "horizontal"}>\n' +
+  "            {listOption?.map((item) => (\n" +
+  "              <AntCheckbox>{item}</AntCheckbox>\n" +
+  "            ))}\n" +
+  "          </Space>\n" +
+  "        </div>\n" +
+  "      </Form.Item>\n" +
+  "    </div>\n" +
+  "  );\n" +
+  "};\n" +
+  "\n" +
+  "Checkbox.defaultProps = defaultProps;";
+
+export const datetimepicker =
+  'import React from "react";\n' +
+  'import type { DatePickerProps, TimePickerProps } from "antd";\n' +
+  'import { DatePicker, TimePicker } from "antd";\n' +
+  "\n" +
+  'type PickerType = "time" | "date";\n' +
+  "\n" +
+  "const PickerWithType = ({\n" +
+  "  type,\n" +
+  "  onChange,\n" +
+  "}: {\n" +
+  "  type: PickerType;\n" +
+  '  onChange: TimePickerProps["onChange"] | DatePickerProps["onChange"];\n' +
+  "}) => {\n" +
+  '  if (type === "time") return <TimePicker onChange={onChange} />;\n' +
+  '  if (type === "date") return <DatePicker onChange={onChange} />;\n' +
+  "  return <DatePicker picker={type} onChange={onChange} />;\n" +
+  "};\n" +
+  "\n" +
+  "interface Props {\n" +
+  "  type?: PickerType;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '  type: "date",\n' +
+  "};\n" +
+  "\n" +
+  "export const DateTimePicker = (props: Props) => {\n" +
+  '  const { type = "date" } = props;\n' +
+  "\n" +
+  "  return (\n" +
+  "    <div>\n" +
+  "      <PickerWithType type={type} onChange={(value) => console.log(value)} />\n" +
+  "    </div>\n" +
+  "  );\n" +
+  "};\n" +
+  "\n" +
+  "DateTimePicker.defaultProps = defaultProps;";

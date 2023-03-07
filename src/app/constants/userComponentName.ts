@@ -7,4 +7,7 @@ export const USER_COMPONENT_NAME = {
   TEXT: "Text",
   PARAGRAPH: "Paragraph",
   INPUT: "Input",
+  RADIOBOX: "Radiobox",
+  CHECKBOX: "Checkbox",
+  DATE_TIME_PICKER: "DateTimePicker",
 };
