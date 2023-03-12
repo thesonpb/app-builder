@@ -32,8 +32,8 @@ export const Radiobox = (props: Props) => {
         <div>
           {showTitle && <label className="mr-4 font-bold">{title}</label>}
           <Space direction={isVertical ? "vertical" : "horizontal"}>
-            {listOption?.map((item) => (
-              <Radio>{item}</Radio>
+            {listOption?.map((item, index) => (
+              <Radio key={index}>{item}</Radio>
             ))}
           </Space>
         </div>

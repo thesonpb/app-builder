@@ -1,9 +1,11 @@
 import {
+  breadcrumbs,
   button,
   checkbox,
   container,
   datetimepicker,
   grid,
+  image,
   input,
   paragraph,
   radiobox,
@@ -24,6 +26,8 @@ const STRING_TEMPLATE_OF_COMPONENTS: {
   Radiobox: radiobox,
   Checkbox: checkbox,
   DateTimePicker: datetimepicker,
+  Breadcrumbs: breadcrumbs,
+  Image: image,
 };
 
 // dung de viet code vao tung file be'

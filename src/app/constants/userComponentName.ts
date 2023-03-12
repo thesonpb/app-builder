@@ -10,4 +10,6 @@ export const USER_COMPONENT_NAME = {
   RADIOBOX: "Radiobox",
   CHECKBOX: "Checkbox",
   DATE_TIME_PICKER: "DateTimePicker",
+  BREADCRUMBS: "Breadcrumbs",
+  IMAGE: "Image",
 };

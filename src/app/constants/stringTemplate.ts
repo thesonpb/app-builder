@@ -485,3 +485,61 @@ export const datetimepicker =
   "};\n" +
   "\n" +
   "DateTimePicker.defaultProps = defaultProps;";
+
+export const breadcrumbs =
+  'import React from "react";\n' +
+  'import { Breadcrumb } from "antd";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "    listOption?: string[];\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  "    listOption: [\n" +
+  '        "Home",\n' +
+  '        "Application Center",\n' +
+  '        "Application List",\n' +
+  '        "An Application",\n' +
+  "    ],\n" +
+  "};\n" +
+  "\n" +
+  "export const Breadcrumbs = (props: Props) => {\n" +
+  "    const { listOption } = props;\n" +
+  "\n" +
+  "    return (\n" +
+  "        <div>\n" +
+  "            <Breadcrumb>\n" +
+  "                {listOption?.map((item) => (\n" +
+  "                    <Breadcrumb.Item>{item}</Breadcrumb.Item>\n" +
+  "                ))}\n" +
+  "            </Breadcrumb>\n" +
+  "        </div>\n" +
+  "    );\n" +
+  "};\n" +
+  "\n" +
+  "Breadcrumbs.defaultProps = defaultProps;\n";
+
+export const image =
+  'import React from "react";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "    src?: string;\n" +
+  "    width?: number;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '    src: "https://picsum.photos/200",\n' +
+  "    width: 200,\n" +
+  "};\n" +
+  "\n" +
+  "export const Image = (props: Props) => {\n" +
+  "    const { src, width } = props;\n" +
+  "\n" +
+  "    return (\n" +
+  "        <div>\n" +
+  "            <Image width={width} src={src} />\n" +
+  "        </div>\n" +
+  "    );\n" +
+  "};\n" +
+  "\n" +
+  "Image.defaultProps = defaultProps;\n";

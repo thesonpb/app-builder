@@ -32,8 +32,8 @@ export const Checkbox = (props: Props) => {
         <div>
           {showTitle && <label className="mr-4 font-bold">{title}</label>}
           <Space direction={isVertical ? "vertical" : "horizontal"}>
-            {listOption?.map((item) => (
-              <AntCheckbox>{item}</AntCheckbox>
+            {listOption?.map((item, index) => (
+              <AntCheckbox key={index}>{item}</AntCheckbox>
             ))}
           </Space>
         </div>

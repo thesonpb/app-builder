@@ -10,6 +10,8 @@ import {
   Radiobox,
   Text,
   Checkbox,
+  Breadcrumbs,
+  Image,
 } from "../../components/dragDropItem";
 import GridLayout from "../../app/icons/GridLayout";
 import ContainerLayout from "../../app/icons/ContainerLayout";
@@ -21,6 +23,8 @@ import InputIcon from "../../app/icons/InputIcon";
 import CheckboxIcon from "../../app/icons/CheckboxIcon";
 import RadioboxIcon from "../../app/icons/RadioboxIcon";
 import DateIcon from "../../app/icons/DateIcon";
+import BreadcrumbIcon from "../../app/icons/BreadcrumbIcon";
+import ImageIcon from "../../app/icons/ImageIcon";
 
 interface Props {
   type: number;
@@ -114,6 +118,20 @@ const items = [
         icon: <DateIcon />,
         renderItem: DateTimePicker,
       },
+      {
+        id: 8,
+        name: "Bread Crumbs",
+        isContainer: false,
+        icon: <BreadcrumbIcon />,
+        renderItem: Breadcrumbs,
+      },
+      {
+        id: 9,
+        name: "Image",
+        isContainer: false,
+        icon: <ImageIcon />,
+        renderItem: Image,
+      },
     ],
   },
 ];
@@ -140,10 +158,10 @@ function ComponentList({ type }: Props) {
             <Element is={item.renderItem} canvas={item.isContainer} />
           )
         }
-        className="flex-col gap-y-2 w-24 rounded-md text-base font-semibold h-24 flex items-center justify-center bg-lightGray cursor-all-scroll"
+        className="flex-col w-24 rounded-md text-base font-semibold h-24 flex items-center justify-center bg-lightGray cursor-all-scroll"
       >
         <div>{item.icon}</div>
-        <div>{item.name}</div>
+        <div className="text-center">{item.name}</div>
       </div>
     </Tooltip>
   );
