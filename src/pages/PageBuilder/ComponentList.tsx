@@ -12,6 +12,10 @@ import {
   Checkbox,
   Breadcrumbs,
   Image,
+  Divider,
+  Menu,
+  Select,
+  Statistic,
 } from "../../components/dragDropItem";
 import GridLayout from "../../app/icons/GridLayout";
 import ContainerLayout from "../../app/icons/ContainerLayout";
@@ -25,6 +29,9 @@ import RadioboxIcon from "../../app/icons/RadioboxIcon";
 import DateIcon from "../../app/icons/DateIcon";
 import BreadcrumbIcon from "../../app/icons/BreadcrumbIcon";
 import ImageIcon from "../../app/icons/ImageIcon";
+import DividerIcon from "../../app/icons/DividerIcon";
+import MenuIcon from "../../app/icons/MenuIcon";
+import DropdownIcon from "../../app/icons/DropdownIcon";
 
 interface Props {
   type: number;
@@ -131,6 +138,34 @@ const items = [
         isContainer: false,
         icon: <ImageIcon />,
         renderItem: Image,
+      },
+      {
+        id: 10,
+        name: "Divier",
+        isContainer: false,
+        icon: <DividerIcon />,
+        renderItem: Divider,
+      },
+      {
+        id: 11,
+        name: "Menu",
+        isContainer: false,
+        icon: <MenuIcon />,
+        renderItem: Menu,
+      },
+      {
+        id: 12,
+        name: "Select",
+        isContainer: false,
+        icon: <DropdownIcon />,
+        renderItem: Select,
+      },
+      {
+        id: 13,
+        name: "Statistic",
+        isContainer: false,
+        icon: <DropdownIcon />,
+        renderItem: Statistic,
       },
     ],
   },

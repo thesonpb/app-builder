@@ -543,3 +543,159 @@ export const image =
   "};\n" +
   "\n" +
   "Image.defaultProps = defaultProps;\n";
+
+export const divider =
+  'import React from "react";\n' +
+  'import { Divider as AntDivider } from "antd";\n' +
+  "\n" +
+  "interface Props {\n" +
+  '  direction?: "horizontal" | "vertical" | undefined;\n' +
+  "  showText?: boolean;\n" +
+  "  text?: string;\n" +
+  '  align?: "center" | "left" | "right" | undefined;\n' +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '  direction: "horizontal",\n' +
+  "  showText: false,\n" +
+  '  text: "",\n' +
+  '  align: "",\n' +
+  "};\n" +
+  "\n" +
+  "export const Divider = (props: Props) => {\n" +
+  "  const { direction, showText, text, align } = props;\n" +
+  "  return (\n" +
+  "    <div>\n" +
+  "      <AntDivider type={direction} plain={showText} orientation={align}>\n" +
+  "        {text}\n" +
+  "      </AntDivider>\n" +
+  "    </div>\n" +
+  "  );\n" +
+  "};\n" +
+  "\n" +
+  "Divider.defaultProps = defaultProps;";
+
+export const menu =
+  'import React from "react";\n' +
+  'import { MenuProps } from "antd/lib";\n' +
+  'import { Menu as AntMenu } from "antd";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "    direction?: any;\n" +
+  "    items?: any;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '    direction: "horizontal",\n' +
+  '    items: ["Item 1", "Item 2", "Item 3"],\n' +
+  "};\n" +
+  "\n" +
+  "export const Menu = (props: Props) => {\n" +
+  "    const { direction, items } = props;\n" +
+  '    const menuItems: MenuProps["items"] = items?.map((item: any) => ({\n' +
+  "        value: item,\n" +
+  "        label: item,\n" +
+  "    }));\n" +
+  "    return (\n" +
+  "        <div>\n" +
+  "            <AntMenu mode={direction} items={menuItems} />\n" +
+  "        </div>\n" +
+  "    );\n" +
+  "};\n" +
+  "\n" +
+  "Menu.defaultProps = defaultProps;\n";
+
+export const select =
+  'import React from "react";\n' +
+  'import { Form, Select as AntSelect } from "antd";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "    placeholder?: string;\n" +
+  "    label?: string;\n" +
+  "    showLabel?: boolean;\n" +
+  "    isVertical?: boolean;\n" +
+  "    showPlaceHolder?: boolean;\n" +
+  "    color?: string;\n" +
+  "    showSearch?: boolean;\n" +
+  "    items?: string[];\n" +
+  '    mode?: "multiple" | undefined;\n' +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '    placeholder: "Place holder",\n' +
+  "    isVertical: true,\n" +
+  "    showPlaceHolder: true,\n" +
+  '    label: "Label",\n' +
+  "    showLabel: true,\n" +
+  '    color: "black",\n' +
+  "    showSearch: false,\n" +
+  '    items: ["Item 1", "Item 2", "Item 3"],\n' +
+  '    mode: "multiple",\n' +
+  "};\n" +
+  "\n" +
+  "export const Select = (props: Props) => {\n" +
+  "    const {\n" +
+  "        isVertical,\n" +
+  "        showLabel,\n" +
+  "        label,\n" +
+  "        showPlaceHolder,\n" +
+  "        placeholder,\n" +
+  "        color,\n" +
+  "        showSearch,\n" +
+  "        items,\n" +
+  "        mode,\n" +
+  "    } = props;\n" +
+  "\n" +
+  "    return (\n" +
+  "        <div>\n" +
+  "            <Form.Item>\n" +
+  '                <div className={isVertical ? "" : "flex items-center"}>\n' +
+  "                    {showLabel && (\n" +
+  '                        <label className="mr-4 font-bold" style={{ color }}>\n' +
+  "                            {label}:\n" +
+  "                        </label>\n" +
+  "                    )}\n" +
+  "                    <AntSelect\n" +
+  "                        mode={mode}\n" +
+  '                        placeholder={showPlaceHolder ? placeholder : ""}\n' +
+  "                        showSearch={showSearch}\n" +
+  "                    >\n" +
+  "                        {items?.map((value) => (\n" +
+  "                            <AntSelect.Option key={value} value={value}>\n" +
+  "                                {value}\n" +
+  "                            </AntSelect.Option>\n" +
+  "                        ))}\n" +
+  "                    </AntSelect>\n" +
+  "                </div>\n" +
+  "            </Form.Item>\n" +
+  "        </div>\n" +
+  "    );\n" +
+  "};\n" +
+  "\n" +
+  "Select.defaultProps = defaultProps;\n";
+
+export const statistic =
+  'import React from "react";\n' +
+  'import { Statistic as AntStatistic } from "antd";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "    title: string;\n" +
+  "    value: number;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '    title: "Title",\n' +
+  "    value: 100000,\n" +
+  "};\n" +
+  "\n" +
+  "export const Statistic = (props: Props) => {\n" +
+  "    const { title, value } = props;\n" +
+  "\n" +
+  "    return (\n" +
+  "        <div>\n" +
+  "            <AntStatistic title={title} value={value} />\n" +
+  "        </div>\n" +
+  "    );\n" +
+  "};\n" +
+  "\n" +
+  "Statistic.defaultProps = defaultProps;\n";

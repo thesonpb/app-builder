@@ -7,6 +7,10 @@ import { Checkbox } from "./Checkbox";
 import { DateTimePicker } from "./DateTimePicker";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { Image } from "./Image";
+import { Divider } from "./Divider";
+import { Menu } from "./Menu";
+import { Select } from "./Select";
+import { Statistic } from "./Statistic";
 
 export const DragDropItem = {
   Button,
@@ -18,6 +22,10 @@ export const DragDropItem = {
   DateTimePicker,
   Breadcrumbs,
   Image,
+  Divider,
+  Menu,
+  Select,
+  Statistic,
 };
 
 export {
@@ -30,4 +38,8 @@ export {
   DateTimePicker,
   Breadcrumbs,
   Image,
+  Divider,
+  Menu,
+  Select,
+  Statistic,
 };

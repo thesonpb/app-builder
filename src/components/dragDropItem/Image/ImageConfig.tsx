@@ -43,7 +43,7 @@ function ImageConfig() {
           <div className="w-1/2">Upload Image</div>
           <Upload
             name="file"
-            action="http://localhost:8080/api/upload/image"
+            action={`${beUrl}/api/upload/image`}
             onChange={handleUpload}
           >
             <Button icon={<UploadOutlined />}>Upload</Button>

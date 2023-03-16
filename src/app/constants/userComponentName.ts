@@ -12,4 +12,8 @@ export const USER_COMPONENT_NAME = {
   DATE_TIME_PICKER: "DateTimePicker",
   BREADCRUMBS: "Breadcrumbs",
   IMAGE: "Image",
+  DIVIDER: "Divider",
+  MENU: "Menu",
+  SELECT: "Select",
+  STATISTIC: "Statistic",
 };
