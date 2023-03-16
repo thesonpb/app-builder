@@ -699,3 +699,78 @@ export const statistic =
   "};\n" +
   "\n" +
   "Statistic.defaultProps = defaultProps;\n";
+
+export const switchTemplate =
+  'import React from "react";\n' +
+  'import { Switch as AntSwitch } from "antd";\n' +
+  'import { SwitchSize } from "antd/es/switch";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "    label: string;\n" +
+  "    showLabel: boolean;\n" +
+  "    isVertical: boolean;\n" +
+  "    defaultValue: boolean;\n" +
+  "    isDisable: boolean;\n" +
+  "    size: SwitchSize;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '    label: "Label",\n' +
+  "    showLabel: true,\n" +
+  "    isVertical: false,\n" +
+  "    defaultValue: false,\n" +
+  "    isDisable: false,\n" +
+  '    size: "default",\n' +
+  "};\n" +
+  "\n" +
+  "export const Switch = (props: Props) => {\n" +
+  "    const { label, showLabel, isVertical, defaultValue, isDisable, size } =\n" +
+  "        props;\n" +
+  "\n" +
+  "    return (\n" +
+  '        <div className={!isVertical ? "flex item-center gap-x-2" : ""}>\n' +
+  "            {showLabel && <div>{label}</div>}\n" +
+  "            <AntSwitch\n" +
+  "                checked={defaultValue}\n" +
+  "                disabled={isDisable}\n" +
+  "                size={size}\n" +
+  "            />\n" +
+  "        </div>\n" +
+  "    );\n" +
+  "};\n" +
+  "\n" +
+  "Switch.defaultProps = defaultProps;\n";
+
+export const tab =
+  'import React from "react";\n' +
+  'import { Tabs } from "antd";\n' +
+  'import { Container } from "./Container";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "  tabs: string[];\n" +
+  "  children?: React.ReactNode;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '  tabs: ["Tab 1", "Tab 2"],\n' +
+  "};\n" +
+  "\n" +
+  "export const Tab = (props: Props) => {\n" +
+  "  const { tabs, children } = props;\n" +
+  "\n" +
+  "  return (\n" +
+  "    <div>\n" +
+  "      <Tabs>\n" +
+  "        {tabs.map((tab, index) => (\n" +
+  "          <Tabs.TabPane tab={tab} key={index}>\n" +
+  "            <Container id={index.toString()}>\n" +
+  "              {children}\n" +
+  "            </Container>\n" +
+  "          </Tabs.TabPane>\n" +
+  "        ))}\n" +
+  "      </Tabs>\n" +
+  "    </div>\n" +
+  "  );\n" +
+  "};\n" +
+  "\n" +
+  "Tab.defaultProps = defaultProps;";

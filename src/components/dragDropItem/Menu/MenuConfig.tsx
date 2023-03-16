@@ -1,7 +1,7 @@
 import React from "react";
 import { useNode } from "@craftjs/core";
 import ComponentConfigTemplate from "../../display/ComponentConfigTemplate";
-import { Input, MenuProps, Select } from "antd";
+import { Button, Input, Select } from "antd";
 
 function MenuConfig() {
   const {
@@ -18,17 +18,26 @@ function MenuConfig() {
     { value: "horizontal", label: "Horizontal" },
   ];
 
-  const userItems: MenuProps["items"] = [
-    {
-      label: (
-        <div className="text-sm font-semibold text-white">
-          Separate values with ';'
-        </div>
-      ),
-      key: "note",
-    },
-  ];
+  const handleChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newItems = [...items];
+    newItems[index] = event.target.value;
+    setProp((props: any) => (props.items = newItems));
+  };
 
+  const add = () => {
+    setProp(
+      (props: any) => (props.items = [...items, `Item ${items.length + 1}`])
+    );
+  };
+
+  const remove = (index: number) => {
+    const newItems = [...items];
+    newItems.splice(index, 1);
+    setProp((props: any) => (props.items = newItems));
+  };
   return (
     <div className="flex flex-col gap-y-4 pb-20">
       <ComponentConfigTemplate configName="General">
@@ -44,18 +53,25 @@ function MenuConfig() {
           />
         </div>
       </ComponentConfigTemplate>
-      <ComponentConfigTemplate configName="Items" showInfo content={userItems}>
-        <div className="flex gap-x-2 items-center justify-between">
-          <Input
-            placeholder="Items"
-            defaultValue={items?.join("; ")}
-            onChange={(e) =>
-              setProp(
-                (props: any) => (props.items = e.target.value?.split("; "))
-              )
-            }
-          />
-        </div>
+      <ComponentConfigTemplate configName="Items">
+        {items.map((tab: string, index: number) => (
+          <div
+            key={index}
+            className="flex gap-x-2 items-center justify-between"
+          >
+            <Input
+              placeholder="Item"
+              defaultValue={tab}
+              onChange={(e) => handleChange(index, e)}
+            />
+            <Button danger type="primary" onClick={() => remove(index)}>
+              Remove
+            </Button>
+          </div>
+        ))}
+        <Button type="primary" onClick={add}>
+          Add
+        </Button>
       </ComponentConfigTemplate>
     </div>
   );

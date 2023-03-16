@@ -11,6 +11,8 @@ import { Divider } from "./Divider";
 import { Menu } from "./Menu";
 import { Select } from "./Select";
 import { Statistic } from "./Statistic";
+import { Switch } from "./Switch";
+import { Tab } from "./Tab";
 
 export const DragDropItem = {
   Button,
@@ -26,6 +28,8 @@ export const DragDropItem = {
   Menu,
   Select,
   Statistic,
+  Switch,
+  Tab,
 };
 
 export {
@@ -42,4 +46,6 @@ export {
   Menu,
   Select,
   Statistic,
+  Switch,
+  Tab,
 };

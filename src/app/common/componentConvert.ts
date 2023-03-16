@@ -13,6 +13,8 @@ import {
   radiobox,
   select,
   statistic,
+  switchTemplate,
+  tab,
   text,
 } from "../constants/stringTemplate";
 import * as JSZip from "jszip";
@@ -36,6 +38,8 @@ const STRING_TEMPLATE_OF_COMPONENTS: {
   Menu: menu,
   Select: select,
   Statistic: statistic,
+  Switch: switchTemplate,
+  Tab: tab,
 };
 
 // dung de viet code vao tung file be'

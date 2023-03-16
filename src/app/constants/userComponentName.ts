@@ -16,4 +16,6 @@ export const USER_COMPONENT_NAME = {
   MENU: "Menu",
   SELECT: "Select",
   STATISTIC: "Statistic",
+  SWITCH: "Switch",
+  TAB: "Tab",
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNode } from "@craftjs/core";
 import ComponentConfigTemplate from "../../display/ComponentConfigTemplate";
-import { Input, MenuProps, Select, Switch } from "antd";
+import { Button, Input, Select, Switch } from "antd";
 
 function RadioboxConfig() {
   const {
@@ -17,16 +17,27 @@ function RadioboxConfig() {
     listOption: node.data.props.listOption,
   }));
 
-  const userItems: MenuProps["items"] = [
-    {
-      label: (
-        <div className="text-sm font-semibold text-white">
-          Seperate values with ';'
-        </div>
-      ),
-      key: "note",
-    },
-  ];
+  const handleChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newOptions = [...listOption];
+    newOptions[index] = event.target.value;
+    setProp((props: any) => (props.listOption = newOptions));
+  };
+
+  const add = () => {
+    setProp(
+      (props: any) =>
+        (props.listOption = [...listOption, `Option ${listOption.length + 1}`])
+    );
+  };
+
+  const remove = (index: number) => {
+    const newOptions = [...listOption];
+    newOptions.splice(index, 1);
+    setProp((props: any) => (props.listOption = newOptions));
+  };
   return (
     <div className="flex flex-col gap-y-4 pb-20">
       <ComponentConfigTemplate configName="General">
@@ -65,22 +76,25 @@ function RadioboxConfig() {
           />
         </div>
       </ComponentConfigTemplate>
-      <ComponentConfigTemplate
-        configName="Options"
-        showInfo
-        content={userItems}
-      >
-        <div className="flex gap-x-2 items-center justify-between">
-          <Input
-            placeholder="Options"
-            defaultValue={listOption?.join("; ")}
-            onChange={(e) =>
-              setProp(
-                (props: any) => (props.listOption = e.target.value?.split("; "))
-              )
-            }
-          />
-        </div>
+      <ComponentConfigTemplate configName="Options">
+        {listOption.map((tab: string, index: number) => (
+          <div
+            key={index}
+            className="flex gap-x-2 items-center justify-between"
+          >
+            <Input
+              placeholder="Option"
+              defaultValue={tab}
+              onChange={(e) => handleChange(index, e)}
+            />
+            <Button danger type="primary" onClick={() => remove(index)}>
+              Remove
+            </Button>
+          </div>
+        ))}
+        <Button type="primary" onClick={add}>
+          Add
+        </Button>
       </ComponentConfigTemplate>
     </div>
   );

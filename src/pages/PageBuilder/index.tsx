@@ -46,7 +46,7 @@ function PageBuilder() {
           </div>
         </Editor>
       ) : (
-        <div>error</div>
+        <div></div>
       )}
     </>
   );

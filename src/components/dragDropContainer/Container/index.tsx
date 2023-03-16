@@ -37,11 +37,11 @@ const defaultProps = {
   backgroundColor: "white",
   minHeight: "10rem",
   padding: "1rem",
-  borderRadius: "1rem",
+  borderRadius: "0",
   borderColor: "#f2f2f2",
   borderStyle: "solid",
   borderWidth: "1px",
-  marginTop: "1rem",
+  marginTop: "0",
 };
 
 export const Container = (props: Props) => {
