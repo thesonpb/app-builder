@@ -38,7 +38,11 @@ export const Switch = (props: Props) => {
       className={!isVertical ? "flex item-center gap-x-2" : ""}
     >
       {showLabel && <div>{label}</div>}
-      <AntSwitch checked={defaultValue} disabled={isDisable} size={size} />
+      <AntSwitch
+        defaultChecked={defaultValue}
+        disabled={isDisable}
+        size={size}
+      />
     </div>
   );
 };

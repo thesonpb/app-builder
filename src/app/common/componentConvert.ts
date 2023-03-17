@@ -52,20 +52,46 @@ export function convertSerializeToString(serialize: any, nodeId: string) {
   const node = serialize[nodeId];
   let result = "";
   if (node) {
-    result += `<${node.displayName} ${Object.keys(node.props)
-      .map(
-        (item: string) =>
-          `${item}=${
-            typeof node.props[item] === "string"
-              ? `'${node.props[item]}'`
-              : `{${node.props[item]}}`
-          }`
-      )
-      ?.join(" ")}>`;
-    for (const childId of node.nodes) {
-      result += convertSerializeToString(serialize, childId);
+    if (node.type.resolvedName === "Tab") {
+      const tabs = node.props.tabs || [];
+      const linkedNodes = node.linkedNodes || {};
+      result += "<Tabs>";
+      for (let i = 0; i < tabs.length; i++) {
+        const tabId = linkedNodes[i.toString()];
+        if (tabId) {
+          result += `<Tabs.TabPane tab="${
+            tabs[i]
+          }" key={${i}}>${convertSerializeToString(
+            serialize,
+            tabId
+          )}</Tabs.TabPane>`;
+        } else {
+          result += `<Tabs.TabPane tab="${tabs[i]}" key={${i}}></Tabs.TabPane>`;
+        }
+      }
+      result += "</Tabs>";
+    } else {
+      result += `<${node.displayName} ${Object.keys(node.props)
+        .map((item: string) => {
+          const propValue = node.props[item];
+          if (Array.isArray(propValue)) {
+            return `${item}={[${propValue
+              .map((val) => `"${val}"`)
+              .join(", ")}]}`;
+          } else {
+            const propStringValue =
+              typeof propValue === "string"
+                ? `'${propValue}'`
+                : `{${propValue}}`;
+            return `${item}=${propStringValue}`;
+          }
+        })
+        ?.join(" ")}>`;
+      for (const childId of node.nodes) {
+        result += convertSerializeToString(serialize, childId);
+      }
+      result += `</${node.displayName}>`;
     }
-    result += `</${node.displayName}>`;
   }
   return result;
 }
@@ -142,27 +168,15 @@ export function downloadZipFile({
       '    "preview": "vite preview"\n' +
       "  },\n" +
       '  "dependencies": {\n' +
-      '    "@craftjs/core": "^0.2.0-beta.8",\n' +
-      '    "@types/file-saver": "^2.0.5",\n' +
-      '    "@types/lodash": "^4.14.191",\n' +
       '    "@types/styled-components": "^5.1.26",\n' +
       '    "antd": "^5.1.4",\n' +
-      '    "axios": "^1.2.2",\n' +
-      '    "file-saver": "^2.0.5",\n' +
-      '    "js-cookie": "^3.0.1",\n' +
-      '    "jszip": "^3.10.1",\n' +
-      '    "lodash": "^4.17.21",\n' +
       '    "react": "^18.2.0",\n' +
       '    "react-contenteditable": "^3.3.6",\n' +
       '    "react-dom": "^18.2.0",\n' +
-      '    "react-query": "^3.39.2",\n' +
-      '    "react-router-dom": "^6.6.2",\n' +
       '    "styled-components": "^5.3.6",\n' +
-      '    "swiper": "^8.4.6",\n' +
       '    "uuid": "^9.0.0"\n' +
       "  },\n" +
       '  "devDependencies": {\n' +
-      '    "@types/js-cookie": "^3.0.2",\n' +
       '    "@types/react": "^18.0.26",\n' +
       '    "@types/react-dom": "^18.0.9",\n' +
       '    "@types/uuid": "^9.0.0",\n' +

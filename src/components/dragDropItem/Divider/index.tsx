@@ -15,7 +15,7 @@ const defaultProps = {
   direction: "horizontal",
   showText: false,
   text: "",
-  align: "",
+  align: undefined,
 };
 
 export const Divider = (props: Props) => {

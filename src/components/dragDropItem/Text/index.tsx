@@ -27,7 +27,7 @@ const defaultProps = {
 export const Text = (props: Props) => {
   const {
     connectors: { connect },
-    setProp,
+    actions: { setProp },
   } = useNode();
   const { enabled } = useEditor((state: any) => ({
     enabled: state.options.enabled,
@@ -42,7 +42,7 @@ export const Text = (props: Props) => {
       html={text || ""}
       disabled={!enabled}
       onChange={(e) => {
-        setProp((prop) => (prop.text = e.target.value), 500);
+        setProp((prop: any) => (prop.text = e.target.value), 500);
       }}
       tagName="div"
       className={`mt-4 mb-0 ${isBold ? "font-bold" : ""} ${

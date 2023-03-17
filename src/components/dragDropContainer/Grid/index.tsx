@@ -56,6 +56,7 @@ const defaultProps = {
   padding: "1rem",
   backgroundColor: "white",
   showBorder: true,
+  children: undefined,
 };
 
 export const Grid = (props: Props) => {

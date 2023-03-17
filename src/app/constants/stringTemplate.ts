@@ -54,6 +54,7 @@ const defaultProps = {
   padding: "1rem",
   backgroundColor: "white",
   showBorder: true,
+  children: undefined,
 };
 
 export const Grid = (props: Props) => {
@@ -358,7 +359,7 @@ export const text =
   '            html={text || ""}\n' +
   "            disabled={false}\n" +
   "            onChange={(e) => {\n" +
-  "                setProp((prop) => (prop.text = e.target.value), 500);\n" +
+  "                console.log(e.target.value);\n" +
   "            }}\n" +
   '            tagName="div"\n' +
   '            className={`mt-4 mb-0 ${isBold ? "font-bold" : ""} ${\n' +
@@ -559,7 +560,7 @@ export const divider =
   '  direction: "horizontal",\n' +
   "  showText: false,\n" +
   '  text: "",\n' +
-  '  align: "",\n' +
+  "  align: undefined,\n" +
   "};\n" +
   "\n" +
   "export const Divider = (props: Props) => {\n" +
@@ -610,69 +611,65 @@ export const select =
   'import { Form, Select as AntSelect } from "antd";\n' +
   "\n" +
   "interface Props {\n" +
-  "    placeholder?: string;\n" +
-  "    label?: string;\n" +
-  "    showLabel?: boolean;\n" +
-  "    isVertical?: boolean;\n" +
-  "    showPlaceHolder?: boolean;\n" +
-  "    color?: string;\n" +
-  "    showSearch?: boolean;\n" +
-  "    items?: string[];\n" +
-  '    mode?: "multiple" | undefined;\n' +
+  "  placeholder?: string;\n" +
+  "  label?: string;\n" +
+  "  showLabel?: boolean;\n" +
+  "  isVertical?: boolean;\n" +
+  "  showPlaceHolder?: boolean;\n" +
+  "  color?: string;\n" +
+  "  showSearch?: boolean;\n" +
+  "  items?: string[];\n" +
   "}\n" +
   "\n" +
   "const defaultProps = {\n" +
-  '    placeholder: "Place holder",\n' +
-  "    isVertical: true,\n" +
-  "    showPlaceHolder: true,\n" +
-  '    label: "Label",\n' +
-  "    showLabel: true,\n" +
-  '    color: "black",\n' +
-  "    showSearch: false,\n" +
-  '    items: ["Item 1", "Item 2", "Item 3"],\n' +
-  '    mode: "multiple",\n' +
+  '  placeholder: "Place holder",\n' +
+  "  isVertical: true,\n" +
+  "  showPlaceHolder: true,\n" +
+  '  label: "Label",\n' +
+  "  showLabel: true,\n" +
+  '  color: "black",\n' +
+  "  showSearch: false,\n" +
+  '  items: ["Item 1", "Item 2", "Item 3"],\n' +
   "};\n" +
   "\n" +
   "export const Select = (props: Props) => {\n" +
-  "    const {\n" +
-  "        isVertical,\n" +
-  "        showLabel,\n" +
-  "        label,\n" +
-  "        showPlaceHolder,\n" +
-  "        placeholder,\n" +
-  "        color,\n" +
-  "        showSearch,\n" +
-  "        items,\n" +
-  "        mode,\n" +
-  "    } = props;\n" +
+  "  const {\n" +
+  "    isVertical,\n" +
+  "    showLabel,\n" +
+  "    label,\n" +
+  "    showPlaceHolder,\n" +
+  "    placeholder,\n" +
+  "    color,\n" +
+  "    showSearch,\n" +
+  "    items,\n" +
+  "  } = props;\n" +
   "\n" +
-  "    return (\n" +
-  "        <div>\n" +
-  "            <Form.Item>\n" +
-  '                <div className={isVertical ? "" : "flex items-center"}>\n' +
-  "                    {showLabel && (\n" +
-  '                        <label className="mr-4 font-bold" style={{ color }}>\n' +
-  "                            {label}:\n" +
-  "                        </label>\n" +
-  "                    )}\n" +
-  "                    <AntSelect\n" +
-  "                        mode={mode}\n" +
-  '                        placeholder={showPlaceHolder ? placeholder : ""}\n' +
-  "                        showSearch={showSearch}\n" +
-  "                    >\n" +
-  "                        {items?.map((value) => (\n" +
-  "                            <AntSelect.Option key={value} value={value}>\n" +
-  "                                {value}\n" +
-  "                            </AntSelect.Option>\n" +
-  "                        ))}\n" +
-  "                    </AntSelect>\n" +
-  "                </div>\n" +
-  "            </Form.Item>\n" +
+  "  return (\n" +
+  "    <div>\n" +
+  "      <Form.Item>\n" +
+  '        <div className={isVertical ? "" : "flex items-center"}>\n' +
+  "          {showLabel && (\n" +
+  '            <label className="mr-4 font-bold" style={{ color }}>\n' +
+  "              {label}:\n" +
+  "            </label>\n" +
+  "          )}\n" +
+  "          <AntSelect\n" +
+  '            placeholder={showPlaceHolder ? placeholder : ""}\n' +
+  "            showSearch={showSearch}\n" +
+  "          >\n" +
+  "            {items?.map((value) => (\n" +
+  "              <AntSelect.Option key={value} value={value}>\n" +
+  "                {value}\n" +
+  "              </AntSelect.Option>\n" +
+  "            ))}\n" +
+  "          </AntSelect>\n" +
   "        </div>\n" +
-  "    );\n" +
+  "      </Form.Item>\n" +
+  "    </div>\n" +
+  "  );\n" +
   "};\n" +
   "\n" +
-  "Select.defaultProps = defaultProps;\n";
+  "Select.defaultProps = defaultProps;";
 
 export const statistic =
   'import React from "react";\n' +
@@ -731,7 +728,7 @@ export const switchTemplate =
   '        <div className={!isVertical ? "flex item-center gap-x-2" : ""}>\n' +
   "            {showLabel && <div>{label}</div>}\n" +
   "            <AntSwitch\n" +
-  "                checked={defaultValue}\n" +
+  "                defaultChecked={defaultValue}\n" +
   "                disabled={isDisable}\n" +
   "                size={size}\n" +
   "            />\n" +

@@ -71,9 +71,9 @@ function SelectConfig() {
           />
         </div>
       </ComponentConfigTemplate>
-      <ComponentConfigTemplate configName="Title">
+      <ComponentConfigTemplate configName="Label">
         <div className="flex gap-x-2 items-center justify-between">
-          <div className="w-1/2">Title</div>
+          <div className="w-1/2">Label</div>
           <Switch
             defaultChecked={showLabel}
             onChange={(value) =>
@@ -83,7 +83,7 @@ function SelectConfig() {
         </div>
         <div className="flex gap-x-2 items-center justify-between">
           <Input
-            placeholder="Title"
+            placeholder="Label"
             defaultValue={label}
             onChange={(e) =>
               setProp((props: any) => (props.label = e.target.value))

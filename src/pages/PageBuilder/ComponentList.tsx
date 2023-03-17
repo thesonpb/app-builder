@@ -36,6 +36,7 @@ import MenuIcon from "../../app/icons/MenuIcon";
 import DropdownIcon from "../../app/icons/DropdownIcon";
 import StatisticIcon from "../../app/icons/StatisticIcon";
 import SwitchIcon from "../../app/icons/SwitchIcon";
+import TabIcon from "../../app/icons/TabIcon";
 
 interface Props {
   type: number;
@@ -178,13 +179,13 @@ const items = [
         icon: <SwitchIcon />,
         renderItem: Switch,
       },
-      // {
-      //   id: 15,
-      //   name: "Tab",
-      //   isContainer: false,
-      //   icon: <SwitchIcon />,
-      //   renderItem: Tab,
-      // },
+      {
+        id: 15,
+        name: "Tab",
+        isContainer: false,
+        icon: <TabIcon />,
+        renderItem: Tab,
+      },
     ],
   },
 ];

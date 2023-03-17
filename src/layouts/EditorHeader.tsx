@@ -383,7 +383,10 @@ function EditorHeader() {
               let importStatement = "";
               displayNameArray?.forEach((item: string) => {
                 // lay ra doan code import
-                importStatement += `\n import { ${item} } from './components/${item}';`;
+                if (item === "Tab")
+                  importStatement += `\n import { Tabs } from 'antd';`;
+                else
+                  importStatement += `\n import { ${item} } from './components/${item}';`;
 
                 // lay ra code tung file con
                 fileCode.push({
