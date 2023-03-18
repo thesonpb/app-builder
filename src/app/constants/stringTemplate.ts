@@ -771,3 +771,74 @@ export const tab =
   "};\n" +
   "\n" +
   "Tab.defaultProps = defaultProps;";
+
+export const table =
+  'import React from "react";\n' +
+  'import { Table as TableAntd } from "antd";\n' +
+  "\n" +
+  "interface Column {\n" +
+  "    title: string;\n" +
+  "    dataIndex: string;\n" +
+  "    key: string;\n" +
+  "}\n" +
+  "\n" +
+  "interface Props {\n" +
+  "    columns: Column[];\n" +
+  "    dataSource: any[];\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps: Props = {\n" +
+  "    columns: [\n" +
+  '        { title: "Column 1", dataIndex: "column1", key: "column1" },\n' +
+  '        { title: "Column 2", dataIndex: "column2", key: "column2" },\n' +
+  "    ],\n" +
+  "    dataSource: [\n" +
+  '        { column1: "Data 1-1", column2: "Data 1-2" },\n' +
+  '        { column1: "Data 2-1", column2: "Data 2-2" },\n' +
+  '        { column1: "Data 3-1", column2: "Data 3-2" },\n' +
+  "    ],\n" +
+  "};\n" +
+  "\n" +
+  "export const Table = (props: Props) => {\n" +
+  "    const { columns, dataSource } = props;\n" +
+  "\n" +
+  "    return (\n" +
+  "        <div>\n" +
+  "            <TableAntd columns={columns} dataSource={dataSource} />\n" +
+  "        </div>\n" +
+  "    );\n" +
+  "};\n" +
+  "\n" +
+  "Table.defaultProps = defaultProps;\n";
+
+export const tag =
+  'import React from "react";\n' +
+  'import { Tag as TagAntd } from "antd";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "    text?: string;\n" +
+  "    color?: string;\n" +
+  "    closable?: boolean;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '    text: "Tag",\n' +
+  '    color: "#1A61AF",\n' +
+  "    closable: true,\n" +
+  "};\n" +
+  "\n" +
+  "export const Tag = (props: Props) => {\n" +
+  "    const { text, color, closable } = props;\n" +
+  "\n" +
+  "    return (\n" +
+  "        <TagAntd\n" +
+  "            className={`py-1 px-2 rounded-lg inline-flex items-center`}\n" +
+  "            color={color}\n" +
+  "            closable={closable}\n" +
+  "        >\n" +
+  '            <span className="text-xs">{text}</span>\n' +
+  "        </TagAntd>\n" +
+  "    );\n" +
+  "};\n" +
+  "\n" +
+  "Tag.defaultProps = defaultProps;\n";

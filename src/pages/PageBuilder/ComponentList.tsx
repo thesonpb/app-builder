@@ -18,6 +18,8 @@ import {
   Statistic,
   Switch,
   Tab,
+  Table,
+  Tag,
 } from "../../components/dragDropItem";
 import GridLayout from "../../app/icons/GridLayout";
 import ContainerLayout from "../../app/icons/ContainerLayout";
@@ -37,6 +39,8 @@ import DropdownIcon from "../../app/icons/DropdownIcon";
 import StatisticIcon from "../../app/icons/StatisticIcon";
 import SwitchIcon from "../../app/icons/SwitchIcon";
 import TabIcon from "../../app/icons/TabIcon";
+import TableIcon from "../../app/icons/TableIcon";
+import TagIcon from "../../app/icons/TagIcon";
 
 interface Props {
   type: number;
@@ -185,6 +189,20 @@ const items = [
         isContainer: false,
         icon: <TabIcon />,
         renderItem: Tab,
+      },
+      {
+        id: 16,
+        name: "Table",
+        isContainer: false,
+        icon: <TableIcon />,
+        renderItem: Table,
+      },
+      {
+        id: 17,
+        name: "Tag",
+        isContainer: false,
+        icon: <TagIcon />,
+        renderItem: Tag,
       },
     ],
   },

@@ -18,4 +18,6 @@ export const USER_COMPONENT_NAME = {
   STATISTIC: "Statistic",
   SWITCH: "Switch",
   TAB: "Tab",
+  TABLE: "Table",
+  TAG: "Tag",
 };

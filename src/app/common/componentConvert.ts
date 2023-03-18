@@ -15,6 +15,8 @@ import {
   statistic,
   switchTemplate,
   tab,
+  table,
+  tag,
   text,
 } from "../constants/stringTemplate";
 import * as JSZip from "jszip";
@@ -40,6 +42,8 @@ const STRING_TEMPLATE_OF_COMPONENTS: {
   Statistic: statistic,
   Switch: switchTemplate,
   Tab: tab,
+  Table: table,
+  Tag: tag,
 };
 
 // dung de viet code vao tung file be'
@@ -70,6 +74,29 @@ export function convertSerializeToString(serialize: any, nodeId: string) {
         }
       }
       result += "</Tabs>";
+    } else if (node.type.resolvedName === "Table") {
+      const { columns, dataSource } = node.props;
+      result += `<${node.displayName} ${Object.keys(node.props)
+        .filter((item: string) => item !== "columns" && item !== "dataSource")
+        .map((item: string) => {
+          const propValue = node.props[item];
+          if (Array.isArray(propValue)) {
+            return `${item}=${JSON.stringify(propValue)}`;
+          } else {
+            const propStringValue =
+              typeof propValue === "string"
+                ? `'${propValue}'`
+                : `{${propValue}}`;
+            return `${item}=${propStringValue}`;
+          }
+        })
+        .join(" ")}`;
+      if (columns && dataSource) {
+        result += ` columns={${JSON.stringify(
+          columns
+        )}} dataSource={${JSON.stringify(dataSource)}}`;
+      }
+      result += " />";
     } else {
       result += `<${node.displayName} ${Object.keys(node.props)
         .map((item: string) => {

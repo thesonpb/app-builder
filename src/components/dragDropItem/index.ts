@@ -13,6 +13,8 @@ import { Select } from "./Select";
 import { Statistic } from "./Statistic";
 import { Switch } from "./Switch";
 import { Tab } from "./Tab";
+import { Table } from "./Table";
+import { Tag } from "./Tag";
 
 export const DragDropItem = {
   Button,
@@ -30,6 +32,8 @@ export const DragDropItem = {
   Statistic,
   Switch,
   Tab,
+  Table,
+  Tag,
 };
 
 export {
@@ -48,4 +52,6 @@ export {
   Statistic,
   Switch,
   Tab,
+  Table,
+  Tag,
 };
