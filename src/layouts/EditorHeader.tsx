@@ -29,12 +29,7 @@ import { useMutation, useQuery } from "react-query";
 import Page from "../app/models/Page";
 import { useEditor } from "@craftjs/core";
 import User from "../app/models/User";
-import {
-  convertNodeNameToCode,
-  convertSerializeToString,
-  downloadZipFile,
-} from "../app/common/componentConvert";
-import { File } from "../app/common/componentConvert";
+import { exportReactCode } from "../app/common/componentConvertReact";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -369,50 +364,9 @@ function EditorHeader() {
           <Button
             type="primary"
             className="bg-greenest"
-            onClick={() => {
-              // lay ra code cua tung file con
-
-              // lay ra ten cua cac node
-              let displayNameArray = Object.values(
-                JSON.parse(query.serialize())
-              )?.map((item: any) => item.displayName);
-              const set = new Set(displayNameArray);
-              displayNameArray = [...set];
-
-              let fileCode: File[] = [];
-              let importStatement = "";
-              displayNameArray?.forEach((item: string) => {
-                // lay ra doan code import
-                if (item === "Tab")
-                  importStatement += `\n import { Tabs } from 'antd';`;
-                else
-                  importStatement += `\n import { ${item} } from './components/${item}';`;
-
-                // lay ra code tung file con
-                fileCode.push({
-                  name: `${item}.tsx`,
-                  code: convertNodeNameToCode(item),
-                });
-              });
-              // lay ra doan code return
-              const returnStatement =
-                "\n\nfunction App() {\n" +
-                "  return (" +
-                convertSerializeToString(
-                  JSON.parse(query.serialize()),
-                  "ROOT"
-                ) +
-                ")\n" +
-                "}\n" +
-                "\n" +
-                "export default App;";
-              downloadZipFile({
-                importStatement,
-                returnStatement,
-                componentsList: fileCode,
-                zipName: currentProjectName,
-              });
-            }}
+            onClick={() =>
+              exportReactCode(query.serialize(), currentProjectName)
+            }
           >
             Export
           </Button>

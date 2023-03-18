@@ -21,8 +21,7 @@ function EditorPage({ data }: Props) {
       >
         <Frame data={data}>
           <Element
-            backgroundColor="#eceff3"
-            // className="overflow-auto"
+            backgroundColor="white"
             is={Container}
             paddingTop="1rem"
             paddingBottom="5rem"

@@ -18,7 +18,7 @@ import {
   table,
   tag,
   text,
-} from "../constants/stringTemplate";
+} from "../constants/stringTemplateReact";
 import * as JSZip from "jszip";
 import * as FileSaver from "file-saver";
 
@@ -45,6 +45,47 @@ const STRING_TEMPLATE_OF_COMPONENTS: {
   Table: table,
   Tag: tag,
 };
+
+export function exportReactCode(serialize: any, currentProjectName: any) {
+  // lay ra code cua tung file con
+
+  // lay ra ten cua cac node
+  let displayNameArray = Object.values(JSON.parse(serialize))?.map(
+    (item: any) => item.displayName
+  );
+  const set = new Set(displayNameArray);
+  displayNameArray = [...set];
+
+  let fileCode: File[] = [];
+  let importStatement = "";
+  displayNameArray?.forEach((item: string) => {
+    // lay ra doan code import
+    if (item === "Tab") importStatement += `\n import { Tabs } from 'antd';`;
+    else
+      importStatement += `\n import { ${item} } from './components/${item}';`;
+
+    // lay ra code tung file con
+    fileCode.push({
+      name: `${item}.tsx`,
+      code: convertNodeNameToCode(item),
+    });
+  });
+  // lay ra doan code return
+  const returnStatement =
+    "\n\nfunction App() {\n" +
+    "  return (" +
+    convertSerializeToString(JSON.parse(serialize), "ROOT") +
+    ")\n" +
+    "}\n" +
+    "\n" +
+    "export default App;";
+  downloadZipFile({
+    importStatement,
+    returnStatement,
+    componentsList: fileCode,
+    zipName: currentProjectName,
+  });
+}
 
 // dung de viet code vao tung file be'
 export function convertNodeNameToCode(name: string) {
