@@ -18,7 +18,7 @@ function PageBuilder() {
   const { isPreviewEditor, setCurrentProjectName, setCurrentProjectUserId } =
     useContext(PageBuilderContext);
   const { data: pageJson } = useQuery(
-    ["getPageDetail"],
+    ["getPageDetail", pathname],
     async () => {
       // @ts-ignore
       const res = await Page.getPageDetail(
