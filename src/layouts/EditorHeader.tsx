@@ -31,6 +31,8 @@ import { useEditor } from "@craftjs/core";
 import User from "../app/models/User";
 import { exportReactCode } from "../app/common/componentConvertReact";
 import { exportVueCode } from "../app/common/componentConvertVue";
+import ReactIcon from "../app/icons/ReactIcon";
+import VueIcon from "../app/icons/VueIcon";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -100,6 +102,29 @@ const items: MenuProps["items"] = [
     ],
   },
 ];
+
+const ExportPopup = ({ query, currentProjectName }: any) => {
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <Button
+        type="primary"
+        className="bg-[#087da4] hover:bg-[#075e7a] w-24 flex items-center gap-x-2"
+        onClick={() => exportReactCode(query.serialize(), currentProjectName)}
+        icon={<ReactIcon />}
+      >
+        React
+      </Button>
+      <Button
+        type="primary"
+        className="bg-[#42b883] hover:bg-[#2d805a] w-24 flex items-center gap-x-2"
+        onClick={() => exportVueCode(query.serialize(), currentProjectName)}
+        icon={<VueIcon />}
+      >
+        Vue
+      </Button>
+    </div>
+  );
+};
 
 interface SharePopupProps {
   pageId: string;
@@ -362,16 +387,20 @@ function EditorHeader() {
           >
             Save
           </Button>
-          <Button
-            type="primary"
-            className="bg-greenest"
-            onClick={() =>
-              // exportReactCode(query.serialize(), currentProjectName)
-              exportVueCode(query.serialize(), currentProjectName)
+          <Popover
+            content={
+              <ExportPopup
+                query={query}
+                currentProjectName={currentProjectName}
+              />
             }
+            title="Export code"
+            trigger="click"
           >
-            Export
-          </Button>
+            <Button type="primary" className="bg-greenest">
+              Export
+            </Button>
+          </Popover>
         </>
         {user?.id && (
           <Dropdown
