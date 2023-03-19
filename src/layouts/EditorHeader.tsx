@@ -30,6 +30,7 @@ import Page from "../app/models/Page";
 import { useEditor } from "@craftjs/core";
 import User from "../app/models/User";
 import { exportReactCode } from "../app/common/componentConvertReact";
+import { exportVueCode } from "../app/common/componentConvertVue";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -365,7 +366,8 @@ function EditorHeader() {
             type="primary"
             className="bg-greenest"
             onClick={() =>
-              exportReactCode(query.serialize(), currentProjectName)
+              // exportReactCode(query.serialize(), currentProjectName)
+              exportVueCode(query.serialize(), currentProjectName)
             }
           >
             Export
