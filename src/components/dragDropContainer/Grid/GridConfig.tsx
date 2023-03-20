@@ -12,25 +12,12 @@ function GridConfig() {
     gapX,
     gapY,
     padding,
-    paddingTop,
-    paddingBottom,
-    paddingLeft,
-    paddingRight,
     margin,
-    marginTop,
-    marginBottom,
-    marginLeft,
-    marginRight,
     borderRadius,
-    borderTopLeftRadius,
-    borderTopRightRadius,
-    borderBottomLeftRadius,
-    borderBottomRightRadius,
     backgroundColor,
     borderWidth,
     borderStyle,
     borderColor,
-    showBorder,
   } = useNode((node: any) => ({
     isCol: node.data.props.isCol,
     numCols: node.data.props.numCols,
@@ -38,37 +25,109 @@ function GridConfig() {
     gapX: node.data.props.gapX,
     gapY: node.data.props.gapY,
     padding: node.data.props.padding,
-    paddingTop: node.data.props.paddingTop,
-    paddingBottom: node.data.props.paddingBottom,
-    paddingLeft: node.data.props.paddingLeft,
-    paddingRight: node.data.props.paddingRight,
     margin: node.data.props.margin,
-    marginTop: node.data.props.marginTop,
-    marginBottom: node.data.props.marginBottom,
-    marginLeft: node.data.props.marginLeft,
-    marginRight: node.data.props.marginRight,
     borderRadius: node.data.props.borderRadius,
-    borderTopLeftRadius: node.data.props.borderTopLeftRadius,
-    borderTopRightRadius: node.data.props.borderTopRightRadius,
-    borderBottomLeftRadius: node.data.props.borderBottomLeftRadius,
-    borderBottomRightRadius: node.data.props.borderBottomRightRadius,
     backgroundColor: node.data.props.backgroundColor,
     borderWidth: node.data.props.borderWidth,
     borderStyle: node.data.props.borderStyle,
     borderColor: node.data.props.borderColor,
-    showBorder: node.data.props.showBorder,
   }));
 
   return (
     <div className="flex flex-col gap-y-4 pb-20">
       <ComponentConfigTemplate configName="General">
         <div className="flex gap-x-2 items-center justify-between">
+          <div className="w-1/2">Background Color</div>
+          <input
+            className="w-1/2"
+            type="color"
+            defaultValue={backgroundColor}
+            onChange={(e) =>
+              setProp((props: any) => (props.backgroundColor = e.target.value))
+            }
+          />
+        </div>
+        <div className="flex gap-x-2 items-center justify-between">
           <div className="w-1/2">Padding</div>
           <Input
             className="w-1/2"
-            defaultValue={padding}
+            defaultValue={
+              (padding?.includes("px")
+                ? padding.replace(/px/g, "")
+                : padding) || 0
+            }
             onChange={(e) =>
               setProp((props: any) => (props.padding = e.target.value))
+            }
+          />
+        </div>
+        <div className="flex gap-x-2 items-center justify-between">
+          <div className="w-1/2">Margin</div>
+          <Input
+            className="w-1/2"
+            defaultValue={
+              (margin?.includes("px") ? margin.replace(/px/g, "") : margin) || 0
+            }
+            onChange={(e) =>
+              setProp((props: any) => (props.margin = e.target.value))
+            }
+          />
+        </div>
+      </ComponentConfigTemplate>
+      <ComponentConfigTemplate configName="Border">
+        <div className="flex gap-x-2 items-center justify-between">
+          <div className="w-1/2">Border Width</div>
+          <Input
+            className="w-1/2"
+            defaultValue={
+              (borderWidth?.includes("px")
+                ? borderWidth.replace(/px/g, "")
+                : borderWidth) || 0
+            }
+            onChange={(e) =>
+              setProp((props: any) => (props.borderWidth = e.target.value))
+            }
+          />
+        </div>
+        <div className="flex gap-x-2 items-center justify-between">
+          <div className="w-1/2">Border Style</div>
+          <Select
+            className="w-1/2"
+            defaultValue={borderStyle}
+            options={[
+              { value: "none", label: "None" },
+              { value: "solid", label: "Solid" },
+              { value: "dotted", label: "Dotted" },
+              { value: "dashed", label: "Dashed" },
+              { value: "double", label: "Double" },
+            ]}
+            onChange={(value) =>
+              setProp((props: any) => (props.borderStyle = value))
+            }
+          />
+        </div>
+        <div className="flex gap-x-2 items-center justify-between">
+          <div className="w-1/2">Border Color</div>
+          <input
+            className="w-1/2"
+            type="color"
+            defaultValue={borderColor}
+            onChange={(e) =>
+              setProp((props: any) => (props.borderColor = e.target.value))
+            }
+          />
+        </div>
+        <div className="flex gap-x-2 items-center justify-between">
+          <div className="w-1/2">Border Radius</div>
+          <Input
+            className="w-1/2"
+            defaultValue={
+              (borderRadius?.includes("px")
+                ? borderRadius.replace(/px/g, "")
+                : borderRadius) || 0
+            }
+            onChange={(e) =>
+              setProp((props: any) => (props.borderRadius = e.target.value))
             }
           />
         </div>

@@ -36,7 +36,7 @@ interface Props {
 const defaultProps = {
   backgroundColor: "white",
   minHeight: "10rem",
-  padding: "1rem",
+  padding: "16px",
   borderRadius: "0",
   borderColor: "#f2f2f2",
   borderStyle: "solid",

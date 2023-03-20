@@ -79,7 +79,7 @@ export const grid =
   "    },\n" +
   "    borderRadius: {\n" +
   "      type: String,\n" +
-  '      default: "1rem",\n' +
+  '      default: "16px",\n' +
   "    },\n" +
   "    borderTopLeftRadius: {\n" +
   "      type: String,\n" +
