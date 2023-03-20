@@ -23,7 +23,7 @@ function Logo({ setOpenLogin, setOpenSignup }: any) {
         Component Craft
       </h1>
       <h1 className="select-none text-light text-3xl font-normal">
-        Create static website and webapp with templates
+        Design beautiful web pages effortlessly
       </h1>
       <div className="flex gap-x-2">
         <Button

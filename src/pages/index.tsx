@@ -17,8 +17,7 @@ function Pages() {
   const { pathname } = useLocation();
   const [type, setType] = useState("");
   const [visible, setVisible] = useState(false);
-  const isCreateScreen =
-    pathname.includes("/create-app") || pathname.includes("/create-page");
+  const isCreateScreen = pathname.includes("/create-page");
 
   return (
     <div>
@@ -46,11 +45,8 @@ function Pages() {
                   {user?.id && (
                     <>
                       <Route path="/create-page/*" element={<PageBuilder />} />
-                      <Route
-                        path="/create-app/*"
-                        element={<div>build app</div>}
-                      />
                       <Route path="/recent/*" element={<div>recent</div>} />
+                      <Route path="/my-pages/*" element={<div>my-pages</div>} />
                       <Route
                         path="/community/*"
                         element={<div>community</div>}

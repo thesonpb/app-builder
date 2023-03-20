@@ -351,12 +351,12 @@ export function downloadZipFile({
   if (publicFolder !== null) {
     publicFolder.file(
       "vite.svg",
-      '<svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="24.000000pt" height="24.000000pt" viewBox="0 0 24.000000 24.000000" preserveAspectRatio="xMidYMid meet">\n' +
-        "\n" +
-        '    <g transform="translate(0.000000,24.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">\n' +
-        '        <path d="M88 214 c-21 -11 -28 -22 -28 -44 0 -23 -7 -33 -30 -45 -25 -13 -30 -22 -30 -51 0 -30 5 -37 32 -49 28 -11 37 -11 60 1 24 13 32 13 56 0 23 -12 32 -12 60 -1 27 12 32 19 32 49 0 29 -5 38 -30 51 -23 12 -30 22 -30 45 0 23 -7 33 -30 45 -34 18 -28 18 -62 -1z m57 -14 c8 -13 -20 -24 -41 -16 -20 8 -9 26 16 26 10 0 22 -5 25 -10z m-51 -26 c9 -3 16 -17 16 -30 0 -22 -3 -23 -20 -14 -11 6 -20 20 -20 30 0 22 1 23 24 14z m76 -14 c0 -10 -9 -24 -20 -30 -17 -9 -20 -8 -20 14 0 22 10 33 33 35 4 1 7 -8 7 -19z m-75 -49 c7 -12 -28 -23 -49 -15 -9 3 -13 10 -10 15 7 12 51 12 59 0z m110 0 c7 -12 -28 -23 -49 -15 -9 3 -13 10 -10 15 7 12 51 12 59 0z m-155 -36 c6 -8 10 -20 8 -28 -5 -23 -48 -2 -48 23 0 23 22 27 40 5z m60 -5 c0 -10 -9 -24 -20 -30 -17 -9 -20 -8 -20 14 0 22 10 33 33 35 4 1 7 -8 7 -19z m44 14 c9 -3 16 -17 16 -30 0 -22 -3 -23 -20 -14 -11 6 -20 20 -20 30 0 22 1 23 24 14z m76 -14 c0 -25 -43 -46 -48 -23 -4 18 16 43 34 43 8 0 14 -9 14 -20z"/>\n' +
-        "    </g>\n" +
-        "</svg>"
+      '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">\n' +
+        '    <rect x="1" y="14" width="9" height="9" stroke="black" stroke-width="2"/>\n' +
+        '    <rect x="14" y="1" width="9" height="9" stroke="black" stroke-width="2"/>\n' +
+        '    <rect x="10" y="14" width="9" height="9" stroke="black" stroke-width="2"/>\n' +
+        '    <rect x="1" y="5" width="9" height="9" stroke="black" stroke-width="2"/>\n' +
+        "</svg>\n"
     );
   }
   const srcFolder = zip.folder("src");

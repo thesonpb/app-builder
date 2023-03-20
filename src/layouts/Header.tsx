@@ -7,6 +7,7 @@ import Logout from "../app/icons/Logout";
 import { useUser } from "../app/hooks";
 import { AppContext } from "../app/context/AppContext";
 import Auth from "../app/models/Auth";
+import LogoIcon from "../app/icons/LogoIcon";
 
 function Header() {
   const { setUser } = useContext(AppContext);
@@ -63,12 +64,13 @@ function Header() {
       style={{ borderBottom: "1px solid #525866" }}
     >
       <div className="w-60 h-full flex items-center justify-center">
-        <h1
-          className="text-textLight text-3xl cursor-pointer select-none"
+        <div
+          className="flex gap-x-2 items-center text-textLight text-xl font-bold cursor-pointer select-none"
           onClick={() => navigate("/")}
         >
-          LOGO
-        </h1>
+          <LogoIcon />
+          Component Craft
+        </div>
       </div>
 
       <div className="w-60 flex items-center gap-x-4 justify-end pr-4">

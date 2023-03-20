@@ -2,12 +2,12 @@ import React from "react";
 import { Layout } from "antd";
 import AddIcon from "../app/icons/AddIcon";
 import FileIcon from "../app/icons/FileIcon";
-import AppIcon from "../app/icons/AppIcon";
 import FileSmall from "../app/icons/FileSmall";
 import AppSmall from "../app/icons/AppSmall";
 import ClockIcon from "../app/icons/ClockIcon";
 import { useLocation, useNavigate } from "react-router-dom";
 import GlobalIcon from "../app/icons/GlobalIcon";
+import ArchiveIcon from "../app/icons/ArchiveIcon";
 
 const { Sider: AntSider } = Layout;
 
@@ -73,22 +73,6 @@ function Sider({ setType, setVisible }: Props) {
           </div>
           <AddIcon />
         </div>
-        <div
-          className="w-full select-none flex items-center justify-between rounded-md text-light p-4 hover:bg-lightGray cursor-pointer"
-          style={{ border: "1px solid #525866" }}
-          onClick={() => {
-            setType("APP");
-            setVisible(true);
-          }}
-        >
-          <div className="flex gap-x-2 items-center">
-            <div className="text-blue-400">
-              <AppIcon />
-            </div>
-            <div className="text-sm font-semibold">New app</div>
-          </div>
-          <AddIcon />
-        </div>
       </div>
       <div
         className="flex flex-col py-4 text-light"
@@ -104,6 +88,15 @@ function Sider({ setType, setVisible }: Props) {
         >
           <ClockIcon />
           <div className="text-sm font-semibold">Recent</div>
+        </div>
+        <div
+          className={`select-none flex px-4 gap-x-2 hover:bg-lightGray py-1.5 items-center ${
+            pathname === "/my-pages" && "bg-lightGray"
+          }`}
+          onClick={() => navigate("/my-pages")}
+        >
+          <ArchiveIcon />
+          <div className="text-sm font-semibold">My Pages</div>
         </div>
         <div
           className={`select-none flex px-4 gap-x-2 hover:bg-lightGray py-1.5 items-center ${
@@ -125,9 +118,6 @@ function Sider({ setType, setVisible }: Props) {
         {[
           { type: "page", name: "page no 1", id: 1 },
           { type: "page", name: "page no 2", id: 2 },
-          { type: "app", name: "app no 1", id: 3 },
-          { type: "app", name: "app no 2", id: 4 },
-          { type: "app", name: "app no 3", id: 5 },
         ].map((item) => renderShortcut(item))}
       </div>
     </AntSider>
