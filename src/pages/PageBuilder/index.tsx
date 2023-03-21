@@ -15,8 +15,12 @@ import { useLocation } from "react-router-dom";
 function PageBuilder() {
   const { pathname } = useLocation();
   const pathnameArray = pathname.split("/");
-  const { isPreviewEditor, setCurrentProjectName, setCurrentProjectUserId } =
-    useContext(PageBuilderContext);
+  const {
+    isPreviewEditor,
+    setCurrentProjectName,
+    setCurrentProjectUserId,
+    setProjectPreview,
+  } = useContext(PageBuilderContext);
   const { data: pageJson } = useQuery(
     ["getPageDetail", pathname],
     async () => {
@@ -25,6 +29,7 @@ function PageBuilder() {
         Number(pathnameArray[pathnameArray.length - 1])
       );
       setCurrentProjectName(res.name);
+      setProjectPreview(res.previewImage);
       setCurrentProjectUserId(res.userId);
       return res.json;
     },

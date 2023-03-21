@@ -1,14 +1,56 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Element, Frame } from "@craftjs/core";
 import { Container } from "../../components/dragDropContainer";
 import { PageBuilderContext } from "../../app/context/PageBuilderContext";
+import html2canvas from "html2canvas";
+import { beUrl } from "../../app/constants/baseUrl";
 
 interface Props {
   data: string;
 }
 
 function EditorPage({ data }: Props) {
-  const { isPreviewEditor } = useContext(PageBuilderContext);
+  const { isPreviewEditor, projectPreview } = useContext(PageBuilderContext);
+
+  const editorRef = useRef<HTMLDivElement>(null);
+
+  const handleTakeScreenshot = async () => {
+    const screenshotTarget = editorRef.current;
+    if (!screenshotTarget) {
+      console.error("Cannot take screenshot: editor element not found");
+      return;
+    }
+
+    setTimeout(() => {
+      html2canvas(screenshotTarget).then((canvas) => {
+        canvas.toBlob((blob) => {
+          const formData = new FormData();
+          if (blob) {
+            formData.append("file", blob, "screenshot.png");
+            formData.append("name", projectPreview);
+            if (formData) {
+              fetch(`${beUrl}/api/upload/update-image`, {
+                method: "POST",
+                body: formData,
+              })
+                .then((response) => {
+                  console.log("Upload successful", response);
+                })
+                .catch((error) => {
+                  console.error("Upload failed", error);
+                });
+            }
+          }
+        }, "image/png");
+      });
+    }, 1);
+  };
+
+  useEffect(() => {
+    if (data && editorRef.current) {
+      handleTakeScreenshot();
+    }
+  }, [data, editorRef.current]);
 
   return (
     <div
@@ -16,6 +58,7 @@ function EditorPage({ data }: Props) {
       style={{ transition: isPreviewEditor ? "all 0.25s" : "all 0.2s" }}
     >
       <div
+        ref={editorRef}
         className={`craftjs-renderer top-16 small-scroll-bar`}
         // ref={(ref: any) => connectors.select(connectors.hover(ref, null), null)}
       >
