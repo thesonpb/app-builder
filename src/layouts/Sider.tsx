@@ -4,7 +4,6 @@ import AddIcon from "../app/icons/AddIcon";
 import FileIcon from "../app/icons/FileIcon";
 import FileSmall from "../app/icons/FileSmall";
 import AppSmall from "../app/icons/AppSmall";
-import ClockIcon from "../app/icons/ClockIcon";
 import { useLocation, useNavigate } from "react-router-dom";
 import GlobalIcon from "../app/icons/GlobalIcon";
 import ArchiveIcon from "../app/icons/ArchiveIcon";
@@ -81,16 +80,7 @@ function Sider({ setType, setVisible }: Props) {
         }}
       >
         <div
-          className={`select-none flex px-4 gap-x-2 hover:bg-lightGray py-1.5 items-center ${
-            pathname === "/recent" && "bg-lightGray"
-          }`}
-          onClick={() => navigate("/recent")}
-        >
-          <ClockIcon />
-          <div className="text-sm font-semibold">Recent</div>
-        </div>
-        <div
-          className={`select-none flex px-4 gap-x-2 hover:bg-lightGray py-1.5 items-center ${
+          className={`select-none cursor-pointer flex px-4 gap-x-2 hover:bg-lightGray py-1.5 items-center ${
             pathname === "/my-pages" && "bg-lightGray"
           }`}
           onClick={() => navigate("/my-pages")}
@@ -99,7 +89,7 @@ function Sider({ setType, setVisible }: Props) {
           <div className="text-sm font-semibold">My Pages</div>
         </div>
         <div
-          className={`select-none flex px-4 gap-x-2 hover:bg-lightGray py-1.5 items-center ${
+          className={`select-none cursor-pointer flex px-4 gap-x-2 hover:bg-lightGray py-1.5 items-center ${
             pathname === "/community" && "bg-lightGray"
           }`}
           onClick={() => navigate("/community")}

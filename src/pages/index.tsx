@@ -9,6 +9,7 @@ import PageBuilder from "./PageBuilder";
 import { PageBuilderProvider } from "../app/context/PageBuilderContext";
 import { useUser } from "../app/hooks";
 import Homepage from "./Homepage";
+import MyPage from "./MyPage";
 
 const { Content } = Layout;
 
@@ -32,21 +33,20 @@ function Pages() {
               <Content
                 className={`m-0 ${
                   !isCreateScreen && user?.id && "ml-60 p-6"
-                } bg-editor`}
+                } bg-editor main-content`}
               >
                 <Routes>
                   <Route
                     index
                     element={
-                      !user?.id ? <Homepage /> : <Navigate to="/recent" />
+                      !user?.id ? <Homepage /> : <Navigate to="/my-pages" />
                     }
                   />
 
                   {user?.id && (
                     <>
                       <Route path="/create-page/*" element={<PageBuilder />} />
-                      <Route path="/recent/*" element={<div>recent</div>} />
-                      <Route path="/my-pages/*" element={<div>my-pages</div>} />
+                      <Route path="/my-pages/*" element={<MyPage />} />
                       <Route
                         path="/community/*"
                         element={<div>community</div>}

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { PageBuilderContext } from "../../app/context/PageBuilderContext";
 import ComponentConfig from "./ComponentConfig";
 import ComponentPicker from "./ComponentPicker";
@@ -13,6 +13,7 @@ import Page from "../../app/models/Page";
 import { useLocation } from "react-router-dom";
 
 function PageBuilder() {
+  const [pageJson, setPageJson] = useState("");
   const { pathname } = useLocation();
   const pathnameArray = pathname.split("/");
   const {
@@ -21,20 +22,16 @@ function PageBuilder() {
     setCurrentProjectUserId,
     setProjectPreview,
   } = useContext(PageBuilderContext);
-  const { data: pageJson } = useQuery(
-    ["getPageDetail", pathname],
-    async () => {
-      // @ts-ignore
-      const res = await Page.getPageDetail(
-        Number(pathnameArray[pathnameArray.length - 1])
-      );
-      setCurrentProjectName(res.name);
-      setProjectPreview(res.previewImage);
-      setCurrentProjectUserId(res.userId);
-      return res.json;
-    },
-    { initialData: "" }
-  );
+  useQuery(["getPageDetailBuilder", pathname], async () => {
+    // @ts-ignore
+    const res = await Page.getPageDetail(
+      Number(pathnameArray[pathnameArray.length - 1])
+    );
+    setCurrentProjectName(res.name);
+    setProjectPreview(res.previewImage);
+    setCurrentProjectUserId(res.userId);
+    setPageJson(res.json);
+  });
   return (
     <>
       {pageJson ? (

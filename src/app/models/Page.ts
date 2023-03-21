@@ -19,6 +19,8 @@ class Page extends Base {
   getListCurrentPageName = () =>
     this.apiGet(`/api/page/get-list-current-page-name`);
 
+  getListCurrentPage = () => this.apiGet(`/api/page/get-list-current-page`);
+
   updatePageJson = (body: any) =>
     this.apiPut(`/api/page/update-json/${body.id}`, body.page);
 

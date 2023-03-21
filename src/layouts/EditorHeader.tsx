@@ -11,7 +11,6 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PageBuilderContext } from "../app/context/PageBuilderContext";
 import AppSmall from "../app/icons/AppSmall";
-import ClockIcon from "../app/icons/ClockIcon";
 import DownIcon from "../app/icons/DownIcon";
 import FileSmall from "../app/icons/FileSmall";
 import GlobalIcon from "../app/icons/GlobalIcon";
@@ -33,6 +32,7 @@ import { exportReactCode } from "../app/common/componentConvertReact";
 import { exportVueCode } from "../app/common/componentConvertVue";
 import ReactIcon from "../app/icons/ReactIcon";
 import VueIcon from "../app/icons/VueIcon";
+import ArchiveIcon from "../app/icons/ArchiveIcon";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -46,12 +46,12 @@ const CustomSelect = styled(Select)`
 const items: MenuProps["items"] = [
   {
     label: (
-      <Link className="flex gap-x-2 items-center" to={`/recent`}>
-        <ClockIcon />
-        <div className="text-sm font-semibold">Recent</div>
+      <Link className="flex gap-x-2 items-center" to={`/my-pages`}>
+        <ArchiveIcon />
+        <div className="text-sm font-semibold">My Pages</div>
       </Link>
     ),
-    key: "recent",
+    key: "my-pages",
   },
   {
     label: (
@@ -255,6 +255,7 @@ function EditorHeader() {
   const pathnameArray = pathname.split("/");
   const { query } = useEditor();
   const { setUser } = useContext(AppContext);
+  const { setSavedSuccess } = useContext(PageBuilderContext);
   const { user } = useUser();
   const {
     isPreviewEditor,
@@ -310,6 +311,7 @@ function EditorHeader() {
   // @ts-ignore
   const updatePageJsonMutation = useMutation(Page.updatePageJson, {
     onSuccess: () => {
+      setSavedSuccess(true);
       message.success("Saved");
     },
   });

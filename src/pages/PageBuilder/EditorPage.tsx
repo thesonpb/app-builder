@@ -10,7 +10,8 @@ interface Props {
 }
 
 function EditorPage({ data }: Props) {
-  const { isPreviewEditor, projectPreview } = useContext(PageBuilderContext);
+  const { isPreviewEditor, projectPreview, isSavedSuccess, setSavedSuccess } =
+    useContext(PageBuilderContext);
 
   const editorRef = useRef<HTMLDivElement>(null);
 
@@ -32,13 +33,9 @@ function EditorPage({ data }: Props) {
               fetch(`${beUrl}/api/upload/update-image`, {
                 method: "POST",
                 body: formData,
-              })
-                .then((response) => {
-                  console.log("Upload successful", response);
-                })
-                .catch((error) => {
-                  console.error("Upload failed", error);
-                });
+              }).catch((error) => {
+                console.error("Upload failed", error);
+              });
             }
           }
         }, "image/png");
@@ -47,10 +44,11 @@ function EditorPage({ data }: Props) {
   };
 
   useEffect(() => {
-    if (data && editorRef.current) {
+    if ((data && editorRef.current) || isSavedSuccess) {
       handleTakeScreenshot();
     }
-  }, [data, editorRef.current]);
+    setSavedSuccess(false);
+  }, [data, editorRef.current, isSavedSuccess]);
 
   return (
     <div

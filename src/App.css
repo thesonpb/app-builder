@@ -67,3 +67,7 @@
 .ant-switch-checked {
     background-color: #2d9d78 !important;
 }
+
+.main-content {
+    min-height: calc(100vh - 64px) !important;
+}
