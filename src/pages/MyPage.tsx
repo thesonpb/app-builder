@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "antd";
 import SearchIcon from "../app/icons/SearchIcon";
 import PagePreview from "../components/cards/PagePreview";
@@ -15,13 +15,24 @@ interface Page {
 }
 
 function MyPage() {
-  const { data: pageList } = useQuery(
+  const [search, setSearch] = useState("");
+  const [pageList, setPageList] = useState([]);
+  const { data: pages }: any = useQuery(
     ["getListPages"],
     async () => {
-      return await Page.getListCurrentPage();
+      const res = await Page.getListCurrentPage();
+      setPageList(res);
+      return pages;
     },
     { initialData: [] }
   );
+  useEffect(() => {
+    setPageList(
+      pages?.filter((item: Page) =>
+        item.name.toLowerCase()?.includes(search.toLowerCase())
+      )
+    );
+  }, [search]);
 
   return (
     <div>
@@ -32,6 +43,7 @@ function MyPage() {
           className="w-96 ml-2"
           size="large"
           placeholder="Search for your page"
+          onChange={(e) => setSearch(e.target.value)}
         />
       </div>
       <div className="grid flex justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
