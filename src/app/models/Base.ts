@@ -20,8 +20,8 @@ class Base {
     });
   }
 
-  apiGet(url: string) {
-    return http.get<any>(url).then((res) => res.data);
+  apiGet(url: string, params?: object) {
+    return http.get<any>(url, { params }).then((res) => res.data);
   }
   apiPost(url: string, body: any) {
     return http.post<any>(url, body).then((res) => res.data);

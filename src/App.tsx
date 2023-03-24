@@ -49,7 +49,6 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Routes>
         <Route path="/page/*" element={<Page />} />
-        <Route path="/app/*" element={<div>app</div>} />
         <Route path="/*" element={!user?.id ? <Homepage /> : <OtherPage />} />
       </Routes>
     </QueryClientProvider>

@@ -11,7 +11,9 @@ function ProjectPreview({ id, name, modifiedAt, previewImage }: any) {
     const now = new Date();
     const diff = now.getTime() - date.getTime();
 
-    if (diff < 3600000) {
+    if (diff < 60000) {
+      return "Just now";
+    } else if (diff < 3600000) {
       const min = Math.floor(diff / 60000);
       if (min <= 1) return `${min} minute ago`;
 
@@ -21,6 +23,11 @@ function ProjectPreview({ id, name, modifiedAt, previewImage }: any) {
       if (hour <= 1) return `${hour} hour ago`;
 
       return `${hour} hours ago`;
+    } else if (diff < 604800000) {
+      const days = Math.floor(diff / 86400000);
+      if (days <= 1) return `${days} day ago`;
+
+      return `${days} days ago`;
     } else {
       const day = date.getDate();
       const month = date.getMonth() + 1;
@@ -33,7 +40,7 @@ function ProjectPreview({ id, name, modifiedAt, previewImage }: any) {
 
   return (
     <div
-      className="cursor-pointer w-full h-60 hover:shadow-md border-solid border border-[#0000] rounded-lg overflow-hidden p-2 flex flex-col justify-between"
+      className="cursor-pointer w-full h-60 hover:shadow-lg hover:border-solid hover:border hover:border-border rounded-lg overflow-hidden p-2 flex flex-col justify-between"
       style={{
         transitionProperty: "box-shadow, border-color",
         transitionTimingFunction: "ease",
@@ -49,10 +56,12 @@ function ProjectPreview({ id, name, modifiedAt, previewImage }: any) {
         />
       </div>
       <div className="pt-2 flex gap-x-2 items-center">
-        <FileIcon />
-        <div className="">
-          <div className="text-sm text-gray-800 font-medium">{name}</div>
-          <div className="text-xs text-gray-500">{formatTime(modifiedAt)}</div>
+        <div className="text-green-400">
+          <FileIcon />
+        </div>
+        <div>
+          <div className="text-sm font-medium text-light">{name}</div>
+          <div className="text-xs text-gray-400">{formatTime(modifiedAt)}</div>
         </div>
       </div>
     </div>

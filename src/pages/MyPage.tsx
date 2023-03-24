@@ -35,8 +35,14 @@ function MyPage() {
   }, [search]);
 
   return (
-    <div>
-      <div className="mb-8">
+    <div className="bg-dark main-content">
+      <div
+        className="bg-dark text-light px-8 py-4 font-semibold text-base"
+        style={{ borderBottom: "1px solid #525866" }}
+      >
+        My pages
+      </div>
+      <div className="py-4 px-6">
         <Input
           id="search-box"
           prefix={<SearchIcon />}
@@ -46,7 +52,7 @@ function MyPage() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <div className="grid flex justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+      <div className="p-6 grid flex justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
         {pageList?.map((page: Page) => (
           <PagePreview
             id={page.id}

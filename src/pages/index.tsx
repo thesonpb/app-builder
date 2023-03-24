@@ -10,6 +10,7 @@ import { PageBuilderProvider } from "../app/context/PageBuilderContext";
 import { useUser } from "../app/hooks";
 import Homepage from "./Homepage";
 import MyPage from "./MyPage";
+import PublicPage from "./PublicPage";
 
 const { Content } = Layout;
 
@@ -32,7 +33,7 @@ function Pages() {
             <Layout>
               <Content
                 className={`m-0 ${
-                  !isCreateScreen && user?.id && "ml-60 p-6"
+                  !isCreateScreen && user?.id && "ml-60"
                 } bg-editor main-content`}
               >
                 <Routes>
@@ -47,10 +48,7 @@ function Pages() {
                     <>
                       <Route path="/create-page/*" element={<PageBuilder />} />
                       <Route path="/my-pages/*" element={<MyPage />} />
-                      <Route
-                        path="/community/*"
-                        element={<div>community</div>}
-                      />
+                      <Route path="/community/*" element={<PublicPage />} />
                     </>
                   )}
                   <Route path="*" element={<PageNotFound />} />
