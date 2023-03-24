@@ -5,7 +5,7 @@ import PagePreview from "../components/cards/PagePreview";
 import Page from "../app/models/Page";
 import { useQuery } from "react-query";
 
-interface Page {
+interface PageInterface {
   id: number;
   userId: number;
   name: string;
@@ -28,7 +28,7 @@ function MyPage() {
   );
   useEffect(() => {
     setPageList(
-      pages?.filter((item: Page) =>
+      pages?.filter((item: PageInterface) =>
         item.name.toLowerCase()?.includes(search.toLowerCase())
       )
     );
@@ -53,7 +53,7 @@ function MyPage() {
         />
       </div>
       <div className="p-6 grid flex justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-        {pageList?.map((page: Page) => (
+        {pageList?.map((page: PageInterface) => (
           <PagePreview
             id={page.id}
             name={page.name}

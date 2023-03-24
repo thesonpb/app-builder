@@ -7,6 +7,7 @@ export interface UserInterface {
   firstName: string;
   lastName: string;
   photos: string;
+  cover: string;
 }
 
 export interface SuccessLogin {

@@ -16,7 +16,6 @@ import FileSmall from "../app/icons/FileSmall";
 import GlobalIcon from "../app/icons/GlobalIcon";
 import EditPageIcon from "../app/icons/EditPageIcon";
 import EyeIcon from "../app/icons/EyeIcon";
-import Heart from "../app/icons/Heart";
 import UserIcon from "../app/icons/User";
 import Logout from "../app/icons/Logout";
 import styled from "styled-components";
@@ -273,18 +272,6 @@ function EditorHeader() {
         </Link>
       ),
       key: "profile",
-    },
-    {
-      type: "divider",
-    },
-    {
-      label: (
-        <Link className="flex gap-x-2 items-center" to={`/likes`}>
-          <Heart />
-          <div className="text-sm font-semibold">My likes</div>
-        </Link>
-      ),
-      key: "likes",
     },
     {
       type: "divider",

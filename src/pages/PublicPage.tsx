@@ -32,11 +32,11 @@ function PublicPage() {
   }, 500);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery(
-      ["getListPublicPagespaja", search],
+      ["getListPublicPages", search],
       async ({ pageParam = 0 }) => {
         return await Page.getListPublicPage({
           page: pageParam,
-          size: 5,
+          size: 15,
           name: search,
         });
       },

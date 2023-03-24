@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { Button, Dropdown, MenuProps } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import Heart from "../app/icons/Heart";
 import User from "../app/icons/User";
 import Logout from "../app/icons/Logout";
 import { useUser } from "../app/hooks";
@@ -23,18 +22,6 @@ function Header() {
         </Link>
       ),
       key: "profile",
-    },
-    {
-      type: "divider",
-    },
-    {
-      label: (
-        <Link className="flex gap-x-2 items-center" to={`/likes`}>
-          <Heart />
-          <div className="text-sm font-semibold">My likes</div>
-        </Link>
-      ),
-      key: "likes",
     },
     {
       type: "divider",

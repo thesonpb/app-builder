@@ -6,6 +6,9 @@ class User extends Base {
 
   getListUser = (username: string) =>
     this.apiGet(`/api/user/get-list-user?username=${username || ""}`);
+
+  updateAvatar = (photoUrl: any) => this.apiPut("/api/user/avatar", photoUrl);
+  updateCover = (photoUrl: any) => this.apiPut("/api/user/cover", photoUrl);
 }
 
 export default new User();

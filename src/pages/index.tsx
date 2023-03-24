@@ -11,6 +11,7 @@ import { useUser } from "../app/hooks";
 import Homepage from "./Homepage";
 import MyPage from "./MyPage";
 import PublicPage from "./PublicPage";
+import Profile from "./Profile";
 
 const { Content } = Layout;
 
@@ -20,6 +21,7 @@ function Pages() {
   const [type, setType] = useState("");
   const [visible, setVisible] = useState(false);
   const isCreateScreen = pathname.includes("/create-page");
+  const isProfilePage = pathname.includes("/profile");
 
   return (
     <div>
@@ -27,13 +29,13 @@ function Pages() {
         <Layout>
           {pathname !== "/" && !isCreateScreen && <Header />}
           <Layout>
-            {!isCreateScreen && user?.id && (
+            {!isCreateScreen && user?.id && !isProfilePage && (
               <Sider setType={setType} setVisible={setVisible} />
             )}
             <Layout>
               <Content
                 className={`m-0 ${
-                  !isCreateScreen && user?.id && "ml-60"
+                  !isCreateScreen && user?.id && !isProfilePage && "ml-60"
                 } bg-editor main-content`}
               >
                 <Routes>
@@ -43,6 +45,8 @@ function Pages() {
                       !user?.id ? <Homepage /> : <Navigate to="/my-pages" />
                     }
                   />
+
+                  <Route path="/profile/:id" element={<Profile />} />
 
                   {user?.id && (
                     <>
