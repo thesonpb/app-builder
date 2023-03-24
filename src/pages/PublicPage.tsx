@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Input } from "antd";
 import SearchIcon from "../app/icons/SearchIcon";
 import PagePreview from "../components/cards/PagePreview";
@@ -13,22 +13,35 @@ interface Page {
   modifiedAt: string;
   previewImage: string;
 }
-
+const debounce = (func: any, delay: any) => {
+  // @ts-ignore
+  let timer;
+  // @ts-ignore
+  return function (...args) {
+    // @ts-ignore
+    const context = this;
+    // @ts-ignore
+    clearTimeout(timer);
+    timer = setTimeout(() => func.apply(context, args), delay);
+  };
+};
 function PublicPage() {
   const [search, setSearch] = useState("");
+  const handleSearch = debounce((value: string) => {
+    setSearch(value);
+  }, 500);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery(
-      ["getListPublicPagespaja"],
+      ["getListPublicPagespaja", search],
       async ({ pageParam = 0 }) => {
         return await Page.getListPublicPage({
           page: pageParam,
-          size: 15, // number of pages to retrieve per API call
+          size: 5,
+          name: search,
         });
       },
       {
         getNextPageParam: (lastPage) => {
-          console.log({ lastPage });
-          // return the next page number, or null if there are no more pages
           const nextPage = lastPage.number + 1;
           return nextPage < lastPage.totalPages ? nextPage : null;
         },
@@ -36,17 +49,7 @@ function PublicPage() {
       }
     );
 
-  const filteredPages = data?.pages
-    ?.flatMap((page) => page.content)
-    ?.filter((item: Page) =>
-      item.name.toLowerCase()?.includes(search.toLowerCase())
-    );
-
-  useEffect(() => {
-    // reset the list when search query changes
-    // @ts-ignore
-    fetchNextPage(0);
-  }, [search]);
+  const filteredPages = data?.pages?.flatMap((page) => page.content);
 
   return (
     <div className="bg-dark main-content">
@@ -63,7 +66,7 @@ function PublicPage() {
           className="w-96 ml-2"
           size="large"
           placeholder="Search for public pages"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => handleSearch(e.target.value)}
         />
       </div>
       <div className="p-6 grid flex justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">

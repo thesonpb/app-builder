@@ -22,7 +22,7 @@ function MyPage() {
     async () => {
       const res = await Page.getListCurrentPage();
       setPageList(res);
-      return pages;
+      return res;
     },
     { initialData: [] }
   );
