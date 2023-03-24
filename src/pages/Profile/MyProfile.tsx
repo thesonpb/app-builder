@@ -1,21 +1,22 @@
 import React, { useContext } from "react";
-import { Button, Divider, message, Upload } from "antd";
+import { Button, Divider, Form, message, Tag, Upload } from "antd";
 import { useUser } from "../../app/hooks";
-import { beUrl } from "../../app/constants/baseUrl";
-import { useMutation } from "react-query";
+import { beUrl, feUrl } from "../../app/constants/baseUrl";
+import { useMutation, useQuery } from "react-query";
 import { AppContext } from "../../app/context/AppContext";
 import User from "../../app/models/User";
 import styled from "styled-components";
 import EditIcon from "../../app/icons/EditIcon";
 import UserInfo from "./UserInfo";
 import SavedPage from "./SavedPage";
+import { CopyOutlined } from "@ant-design/icons";
 
 const CustomUpload = styled(Upload)`
   .ant-upload {
     border: none !important;
     background: none !important;
     position: absolute;
-    bottom: -20px;
+    bottom: -10px;
     left: 10px;
   }
 `;
@@ -33,7 +34,18 @@ const CoverUpload = styled(Upload)`
 function MyProfile({ id }: any) {
   const { user } = useUser();
   const { setUser } = useContext(AppContext);
-
+  const [form] = Form.useForm();
+  const { data: userData, refetch } = useQuery(
+    ["getUserProfileData", id],
+    async () => {
+      const res = await User.getUserDetail(id);
+      form.setFieldsValue({ ...res });
+      return res;
+    },
+    {
+      initialData: {},
+    }
+  );
   const updateAvatar = useMutation(User.updateAvatar, {
     onSuccess: (e) => {
       const localUser = JSON.parse(localStorage.getItem("user") || "");
@@ -79,14 +91,17 @@ function MyProfile({ id }: any) {
       message.error("Đã có lỗi xảy ra");
     }
   };
-
+  const copyToClipBoard = () => {
+    navigator.clipboard.writeText(`${feUrl}/profile/${id}`);
+    message.success("Link copied!");
+  };
   return (
     <div className="bg-dark main-content flex justify-center">
       <div className="w-2/3">
-        <div className="relative h-60">
+        <div className="relative h-80">
           {user?.cover ? (
             <img
-              className="w-full h-full object-cover"
+              className="w-full h-60 object-cover"
               src={`${beUrl}/resources/images/${user?.cover}`}
               alt="cover"
             />
@@ -104,7 +119,22 @@ function MyProfile({ id }: any) {
               <EditIcon />
             </Button>
           </CoverUpload>
-
+          <div className="flex">
+            <div className="w-52"></div>
+            <div className="">
+              <div className=" tracking-wide text-2xl text-light font-semibold">
+                {userData?.firstName} {userData?.lastName}
+              </div>
+              <p
+                className="mt-0 text-gray-500 text-base hover:text-gray-200 cursor-pointer"
+                onClick={copyToClipBoard}
+              >
+                @{userData?.userName} <CopyOutlined />
+              </p>
+              <Tag color="#2db7f5">20 public pages</Tag>
+              <Tag color="#87d068">1k users saved your pages</Tag>
+            </div>
+          </div>
           <CustomUpload
             name="file"
             listType="picture-card"
@@ -116,21 +146,21 @@ function MyProfile({ id }: any) {
               <img
                 src={`${beUrl}/resources/images/${user?.photos}`}
                 alt="avatar"
-                className="rounded-full w-20 h-20"
+                className="rounded-full w-40 h-40"
               />
             ) : (
-              <div className="border-solid border border-white rounded-full w-20 h-20">
+              <div className="border-solid border border-white rounded-full w-40 h-40">
                 Upload
               </div>
             )}
           </CustomUpload>
         </div>
-        <Divider className="mt-8" style={{ background: "#525866" }} />
+        <Divider className="mt-16" style={{ background: "#525866" }} />
         <div className="flex">
           <div className="w-1/4">
-            <UserInfo id={id} />
+            <UserInfo userData={userData} form={form} refetch={refetch} />
           </div>
-          <Divider style={{ background: "#525866" }} type="vertical" />
+          <div style={{ borderRight: "1px solid #525866" }} />
           <div className="w-3/4">
             <SavedPage />
           </div>

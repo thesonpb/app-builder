@@ -2,7 +2,6 @@ import React from "react";
 import PagePreview from "../../components/cards/PagePreview";
 import { useQuery } from "react-query";
 import Page from "../../app/models/Page";
-import { Spin } from "antd";
 
 interface PageInterface {
   id: number;
@@ -14,7 +13,7 @@ interface PageInterface {
 }
 
 function SavedPage() {
-  const { data: pageList, isFetching }: any = useQuery(
+  const { data: pageList }: any = useQuery(
     ["getListPages"],
     async () => {
       return await Page.getListSavedPage();
@@ -23,21 +22,19 @@ function SavedPage() {
   );
 
   return (
-    <Spin spinning={isFetching}>
-      <div className="px-4">
-        <h3 className="mt-0 mb-4 text-light">Saved pages</h3>
-        <div className="p-6 grid flex justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
-          {pageList?.map((page: PageInterface) => (
-            <PagePreview
-              id={page.id}
-              name={page.name}
-              modifiedAt={page.modifiedAt}
-              previewImage={page.previewImage}
-            />
-          ))}
-        </div>
+    <div className="px-4">
+      <h2 className="mt-0 mb-4 text-light">Saved pages</h2>
+      <div className="grid flex justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
+        {pageList?.map((page: PageInterface) => (
+          <PagePreview
+            id={page.id}
+            name={page.name}
+            modifiedAt={page.modifiedAt}
+            previewImage={page.previewImage}
+          />
+        ))}
       </div>
-    </Spin>
+    </div>
   );
 }
 
