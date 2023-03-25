@@ -6,11 +6,48 @@ import { useMutation } from "react-query";
 import { AppContext } from "../../app/context/AppContext";
 import User from "../../app/models/User";
 import { SuccessLogin } from "../../app/models/interface";
+import styled from "styled-components";
 
 interface Props {
   isOpenLogin: boolean;
   setOpenLogin: any;
 }
+
+const CustomModal = styled(Modal)`
+  .ant-modal-content {
+    background: #343a40;
+  }
+`;
+
+const CustomInput = styled(Input)`
+  background: #495057 !important;
+  border: none !important;
+  color: #e9ecef;
+
+  &::placeholder {
+    color: #999;
+  }
+
+  :where(.css-dev-only-do-not-override-sk7ap8).ant-input-disabled,
+  :where(.css-dev-only-do-not-override-sk7ap8).ant-input[disabled] {
+    color: #a4a5a7;
+  }
+`;
+
+const CustomPassword = styled(Input.Password)`
+  :where(.css-dev-only-do-not-override-sk7ap8).ant-input-affix-wrapper,
+  .ant-input {
+    background: #495057 !important;
+    border: none !important;
+    color: #e9ecef;
+  }
+  .ant-input-password-icon {
+    color: #e9ecef !important;
+  }
+  input::placeholder {
+    color: #999 !important;
+  }
+`;
 
 function Login({ isOpenLogin, setOpenLogin }: Props) {
   const { setUser } = useContext(AppContext);
@@ -32,7 +69,7 @@ function Login({ isOpenLogin, setOpenLogin }: Props) {
   });
 
   return (
-    <Modal
+    <CustomModal
       width={400}
       destroyOnClose
       closable={false}
@@ -41,7 +78,7 @@ function Login({ isOpenLogin, setOpenLogin }: Props) {
       footer={null}
     >
       <div className="flex flex-col justify-center items-center py-6">
-        <div className="font-medium mb-4 self-center text-3xl uppercase text-gray-800">
+        <div className="text-light font-medium mb-4 self-center text-3xl uppercase">
           Login
         </div>
 
@@ -57,7 +94,11 @@ function Login({ isOpenLogin, setOpenLogin }: Props) {
               required
               name="username"
             >
-              <Input className="h-12" size="large" placeholder="Username" />
+              <CustomInput
+                className="h-12"
+                size="large"
+                placeholder="Username"
+              />
             </Form.Item>
             <Form.Item
               rules={[
@@ -69,7 +110,7 @@ function Login({ isOpenLogin, setOpenLogin }: Props) {
               required
               name="password"
             >
-              <Input.Password
+              <CustomPassword
                 className="h-12"
                 size="large"
                 placeholder="Password"
@@ -89,7 +130,7 @@ function Login({ isOpenLogin, setOpenLogin }: Props) {
           </Form>
         </div>
       </div>
-    </Modal>
+    </CustomModal>
   );
 }
 

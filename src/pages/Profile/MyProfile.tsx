@@ -106,7 +106,7 @@ function MyProfile({ id }: any) {
               alt="cover"
             />
           ) : (
-            <div className="w-full h-full bg-greenest"></div>
+            <div className="w-full h-60 bg-greenest"></div>
           )}
           <CoverUpload
             name="file"
@@ -146,12 +146,10 @@ function MyProfile({ id }: any) {
               <img
                 src={`${beUrl}/resources/images/${user?.photos}`}
                 alt="avatar"
-                className="rounded-full w-40 h-40"
+                className="object-cover object-center rounded-full w-40 h-40"
               />
             ) : (
-              <div className="border-solid border border-white rounded-full w-40 h-40">
-                Upload
-              </div>
+              <div className="border-solid border border-white rounded-full w-40 h-40 bg-blue-400" />
             )}
           </CustomUpload>
         </div>

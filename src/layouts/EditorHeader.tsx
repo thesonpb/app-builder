@@ -218,7 +218,7 @@ const SharePopup = ({ pageId }: SharePopupProps) => {
           <div className="flex items-center">
             {pagePrivacy === "PUBLIC" ? <GlobalIcon /> : <Lock />}
             <CustomSelect
-              defaultValue="PUBLIC"
+              defaultValue={pagePrivacy}
               bordered={false}
               onChange={(value: any) => {
                 updatePagePrivacyMutation.mutate({
