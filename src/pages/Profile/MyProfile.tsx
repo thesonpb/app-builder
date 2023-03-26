@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button, Divider, Form, message, Tag, Upload } from "antd";
+import { Button, Divider, Form, message, Upload } from "antd";
 import { useUser } from "../../app/hooks";
 import { beUrl, feUrl } from "../../app/constants/baseUrl";
 import { useMutation, useQuery } from "react-query";
@@ -131,8 +131,6 @@ function MyProfile({ id }: any) {
               >
                 @{userData?.userName} <CopyOutlined />
               </p>
-              <Tag color="#2db7f5">20 public pages</Tag>
-              <Tag color="#87d068">1k users saved your pages</Tag>
             </div>
           </div>
           <CustomUpload

@@ -217,28 +217,30 @@ const SharePopup = ({ pageId }: SharePopupProps) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             {pagePrivacy === "PUBLIC" ? <GlobalIcon /> : <Lock />}
-            <CustomSelect
-              defaultValue={pagePrivacy}
-              bordered={false}
-              onChange={(value: any) => {
-                updatePagePrivacyMutation.mutate({
-                  page: {
-                    privacy: value,
+            {pagePrivacy && (
+              <CustomSelect
+                defaultValue={pagePrivacy}
+                bordered={false}
+                onChange={(value: any) => {
+                  updatePagePrivacyMutation.mutate({
+                    page: {
+                      privacy: value,
+                    },
+                    id: pageId,
+                  });
+                }}
+                options={[
+                  {
+                    value: "PUBLIC",
+                    label: "Public",
                   },
-                  id: pageId,
-                });
-              }}
-              options={[
-                {
-                  value: "PUBLIC",
-                  label: "Public",
-                },
-                {
-                  value: "PRIVATE",
-                  label: "Private",
-                },
-              ]}
-            />
+                  {
+                    value: "PRIVATE",
+                    label: "Private",
+                  },
+                ]}
+              />
+            )}
           </div>
         </div>
         <Button type="primary" className="w-full mt-2">

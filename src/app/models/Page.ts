@@ -23,6 +23,9 @@ class Page extends Base {
 
   getListSavedPage = () => this.apiGet(`/api/page/get-saved-list`);
 
+  getListPublicPageOfUser = (id: any) =>
+    this.apiGet(`/api/page/get-list-public-page-user/${id}`);
+
   getListPublicPage = (params: any) =>
     this.apiGet(`/api/page/get-list-public-page`, params);
 

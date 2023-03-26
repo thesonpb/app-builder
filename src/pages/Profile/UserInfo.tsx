@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import styled from "styled-components";
+import { useMutation } from "react-query";
+import User from "../../app/models/User";
 
 const CustomInput = styled(Input)`
   background: #495057 !important;
@@ -38,8 +40,22 @@ function UserInfo({ form, userData, refetch }: any) {
     form.setFieldsValue({ ...userData });
   }, [isEdit]);
 
+  const updateUser = useMutation(User.updateUserInfo, {
+    onSuccess: () => {
+      refetch();
+      setEdit(false);
+      message.success("User updated successfully!");
+    },
+    onError: (e: any) => {
+      if (e.response.data.message === "Invalid current password") {
+        message.error("Invalid current password!");
+      } else {
+        message.error("Error!");
+      }
+    },
+  });
   const handleFinish = (value: any) => {
-    console.log({ value });
+    updateUser.mutate(value);
   };
   return (
     <div className="px-4">
