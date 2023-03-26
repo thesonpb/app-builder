@@ -1,12 +1,14 @@
 import React from "react";
-import { Layout } from "antd";
+import { Dropdown, Layout, MenuProps } from "antd";
 import AddIcon from "../app/icons/AddIcon";
 import FileIcon from "../app/icons/FileIcon";
 import FileSmall from "../app/icons/FileSmall";
-import AppSmall from "../app/icons/AppSmall";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import GlobalIcon from "../app/icons/GlobalIcon";
 import ArchiveIcon from "../app/icons/ArchiveIcon";
+import { useMutation, useQuery } from "react-query";
+import Page from "../app/models/Page";
+import MoreIcon from "../app/icons/MoreIcon";
 
 const { Sider: AntSider } = Layout;
 
@@ -22,24 +24,83 @@ interface Props {
 function Sider({ setType, setVisible }: Props) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const renderShortcut = ({ type, name, id }: Shortcut) => (
-    <div
-      key={id}
-      className="select-none flex gap-x-2 items-center hover:bg-lightGray py-1 px-2 cursor-pointer rounded-md"
-      onClick={() => navigate(`/${type}/${id}`)}
-    >
-      {type === "page" ? (
-        <div className="text-green-400">
-          <FileSmall />
-        </div>
-      ) : (
-        <div className="text-blue-400">
-          <AppSmall />
-        </div>
-      )}
-      <div className="text-sm font-semibold">{name}</div>
-    </div>
+  const { data: shortcutList, refetch } = useQuery(
+    ["getListShorcut"],
+    async () => {
+      return await Page.getListShortcut();
+    },
+    { initialData: [] }
   );
+
+  const deleteShortcut = useMutation(Page.deleteShortcut, {
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
+  const renderShortcut = ({ name, id }: Shortcut) => {
+    const items: MenuProps["items"] = [
+      {
+        label: (
+          <Link
+            target="_blank"
+            className="flex gap-x-2 items-center"
+            to={`/page/${id}`}
+          >
+            <div className="text-sm font-semibold">Go to page</div>
+          </Link>
+        ),
+        key: "page",
+      },
+      {
+        label: (
+          <Link className="flex gap-x-2 items-center" to={`/create-page/${id}`}>
+            <div className="text-sm font-semibold">Go to editor</div>
+          </Link>
+        ),
+        key: "editor",
+      },
+      {
+        label: (
+          <Link
+            className="flex gap-x-2 items-center"
+            to="#"
+            onClick={() => deleteShortcut.mutate(id)}
+          >
+            <div className="text-sm font-semibold">Delete</div>
+          </Link>
+        ),
+        key: "delete",
+      },
+    ];
+    return (
+      <div
+        key={id}
+        className="select-none flex justify-between items-center hover:bg-lightGray py-1 px-2 cursor-pointer rounded-md group"
+      >
+        <div
+          className="flex items-center gap-x-2 h-6"
+          onClick={() => navigate(`/create-page/${id}`)}
+        >
+          <div className="text-green-400 flex items-center">
+            <FileSmall />
+          </div>
+          <div className="text-sm font-semibold">{name}</div>
+        </div>
+        <div className="h-6 hidden group-hover:flex group-hover:items-center">
+          <Dropdown
+            trigger={["click"]}
+            menu={{ items }}
+            placement="bottomRight"
+          >
+            <div>
+              <MoreIcon />
+            </div>
+          </Dropdown>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <AntSider
@@ -105,10 +166,7 @@ function Sider({ setType, setVisible }: Props) {
         }}
       >
         <h1 className="m-0 mb-2 text-sm font-bold">Shortcuts</h1>
-        {[
-          { type: "page", name: "page no 1", id: 1 },
-          { type: "page", name: "page no 2", id: 2 },
-        ].map((item) => renderShortcut(item))}
+        {shortcutList.map((item: any) => renderShortcut(item))}
       </div>
     </AntSider>
   );

@@ -43,5 +43,10 @@ class Page extends Base {
 
   deletePage = (id: number | string) =>
     this.apiDelete(`/api/page/delete/${id}`);
+
+  getListShortcut = () => this.apiGet("/api/page/get-shortcut-list");
+
+  deleteShortcut = (id: any) =>
+    this.apiPost(`/api/page/add-to-shortcut-page/${id}/false`, {});
 }
 export default new Page();

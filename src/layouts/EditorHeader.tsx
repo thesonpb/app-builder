@@ -10,7 +10,6 @@ import {
 } from "antd";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { PageBuilderContext } from "../app/context/PageBuilderContext";
-import AppSmall from "../app/icons/AppSmall";
 import DownIcon from "../app/icons/DownIcon";
 import FileSmall from "../app/icons/FileSmall";
 import GlobalIcon from "../app/icons/GlobalIcon";
@@ -41,66 +40,6 @@ const CustomSelect = styled(Select)`
     color: #e9ecef;
   }
 `;
-
-const items: MenuProps["items"] = [
-  {
-    label: (
-      <Link className="flex gap-x-2 items-center" to={`/my-pages`}>
-        <ArchiveIcon />
-        <div className="text-sm font-semibold">My Pages</div>
-      </Link>
-    ),
-    key: "my-pages",
-  },
-  {
-    label: (
-      <Link className="flex gap-x-2 items-center" to={`/community`}>
-        <GlobalIcon />
-        <div className="text-sm font-semibold">Community</div>
-      </Link>
-    ),
-    key: "community",
-  },
-  {
-    type: "divider",
-  },
-  {
-    key: "shortcuts",
-    type: "group",
-    label: <h1 className="m-0 text-sm font-bold text-light">Shortcuts</h1>,
-    children: [
-      //TODO: can co API lay danh sach shortcut trong Header va Sider
-      {
-        key: "shortcuts-1",
-        label: (
-          <Link
-            to={`/app/1`}
-            className="flex gap-x-2 items-center cursor-pointer rounded-md"
-          >
-            <div className="text-green-400">
-              <FileSmall />
-            </div>
-            <div className="text-sm font-semibold">Page</div>
-          </Link>
-        ),
-      },
-      {
-        key: "shortcuts-2",
-        label: (
-          <Link
-            to={`/app/1`}
-            className="flex gap-x-2 items-center cursor-pointer rounded-md"
-          >
-            <div className="text-blue-400">
-              <AppSmall />
-            </div>
-            <div className="text-sm font-semibold">App</div>
-          </Link>
-        ),
-      },
-    ],
-  },
-];
 
 const ExportPopup = ({ query, currentProjectName }: any) => {
   return (
@@ -294,6 +233,56 @@ function EditorHeader() {
         </Link>
       ),
       key: "logout",
+    },
+  ];
+
+  const { data: shortcutList } = useQuery(
+    ["getListShorcutHeader"],
+    async () => {
+      return await Page.getListShortcut();
+    },
+    { initialData: [] }
+  );
+  const items: MenuProps["items"] = [
+    {
+      label: (
+        <Link className="flex gap-x-2 items-center" to={`/my-pages`}>
+          <ArchiveIcon />
+          <div className="text-sm font-semibold">My Pages</div>
+        </Link>
+      ),
+      key: "my-pages",
+    },
+    {
+      label: (
+        <Link className="flex gap-x-2 items-center" to={`/community`}>
+          <GlobalIcon />
+          <div className="text-sm font-semibold">Community</div>
+        </Link>
+      ),
+      key: "community",
+    },
+    {
+      type: "divider",
+    },
+    {
+      key: "shortcuts",
+      type: "group",
+      label: <h1 className="m-0 text-sm font-bold text-light">Shortcuts</h1>,
+      children: shortcutList?.map((shortcutItem: any) => ({
+        key: shortcutItem?.id,
+        label: (
+          <Link
+            to={`/create-page/${shortcutItem?.id}`}
+            className="flex gap-x-2 items-center cursor-pointer rounded-md"
+          >
+            <div className="text-green-400">
+              <FileSmall />
+            </div>
+            <div className="text-sm font-semibold">{shortcutItem?.name}</div>
+          </Link>
+        ),
+      })),
     },
   ];
 
