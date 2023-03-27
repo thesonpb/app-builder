@@ -71,3 +71,10 @@
 .main-content {
     min-height: calc(100vh - 64px) !important;
 }
+
+.modal-confirm .ant-modal-content {
+    background: #343a40;
+}
+.modal-confirm .ant-modal-confirm-title {
+    color: #e9ecef !important;
+}

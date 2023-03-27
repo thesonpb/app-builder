@@ -3,9 +3,12 @@ import { UserInterface } from "../models/interface";
 
 const useValue = () => {
   const [user, setUser] = useState<UserInterface | null>();
+  const [isAddToShortcut, setAddToShortcut] = useState<boolean>(false);
   return {
     user,
     setUser,
+    isAddToShortcut,
+    setAddToShortcut,
   };
 };
 

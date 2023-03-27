@@ -1,20 +1,20 @@
 import React from "react";
 
-function ShareBoxIcon() {
+function BookmarkFillIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      width="18"
-      height="18"
+      width="24"
+      height="24"
     >
       <path fill="none" d="M0 0h24v24H0z" />
       <path
-        d="M10 3v2H5v14h14v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h6zm7.586 2H13V3h8v8h-2V6.414l-7 7L10.586 12l7-7z"
+        d="M5 2h14a1 1 0 0 1 1 1v19.143a.5.5 0 0 1-.766.424L12 18.03l-7.234 4.536A.5.5 0 0 1 4 22.143V3a1 1 0 0 1 1-1z"
         fill="currentColor"
       />
     </svg>
   );
 }
 
-export default ShareBoxIcon;
+export default BookmarkFillIcon;

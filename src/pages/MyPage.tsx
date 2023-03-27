@@ -17,7 +17,7 @@ interface PageInterface {
 function MyPage() {
   const [search, setSearch] = useState("");
   const [pageList, setPageList] = useState([]);
-  const { data: pages }: any = useQuery(
+  const { data: pages, refetch }: any = useQuery(
     ["getListPages"],
     async () => {
       const res = await Page.getListCurrentPage();
@@ -54,13 +54,7 @@ function MyPage() {
       </div>
       <div className="p-6 grid flex justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
         {pageList?.map((page: PageInterface) => (
-          <PagePreview
-            key={page.id}
-            id={page.id}
-            name={page.name}
-            modifiedAt={page.modifiedAt}
-            previewImage={page.previewImage}
-          />
+          <PagePreview key={page.id} {...page} refetchList={refetch} />
         ))}
       </div>
     </div>

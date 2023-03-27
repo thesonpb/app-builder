@@ -11,6 +11,7 @@ import EditorHeader from "../../layouts/EditorHeader";
 import { useQuery } from "react-query";
 import Page from "../../app/models/Page";
 import { useLocation } from "react-router-dom";
+import PageNotFound from "../PageNotFound";
 
 function PageBuilder() {
   const [pageJson, setPageJson] = useState("");
@@ -22,7 +23,7 @@ function PageBuilder() {
     setCurrentProjectUserId,
     setProjectPreview,
   } = useContext(PageBuilderContext);
-  useQuery(["getPageDetailBuilder", pathname], async () => {
+  const { isError } = useQuery(["getPageDetailBuilder", pathname], async () => {
     // @ts-ignore
     const res = await Page.getPageDetail(
       Number(pathnameArray[pathnameArray.length - 1])
@@ -32,6 +33,7 @@ function PageBuilder() {
     setCurrentProjectUserId(res.userId);
     setPageJson(res.json);
   });
+  if (isError) return <PageNotFound />;
   return (
     <>
       {pageJson ? (

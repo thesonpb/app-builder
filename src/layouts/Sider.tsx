@@ -1,5 +1,5 @@
-import React from "react";
-import { Dropdown, Layout, MenuProps } from "antd";
+import React, { useContext, useEffect } from "react";
+import { Dropdown, Layout, MenuProps, message } from "antd";
 import AddIcon from "../app/icons/AddIcon";
 import FileIcon from "../app/icons/FileIcon";
 import FileSmall from "../app/icons/FileSmall";
@@ -9,6 +9,8 @@ import ArchiveIcon from "../app/icons/ArchiveIcon";
 import { useMutation, useQuery } from "react-query";
 import Page from "../app/models/Page";
 import MoreIcon from "../app/icons/MoreIcon";
+import { feUrl } from "../app/constants/baseUrl";
+import { AppContext } from "../app/context/AppContext";
 
 const { Sider: AntSider } = Layout;
 
@@ -23,6 +25,7 @@ interface Props {
 }
 function Sider({ setType, setVisible }: Props) {
   const navigate = useNavigate();
+  const { isAddToShortcut, setAddToShortcut } = useContext(AppContext);
   const { pathname } = useLocation();
   const { data: shortcutList, refetch } = useQuery(
     ["getListShorcut"],
@@ -31,7 +34,12 @@ function Sider({ setType, setVisible }: Props) {
     },
     { initialData: [] }
   );
-
+  useEffect(() => {
+    if (isAddToShortcut) {
+      refetch();
+      setAddToShortcut(false);
+    }
+  }, [isAddToShortcut]);
   const deleteShortcut = useMutation(Page.deleteShortcut, {
     onSuccess: () => {
       refetch();
@@ -39,6 +47,10 @@ function Sider({ setType, setVisible }: Props) {
   });
 
   const renderShortcut = ({ name, id }: Shortcut) => {
+    const copyToClipBoard = () => {
+      navigator.clipboard.writeText(`${feUrl}/page/${id}`);
+      message.success("Link copied!");
+    };
     const items: MenuProps["items"] = [
       {
         label: (
@@ -51,6 +63,18 @@ function Sider({ setType, setVisible }: Props) {
           </Link>
         ),
         key: "page",
+      },
+      {
+        label: (
+          <Link
+            className="flex gap-x-2 items-center"
+            to="#"
+            onClick={copyToClipBoard}
+          >
+            <div className="text-sm font-semibold">Copy link to page</div>
+          </Link>
+        ),
+        key: "copy",
       },
       {
         label: (
@@ -88,11 +112,7 @@ function Sider({ setType, setVisible }: Props) {
           <div className="text-sm font-semibold">{name}</div>
         </div>
         <div className="h-6 hidden group-hover:flex group-hover:items-center">
-          <Dropdown
-            trigger={["click"]}
-            menu={{ items }}
-            placement="bottomRight"
-          >
+          <Dropdown trigger={["click"]} menu={{ items }} placement="bottomLeft">
             <div>
               <MoreIcon />
             </div>

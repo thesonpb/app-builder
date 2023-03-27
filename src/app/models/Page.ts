@@ -4,6 +4,8 @@ import { Page as PageInterface } from "./interface";
 class Page extends Base {
   createPage = (body: PageInterface) => this.apiPost("/api/page/create", body);
 
+  clonePage = (id: any) => this.apiPost(`/api/page/clone/${id}`, {});
+
   getPageDetail = (id: number | string) =>
     this.apiGet(`/api/page/detail/${id}`);
 
@@ -48,5 +50,8 @@ class Page extends Base {
 
   deleteShortcut = (id: any) =>
     this.apiPost(`/api/page/add-to-shortcut-page/${id}/false`, {});
+
+  addShortcut = (id: any) =>
+    this.apiPost(`/api/page/add-to-shortcut-page/${id}/true`, {});
 }
 export default new Page();

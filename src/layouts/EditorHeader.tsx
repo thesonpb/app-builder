@@ -31,6 +31,7 @@ import { exportVueCode } from "../app/common/componentConvertVue";
 import ReactIcon from "../app/icons/ReactIcon";
 import VueIcon from "../app/icons/VueIcon";
 import ArchiveIcon from "../app/icons/ArchiveIcon";
+import { feUrl } from "../app/constants/baseUrl";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -68,6 +69,7 @@ interface SharePopupProps {
   pageId: string;
 }
 const SharePopup = ({ pageId }: SharePopupProps) => {
+  const { user } = useUser();
   const [searchUsername, setSearchUsername] = useState("");
   const [optionsUser, setOptionsUser] = useState();
   const [privacy, setPrivacy] = useState();
@@ -99,13 +101,18 @@ const SharePopup = ({ pageId }: SharePopupProps) => {
 
   useQuery(["getlist", searchUsername], async () => {
     const res = await User.getListUser(searchUsername);
-    const temp = res.map((item: any) => ({
-      value: item.id,
-      label: item.userName,
-    }));
+    const temp = res
+      .filter((item: any) => item.id !== user?.id)
+      .map((item: any) => ({
+        value: item.id,
+        label: item.userName,
+      }));
     setOptionsUser(temp);
   });
-  // @ts-ignore
+  const copyToClipBoard = () => {
+    navigator.clipboard.writeText(`${feUrl}/page/${pageId}`);
+    message.success("Link copied!");
+  }; // @ts-ignore
   return (
     <div
       style={{ borderTop: "1px solid #e9ecef4f", minWidth: "22rem" }}
@@ -182,8 +189,12 @@ const SharePopup = ({ pageId }: SharePopupProps) => {
             )}
           </div>
         </div>
-        <Button type="primary" className="w-full mt-2">
-          Copy link
+        <Button
+          onClick={copyToClipBoard}
+          type="primary"
+          className="w-full mt-2"
+        >
+          Copy link to the page
         </Button>
       </div>
     </div>

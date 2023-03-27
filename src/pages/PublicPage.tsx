@@ -30,7 +30,7 @@ function PublicPage() {
   const handleSearch = debounce((value: string) => {
     setSearch(value);
   }, 500);
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } =
     useInfiniteQuery(
       ["getListPublicPages", search],
       async ({ pageParam = 0 }) => {
@@ -71,13 +71,7 @@ function PublicPage() {
       </div>
       <div className="p-6 grid flex justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
         {filteredPages?.map((page: Page) => (
-          <PagePreview
-            key={page.id}
-            id={page.id}
-            name={page.name}
-            modifiedAt={page.modifiedAt}
-            previewImage={page.previewImage}
-          />
+          <PagePreview key={page.id} {...page} refetchList={refetch} />
         ))}
       </div>
       {hasNextPage && (

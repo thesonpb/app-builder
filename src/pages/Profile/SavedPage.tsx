@@ -13,7 +13,7 @@ interface PageInterface {
 }
 
 function SavedPage() {
-  const { data: pageList }: any = useQuery(
+  const { data: pageList, refetch }: any = useQuery(
     ["getListPages"],
     async () => {
       return await Page.getListSavedPage();
@@ -26,13 +26,7 @@ function SavedPage() {
       <h2 className="mt-0 mb-4 text-light">Saved pages</h2>
       <div className="grid flex justify-center sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-4">
         {pageList?.map((page: PageInterface) => (
-          <PagePreview
-            key={page.id}
-            id={page.id}
-            name={page.name}
-            modifiedAt={page.modifiedAt}
-            previewImage={page.previewImage}
-          />
+          <PagePreview key={page.id} {...page} refetchList={refetch} />
         ))}
       </div>
     </div>
