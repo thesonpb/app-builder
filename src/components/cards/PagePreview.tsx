@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { beUrl, feUrl } from "../../app/constants/baseUrl";
 import { Link, useNavigate } from "react-router-dom";
 import FileIcon from "../../app/icons/FileIcon";
@@ -10,6 +10,7 @@ import { useMutation } from "react-query";
 import Page from "../../app/models/Page";
 import BookmarkFillIcon from "../../app/icons/BookmarkFillIcon";
 import { AppContext } from "../../app/context/AppContext";
+import RenamePageModal from "../popups/RenamePageModal";
 
 function PagePreview({
   id,
@@ -24,6 +25,7 @@ function PagePreview({
 }: any) {
   const { user } = useUser();
   const navigate = useNavigate();
+  const [isShowRenameModal, setShowRenameModal] = useState(false);
   const { setAddToShortcut } = useContext(AppContext);
   const formatTime = (time: string) => {
     const date = new Date(time);
@@ -157,7 +159,7 @@ function PagePreview({
         <Link
           className="flex gap-x-2 items-center"
           to="#"
-          // onClick={() => deletePage.mutate(id)}
+          onClick={() => setShowRenameModal(true)}
         >
           <div className="text-sm font-semibold">Rename</div>
         </Link>
@@ -245,6 +247,14 @@ function PagePreview({
           </Dropdown>
         </div>
       </div>
+      {isShowRenameModal && (
+        <RenamePageModal
+          visible={isShowRenameModal}
+          setVisible={setShowRenameModal}
+          refetchList={refetchList}
+          id={id}
+        />
+      )}
     </div>
   );
 }
