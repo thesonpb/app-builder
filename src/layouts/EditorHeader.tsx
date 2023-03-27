@@ -283,15 +283,19 @@ function EditorHeader() {
       children: shortcutList?.map((shortcutItem: any) => ({
         key: shortcutItem?.id,
         label: (
-          <Link
-            to={`/create-page/${shortcutItem?.id}`}
-            className="flex gap-x-2 items-center cursor-pointer rounded-md"
-          >
-            <div className="text-green-400">
-              <FileSmall />
-            </div>
-            <div className="text-sm font-semibold">{shortcutItem?.name}</div>
-          </Link>
+          <Tooltip title={shortcutItem?.name}>
+            <Link
+              to={`/create-page/${shortcutItem?.id}`}
+              className="flex gap-x-2 items-center cursor-pointer rounded-md w-20"
+            >
+              <div className="text-green-400">
+                <FileSmall />
+              </div>
+              <div className="text-sm font-semibold truncate">
+                {shortcutItem?.name}
+              </div>
+            </Link>
+          </Tooltip>
         ),
       })),
     },

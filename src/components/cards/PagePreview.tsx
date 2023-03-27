@@ -22,6 +22,8 @@ function PagePreview({
   saved,
   addedToShortcut,
   refetchList,
+  creatorPhoto,
+  creatorName,
 }: any) {
   const { user } = useUser();
   const navigate = useNavigate();
@@ -62,7 +64,6 @@ function PagePreview({
     navigator.clipboard.writeText(`${feUrl}/page/${id}`);
     message.success("Link copied!");
   };
-
   const canEditPage = () => {
     return !!(user?.id === userId || listUserId?.includes(user?.id));
   };
@@ -86,12 +87,35 @@ function PagePreview({
     },
   });
 
+  const saveBook = useMutation(Page.savePage, {
+    onSuccess: () => {
+      refetchList();
+    },
+  });
+  const unsaveBook = useMutation(Page.unsavePage, {
+    onSuccess: () => {
+      refetchList();
+    },
+  });
+
   const deletePage = useMutation(Page.deletePage, {
     onSuccess: () => {
       setAddToShortcut(true);
       refetchList();
     },
   });
+
+  const displayAvatar = () => {
+    return creatorPhoto ? (
+      <img
+        src={`${beUrl}/resources/images/${creatorPhoto}`}
+        alt={creatorName}
+        className="w-8 h-8 rounded-full"
+      />
+    ) : (
+      <div className="w-8 h-8 rounded-full bg-blue-400 border-solid border border-border" />
+    );
+  };
 
   const items: any = [
     {
@@ -219,13 +243,25 @@ function PagePreview({
             if (canEditPage()) navigate(`/create-page/${id}`);
           }}
         >
-          <div className="text-green-400">
-            <FileIcon />
+          <div
+            className="text-green-400"
+            onClick={() => {
+              if (!canEditPage()) navigate(`/profile/${userId}`);
+            }}
+          >
+            {canEditPage() ? <FileIcon /> : displayAvatar()}
           </div>
           <div>
-            <div className="text-sm font-medium text-light">{name}</div>
-            <div className="text-xs text-gray-400">
-              {formatTime(modifiedAt)}
+            <div className="text-sm font-medium text-light truncate w-56">
+              {name}
+            </div>
+            <div
+              className="text-xs text-gray-400"
+              onClick={() => {
+                if (!canEditPage()) navigate(`/profile/${userId}`);
+              }}
+            >
+              {canEditPage() ? formatTime(modifiedAt) : creatorName}
             </div>
           </div>
         </div>
@@ -236,6 +272,13 @@ function PagePreview({
           } group-hover:flex group-hover:items-center hover:bg-lightGray ${
             !saved ? "text-light" : "text-amber-500"
           }`}
+          onClick={() => {
+            if (!saved) {
+              saveBook.mutate(id);
+            } else {
+              unsaveBook.mutate(id);
+            }
+          }}
         >
           {!saved ? <BookmarkIcon /> : <BookmarkFillIcon />}
         </Button>

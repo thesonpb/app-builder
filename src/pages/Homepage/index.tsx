@@ -316,11 +316,6 @@ function Homepage() {
             <TemplateContentPreview />
           </div>
         </SwiperSlide>
-        <SwiperSlide>
-          <div className="h-screen bg-dark flex items-center justify-center">
-            <Proof />
-          </div>
-        </SwiperSlide>
       </CustomSwiper>
       {isOpenLogin && (
         <Login isOpenLogin={isOpenLogin} setOpenLogin={setOpenLogin} />

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Dropdown, Layout, MenuProps, message } from "antd";
+import { Dropdown, Layout, MenuProps, message, Tooltip } from "antd";
 import AddIcon from "../app/icons/AddIcon";
 import FileIcon from "../app/icons/FileIcon";
 import FileSmall from "../app/icons/FileSmall";
@@ -109,7 +109,9 @@ function Sider({ setType, setVisible }: Props) {
           <div className="text-green-400 flex items-center">
             <FileSmall />
           </div>
-          <div className="text-sm font-semibold">{name}</div>
+          <Tooltip title={name}>
+            <div className="text-sm font-semibold truncate w-36">{name}</div>
+          </Tooltip>
         </div>
         <div className="h-6 hidden group-hover:flex group-hover:items-center">
           <Dropdown trigger={["click"]} menu={{ items }} placement="bottomLeft">

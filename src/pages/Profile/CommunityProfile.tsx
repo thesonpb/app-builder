@@ -10,7 +10,12 @@ import PublicPageOfUser from "./PublicPageOfUser";
 const CustomImg = styled.img`
   position: absolute;
   bottom: -40px;
-  left: 10px;
+  left: 20px;
+`;
+const CustomDiv = styled.div`
+  position: absolute;
+  bottom: -40px;
+  left: 20px;
 `;
 function CommunityProfile({ id }: any) {
   const { data: userData } = useQuery(
@@ -60,7 +65,7 @@ function CommunityProfile({ id }: any) {
               className="object-cover object-center rounded-full w-40 h-40"
             />
           ) : (
-            <div className="border-solid border border-white rounded-full w-40 h-40 bg-blue-400" />
+            <CustomDiv className="border-solid border border-white rounded-full w-40 h-40 bg-blue-400" />
           )}
         </div>
         <Divider className="mt-16" style={{ background: "#525866" }} />

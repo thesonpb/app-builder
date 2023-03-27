@@ -54,6 +54,10 @@ class Page extends Base {
   addShortcut = (id: any) =>
     this.apiPost(`/api/page/add-to-shortcut-page/${id}/true`, {});
 
+  unsavePage = (id: any) => this.apiPost(`/api/page/save-page/${id}/false`, {});
+
+  savePage = (id: any) => this.apiPost(`/api/page/save-page/${id}/true`, {});
+
   renamePage = ({ id, body }: any) =>
     this.apiPut(`/api/page/rename/${id}`, body);
 }
