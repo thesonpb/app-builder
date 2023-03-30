@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Form, Input, message, Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../app/models/Auth";
@@ -53,6 +53,7 @@ function Login({ isOpenLogin, setOpenLogin }: Props) {
   const { setUser } = useContext(AppContext);
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  const [isForgetPassword, setForgetPassword] = useState(false);
 
   const handleSuccess = async (value: SuccessLogin) => {
     const res = await User.getUserDetail(value.id);
@@ -63,6 +64,16 @@ function Login({ isOpenLogin, setOpenLogin }: Props) {
 
   const loginMutation = useMutation(Auth.getTokenByUsernamePassword, {
     onSuccess: handleSuccess,
+    onError: (e: any) => {
+      message.error(e);
+    },
+  });
+
+  const resendPassword = useMutation(Auth.resendPassword, {
+    onSuccess: () => {
+      message.success("Check your email for new password");
+      setForgetPassword(false);
+    },
     onError: (e: any) => {
       message.error(e);
     },
@@ -79,55 +90,101 @@ function Login({ isOpenLogin, setOpenLogin }: Props) {
     >
       <div className="flex flex-col justify-center items-center py-6">
         <div className="text-light font-medium mb-4 self-center text-3xl uppercase">
-          Login
+          {!isForgetPassword ? "Login" : "Forget password"}
         </div>
 
         <div className="mt-4 w-full">
-          <Form form={form} onFinish={loginMutation.mutate} layout="vertical">
-            <Form.Item
-              rules={[
-                {
-                  required: true,
-                  message: "Username is required",
-                },
-              ]}
-              required
-              name="username"
-            >
-              <CustomInput
-                className="h-12"
-                size="large"
-                placeholder="Username"
-              />
-            </Form.Item>
-            <Form.Item
-              rules={[
-                {
-                  required: true,
-                  message: "Password is required",
-                },
-              ]}
-              required
-              name="password"
-            >
-              <CustomPassword
-                className="h-12"
-                size="large"
-                placeholder="Password"
-              />
-            </Form.Item>
-
-            <div className="flex w-full">
-              <Button
-                htmlType="submit"
-                type="primary"
-                size="large"
-                className="w-full flex items-center justify-center h-12 hover:-translate-y-0.5"
+          {!isForgetPassword ? (
+            <Form form={form} onFinish={loginMutation.mutate} layout="vertical">
+              <Form.Item
+                name="username"
+                rules={[
+                  { required: true, message: "Email is required" },
+                  {
+                    type: "email",
+                    message: "Invalid email format",
+                  },
+                ]}
               >
-                <span className="mr-2 uppercase">Login</span>
-              </Button>
-            </div>
-          </Form>
+                <CustomInput
+                  className="h-12"
+                  size="large"
+                  placeholder="Email"
+                />
+              </Form.Item>
+              <Form.Item
+                rules={[
+                  {
+                    required: true,
+                    message: "Password is required",
+                  },
+                ]}
+                required
+                name="password"
+              >
+                <CustomPassword
+                  className="h-12"
+                  size="large"
+                  placeholder="Password"
+                />
+              </Form.Item>
+
+              <div className="flex justify-center items-center select-none -translate-y-2 mb-2">
+                <a
+                  onClick={() => {
+                    setForgetPassword(true);
+                  }}
+                  className="text-blue-500 text-sm font-bold"
+                >
+                  Forget password?
+                </a>
+              </div>
+
+              <div className="flex w-full">
+                <Button
+                  htmlType="submit"
+                  type="primary"
+                  size="large"
+                  className="w-full flex items-center justify-center h-12 hover:-translate-y-0.5"
+                >
+                  <span className="mr-2 uppercase">Login</span>
+                </Button>
+              </div>
+            </Form>
+          ) : (
+            <Form
+              form={form}
+              onFinish={resendPassword.mutate}
+              layout="vertical"
+            >
+              <Form.Item
+                name="email"
+                rules={[
+                  { required: true, message: "Email is required" },
+                  {
+                    type: "email",
+                    message: "Invalid email format",
+                  },
+                ]}
+              >
+                <CustomInput
+                  className="h-12"
+                  size="large"
+                  placeholder="Email"
+                />
+              </Form.Item>
+              <div className="flex w-full">
+                <Button
+                  htmlType="submit"
+                  type="primary"
+                  size="large"
+                  className="w-full flex items-center justify-center h-12 hover:-translate-y-0.5"
+                >
+                  <span className="mr-2 uppercase">Resend password</span>
+                </Button>
+              </div>
+            </Form>
+          )}
         </div>
       </div>
     </CustomModal>

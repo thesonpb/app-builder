@@ -33,6 +33,9 @@ class Auth extends Base {
     return res;
   };
 
+  resendPassword = async (data: any) =>
+    this.apiPost(`/api/auth/resend-password`, data);
+
   signup = (body: SignupRequest) => this.apiPost(`/api/auth/signup`, body);
 
   logout = () => {

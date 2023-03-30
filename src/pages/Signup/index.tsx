@@ -31,32 +31,19 @@ const CustomInput = styled(Input)`
   }
 `;
 
-const CustomPassword = styled(Input.Password)`
-  :where(.css-dev-only-do-not-override-sk7ap8).ant-input-affix-wrapper,
-  .ant-input {
-    background: #495057 !important;
-    border: none !important;
-    color: #e9ecef;
-  }
-  .ant-input-password-icon {
-    color: #e9ecef !important;
-  }
-  input::placeholder {
-    color: #999 !important;
-  }
-`;
 function Signup({ setOpenLogin, isOpenSignup, setOpenSignup }: Props) {
   const [form] = Form.useForm();
 
   const handleSuccess = () => {
+    message.success("Check your email for login password");
     setOpenSignup(false);
     setOpenLogin(true);
   };
 
   const signupMutation = useMutation(Auth.signup, {
     onSuccess: handleSuccess,
-    onError: (e: any) => {
-      message.error(e);
+    onError: () => {
+      message.error("An error occured, please try again later");
     },
   });
   return (
@@ -76,36 +63,16 @@ function Signup({ setOpenLogin, isOpenSignup, setOpenSignup }: Props) {
         <div className="mt-4 w-full">
           <Form form={form} onFinish={signupMutation.mutate} layout="vertical">
             <Form.Item
-              rules={[
-                {
-                  required: true,
-                  message: "Username is required",
-                },
-              ]}
-              required
               name="userName"
-            >
-              <CustomInput
-                className="h-12"
-                size="large"
-                placeholder="Username"
-              />
-            </Form.Item>
-            <Form.Item
               rules={[
+                { required: true, message: "Email is required" },
                 {
-                  required: true,
-                  message: "Password is required",
+                  type: "email",
+                  message: "Invalid email format",
                 },
               ]}
-              required
-              name="password"
             >
-              <CustomPassword
-                className="h-12"
-                size="large"
-                placeholder="Password"
-              />
+              <CustomInput className="h-12" size="large" placeholder="Email" />
             </Form.Item>
             <Form.Item
               rules={[
