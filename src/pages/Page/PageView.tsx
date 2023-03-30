@@ -13,6 +13,7 @@ function PageView() {
   const [pageJson, setPageJson] = useState("");
   const [listUser, setListUser] = useState<number[]>([]);
   const [isPublic, setPublic] = useState(false);
+  const [creatorId, setCreatorId] = useState(-1);
   const { id } = useParams();
   useQuery(["getListUserOfPage", id], async () => {
     const res = await Page.getPageListUser(Number(id));
@@ -22,8 +23,11 @@ function PageView() {
     const res = await Page.getPageDetail(Number(id));
     setPublic(res.privacy === "PUBLIC");
     setPageJson(res.json);
+    setCreatorId(res.userId);
   });
-  return isPublic || (user && listUser?.includes(user?.id)) ? (
+  return isPublic ||
+    (user?.id && listUser?.includes(user?.id)) ||
+    user?.id === creatorId ? (
     <div>
       {pageJson ? (
         <div>
