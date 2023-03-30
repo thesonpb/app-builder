@@ -15,16 +15,15 @@ function PageView() {
   const [isPublic, setPublic] = useState(false);
   const [creatorId, setCreatorId] = useState(-1);
   const { id } = useParams();
-  useQuery(["getListUserOfPage", id], async () => {
-    const res = await Page.getPageListUser(Number(id));
-    setListUser(res?.map((item: any) => item.id));
+
+  useQuery(["getPageView", id], async () => {
+    const res = await Page.getPageView(Number(id));
+    setListUser(res?.listUser?.map((item: any) => item.id));
+    setPublic(res.page.privacy === "PUBLIC");
+    setPageJson(res.page.json);
+    setCreatorId(res.page.userId);
   });
-  useQuery(["getPageDetailBuilderView", id], async () => {
-    const res = await Page.getPageDetail(Number(id));
-    setPublic(res.privacy === "PUBLIC");
-    setPageJson(res.json);
-    setCreatorId(res.userId);
-  });
+
   return isPublic ||
     (user?.id && listUser?.includes(user?.id)) ||
     user?.id === creatorId ? (

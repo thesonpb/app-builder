@@ -60,5 +60,7 @@ class Page extends Base {
 
   renamePage = ({ id, body }: any) =>
     this.apiPut(`/api/page/rename/${id}`, body);
+
+  getPageView = (id: any) => this.apiGet(`/api/view-page/${id}`);
 }
 export default new Page();
