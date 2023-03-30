@@ -43,7 +43,8 @@ export const RenderNode = ({ render }: any) => {
 
   useEffect(() => {
     if (dom) {
-      if (isActive || isHover) dom.classList.add("component-selected");
+      if ((isActive || isHover) && id !== ROOT_NODE)
+        dom.classList.add("component-selected");
       else dom.classList.remove("component-selected");
     }
   }, [dom, isActive, isHover]);
@@ -80,7 +81,7 @@ export const RenderNode = ({ render }: any) => {
 
   return (
     <>
-      {isHover || isActive
+      {(isHover || isActive) && id !== ROOT_NODE
         ? ReactDOM.createPortal(
             <IndicatorDiv
               ref={currentRef}
