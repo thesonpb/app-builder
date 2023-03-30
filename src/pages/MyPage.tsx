@@ -48,7 +48,7 @@ function MyPage() {
           prefix={<SearchIcon />}
           className="w-96 ml-2"
           size="large"
-          placeholder="Search for your page"
+          placeholder="Search for your pages"
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
