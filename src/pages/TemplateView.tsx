@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { Editor, Frame } from "@craftjs/core";
 import { DragDropItem } from "../components/dragDropItem";
 import { DragDropContainer } from "../components/dragDropContainer";
-import PageNotFound from "./PageNotFound";
 import { TEMPLATES } from "../app/constants/templates";
 import TemplateNotFound from "./TemplateNotFound";
 
