@@ -78,3 +78,69 @@
 .modal-confirm .ant-modal-confirm-title {
     color: #e9ecef !important;
 }
+
+/*Loader*/
+.loader {
+    display: inline-block;
+    position: relative;
+    width: 32px;
+    height: 32px;
+}
+
+.loader div {
+    position: absolute;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #333;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.loader div:nth-child(1) {
+    left: 3px;
+    animation: loader1 0.6s infinite;
+}
+
+.loader div:nth-child(2) {
+    left: 3px;
+    animation: loader2 0.6s infinite;
+}
+
+.loader div:nth-child(3) {
+    left: 13px;
+    animation: loader2 0.6s infinite;
+}
+
+.loader div:nth-child(4) {
+    left: 22px;
+    animation: loader3 0.6s infinite;
+}
+
+@keyframes loader1 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes loader3 {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes loader2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(9px, 0);
+    }
+}
+

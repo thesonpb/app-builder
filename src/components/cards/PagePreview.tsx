@@ -253,7 +253,10 @@ function PagePreview({
             {canEditPage() ? <FileIcon /> : displayAvatar()}
           </div>
           <div>
-            <div className="text-sm font-medium text-light truncate w-56">
+            <div
+              className="text-sm font-medium text-light truncate"
+              style={{ maxWidth: "200px" }}
+            >
               {name}
             </div>
             <div
@@ -268,7 +271,7 @@ function PagePreview({
         </div>
         <Button
           type="text"
-          className={`px-1 ${
+          className={`px-1 flex-shrink-0 ${
             !saved ? "hidden" : ""
           } group-hover:flex group-hover:items-center hover:bg-lightGray ${
             !saved ? "text-light" : "text-amber-500"

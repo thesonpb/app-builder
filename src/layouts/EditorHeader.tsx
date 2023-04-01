@@ -120,7 +120,7 @@ const SharePopup = ({ pageId }: SharePopupProps) => {
     >
       <Select
         placeholder="Add people"
-        className="w-full"
+        className="w-full invite-editor"
         showSearch
         filterOption={(input, option) =>
           (option?.label?.toString() || "")
@@ -128,6 +128,7 @@ const SharePopup = ({ pageId }: SharePopupProps) => {
             .includes(input.toLowerCase())
         }
         options={optionsUser}
+        value={null}
         onSearch={(value) => setSearchUsername(value)}
         onChange={(value: any) => {
           updateListUserMutation.mutate({
@@ -137,6 +138,14 @@ const SharePopup = ({ pageId }: SharePopupProps) => {
         }}
       />
       <div className="my-4 flex flex-col gap-y-2">
+        {updateListUserMutation.isLoading && (
+          <div className="loader">
+            <div />
+            <div />
+            <div />
+            <div />
+          </div>
+        )}
         {pageListUser?.map((item: any) => (
           <div key={item.id} className="flex justify-between items-center">
             <div>{item.userName}</div>

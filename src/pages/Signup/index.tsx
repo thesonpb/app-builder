@@ -42,8 +42,10 @@ function Signup({ setOpenLogin, isOpenSignup, setOpenSignup }: Props) {
 
   const signupMutation = useMutation(Auth.signup, {
     onSuccess: handleSuccess,
-    onError: () => {
-      message.error("An error occured, please try again later");
+    onError: (e: any) => {
+      if (e.response.data.message === "Error: Username is already taken!")
+        message.error("Email existed, please use other email!");
+      else message.error("An error occured, please try again later");
     },
   });
   return (

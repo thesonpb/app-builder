@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal } from "antd";
+import { Button, Form, Input, message, Modal } from "antd";
 import { useContext } from "react";
 import { useMutation } from "react-query";
 import { AppContext } from "../../app/context/AppContext";
@@ -35,6 +35,11 @@ const RenamePageModal = ({ visible, setVisible, refetchList, id }: any) => {
       setAddToShortcut(true);
       refetchList();
       setVisible(false);
+    },
+    onError: (e: any) => {
+      if (e.response.data === "Page name existed!")
+        message.error("Page name existed, please use other name!");
+      else message.error("Error occured!");
     },
   });
   const handleOk = (value: any) => {
