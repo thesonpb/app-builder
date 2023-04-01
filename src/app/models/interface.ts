@@ -39,11 +39,6 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface Template {
-  id: number;
-  name: string;
-  image: string;
-}
 export interface Component {
   id: number;
   name: string;

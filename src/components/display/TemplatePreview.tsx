@@ -1,36 +1,33 @@
 import React from "react";
-import { Template } from "../../app/models/interface";
+import { TEMPLATES } from "../../app/constants/templates";
 
 interface Props {
-  type: string;
-  selectedTemplate: number;
+  selectedTemplate: string;
   setSelectedTemplate: Function;
 }
-function TemplatePreview({
-  type,
-  selectedTemplate,
-  setSelectedTemplate,
-}: Props) {
-  //TODO: dùng type gọi api lấy template của page/app
-  const renderTemplate = (template: Template) => (
+function TemplatePreview({ selectedTemplate, setSelectedTemplate }: Props) {
+  const renderTemplate = ({ item }: any) => (
     <div
-      key={template.id}
+      key={item.id}
       className={`cursor-pointer p-2 border-solid border border-border ${
-        selectedTemplate === template.id ? "bg-lightGray" : ""
+        selectedTemplate === item.name ? "bg-lightGray" : ""
       } rounded-xl`}
-      onClick={() => setSelectedTemplate(template.id)}
+      onClick={() => setSelectedTemplate(item.name)}
     >
-      <div className="bg-blue-300 h-28 rounded-xl"></div>
-      <h3 className="m-0 text-center">Template name</h3>
+      <img
+        src={`/images/${item.coverImage}`}
+        alt={item.displayName}
+        className="object-center object-cover h-28 rounded-xl"
+        style={{ objectFit: "cover", width: "100%", height: "100%" }}
+      />
+      <h3 className="m-0 text-center">{item.displayName}</h3>
     </div>
   );
   return (
     <div className="grid grid-cols-3 gap-4 overflow-auto small-scroll-bar h-80">
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) =>
+      {Object.keys(TEMPLATES).map((item) =>
         renderTemplate({
-          id: item,
-          name: "dfdfd",
-          image: "adkfjf",
+          item: TEMPLATES[item],
         })
       )}
     </div>

@@ -236,12 +236,10 @@ export function downloadZipFile({
       '    "preview": "vite preview"\n' +
       "  },\n" +
       '  "dependencies": {\n' +
-      '    "@types/styled-components": "^5.1.26",\n' +
       '    "antd": "^5.1.4",\n' +
       '    "react": "^18.2.0",\n' +
       '    "react-contenteditable": "^3.3.6",\n' +
       '    "react-dom": "^18.2.0",\n' +
-      '    "styled-components": "^5.3.6",\n' +
       '    "uuid": "^9.0.0"\n' +
       "  },\n" +
       '  "devDependencies": {\n' +
@@ -251,7 +249,6 @@ export function downloadZipFile({
       '    "@vitejs/plugin-react": "^3.0.0",\n' +
       '    "autoprefixer": "^10.4.13",\n' +
       '    "postcss": "^8.4.21",\n' +
-      '    "prettier": "2.8.2",\n' +
       '    "tailwindcss": "^3.2.4",\n' +
       '    "typescript": "^4.9.3",\n' +
       '    "vite": "^4.0.0"\n' +

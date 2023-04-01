@@ -7,6 +7,7 @@ import Cookie from "js-cookie";
 import Page from "./pages/Page";
 import Homepage from "./pages/Homepage";
 import { Spin } from "antd";
+import TemplateView from "./pages/TemplateView";
 
 const OtherPage = React.lazy(() => import("./pages"));
 
@@ -49,6 +50,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Routes>
         <Route path="/page/*" element={<Page />} />
+        <Route path="/template/:name" element={<TemplateView />} />
         <Route path="/*" element={!user?.id ? <Homepage /> : <OtherPage />} />
       </Routes>
     </QueryClientProvider>

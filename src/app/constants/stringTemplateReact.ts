@@ -1,330 +1,322 @@
-export const grid = `
-import React from "react";
+export const grid =
+  'import React from "react";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "    isCol?: boolean;\n" +
+  "    numCols?: string;\n" +
+  "    numRows?: string;\n" +
+  "    backgroundColor?: string;\n" +
+  "    gap?: string;\n" +
+  "    gapX?: string;\n" +
+  "    gapY?: string;\n" +
+  "    children: React.ReactNode;\n" +
+  "    margin?: string;\n" +
+  "    marginLeft?: string;\n" +
+  "    marginRight?: string;\n" +
+  "    marginTop?: string;\n" +
+  "    marginBottom?: string;\n" +
+  "    padding?: string;\n" +
+  "    paddingLeft?: string;\n" +
+  "    paddingRight?: string;\n" +
+  "    paddingTop?: string;\n" +
+  "    paddingBottom?: string;\n" +
+  "    borderRadius?: string;\n" +
+  "    borderTopLeftRadius?: string;\n" +
+  "    borderTopRightRadius?: string;\n" +
+  "    borderBottomLeftRadius?: string;\n" +
+  "    borderBottomRightRadius?: string;\n" +
+  "    height?: string;\n" +
+  "    width?: string;\n" +
+  "    minHeight?: string;\n" +
+  "    minWidth?: string;\n" +
+  "    borderWidth?: string;\n" +
+  "    borderStyle?: string;\n" +
+  "    borderColor?: string;\n" +
+  "    maxWidth?: string;\n" +
+  "    maxHeight?: string;\n" +
+  "    className?: string;\n" +
+  "    showBorder?: boolean;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '    gap: "0",\n' +
+  "    isCol: true,\n" +
+  '    numCols: "2",\n' +
+  '    numRows: "2",\n' +
+  '    gapX: "0",\n' +
+  '    gapY: "0",\n' +
+  '    minHeight: "10rem",\n' +
+  '    borderRadius: "16px",\n' +
+  '    borderColor: "#f2f2f2",\n' +
+  '    borderStyle: "solid",\n' +
+  '    borderWidth: "1px",\n' +
+  '    marginTop: "1rem",\n' +
+  '    padding: "16px",\n' +
+  '    backgroundColor: "white",\n' +
+  "    showBorder: true,\n" +
+  "    children: undefined,\n" +
+  "};\n" +
+  "\n" +
+  "export const Grid = (props: Props) => {\n" +
+  "    const {\n" +
+  "        isCol,\n" +
+  "        numCols,\n" +
+  "        numRows,\n" +
+  "        gapX,\n" +
+  "        gapY,\n" +
+  "        children,\n" +
+  "        showBorder,\n" +
+  "        padding,\n" +
+  "        margin,\n" +
+  "        borderRadius,\n" +
+  "        paddingTop,\n" +
+  "        paddingRight,\n" +
+  "        paddingLeft,\n" +
+  "        paddingBottom,\n" +
+  "        marginTop,\n" +
+  "        marginRight,\n" +
+  "        marginLeft,\n" +
+  "        marginBottom,\n" +
+  "        borderBottomLeftRadius,\n" +
+  "        borderBottomRightRadius,\n" +
+  "        borderTopLeftRadius,\n" +
+  "        borderTopRightRadius,\n" +
+  "        borderWidth,\n" +
+  "    } = props;\n" +
+  "\n" +
+  "    const layout = isCol\n" +
+  "        ? {\n" +
+  "              gridTemplateColumns: `repeat(${numCols}, minmax(0, 1fr))`,\n" +
+  "          }\n" +
+  "        : {\n" +
+  "              gridTemplateRows: `repeat(${numRows}, minmax(0, 1fr))`,\n" +
+  '              gridAutoFlow: "column",\n' +
+  "          };\n" +
+  "    return (\n" +
+  "        <div\n" +
+  '            className="grid"\n' +
+  "            style={{\n" +
+  "                ...props,\n" +
+  "                ...layout,\n" +
+  "                columnGap: `${gapX}px`,\n" +
+  "                rowGap: `${gapY}px`,\n" +
+  "                padding: `${padding}px`,\n" +
+  "                paddingTop: `${paddingTop}px`,\n" +
+  "                paddingBottom: `${paddingBottom}px`,\n" +
+  "                paddingLeft: `${paddingLeft}px`,\n" +
+  "                paddingRight: `${paddingRight}px`,\n" +
+  "                margin: `${margin}px`,\n" +
+  "                marginTop: `${marginTop}px`,\n" +
+  "                marginBottom: `${marginBottom}px`,\n" +
+  "                marginLeft: `${marginLeft}px`,\n" +
+  "                marginRight: `${marginRight}px`,\n" +
+  "                borderRadius: `${borderRadius}px`,\n" +
+  "                borderTopLeftRadius: `${borderTopLeftRadius}px`,\n" +
+  "                borderTopRightRadius: `${borderTopRightRadius}px`,\n" +
+  "                borderBottomLeftRadius: `${borderBottomLeftRadius}px`,\n" +
+  "                borderBottomRightRadius: `${borderBottomRightRadius}px`,\n" +
+  '                borderWidth: showBorder ? `${borderWidth}px` : "0",\n' +
+  "            }}\n" +
+  "        >\n" +
+  "            {children}\n" +
+  "        </div>\n" +
+  "    );\n" +
+  "};\n" +
+  "\n" +
+  "Grid.defaultProps = defaultProps;\n";
 
-interface Props {
-  isCol?: boolean;
-  numCols?: string;
-  numRows?: string;
-  backgroundColor?: string;
-  gap?: string;
-  gapX?: string;
-  gapY?: string;
-  children: React.ReactNode;
-  margin?: string;
-  marginLeft?: string;
-  marginRight?: string;
-  marginTop?: string;
-  marginBottom?: string;
-  padding?: string;
-  paddingLeft?: string;
-  paddingRight?: string;
-  paddingTop?: string;
-  paddingBottom?: string;
-  borderRadius?: string;
-  borderTopLeftRadius?: string;
-  borderTopRightRadius?: string;
-  borderBottomLeftRadius?: string;
-  borderBottomRightRadius?: string;
-  height?: string;
-  width?: string;
-  minHeight?: string;
-  minWidth?: string;
-  borderWidth?: string;
-  borderStyle?: string;
-  borderColor?: string;
-  maxWidth?: string;
-  maxHeight?: string;
-  className?: string;
-  showBorder?: boolean;
-}
+export const container =
+  'import React from "react";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "    backgroundColor?: string;\n" +
+  "    width?: string;\n" +
+  "    height?: string;\n" +
+  "    borderRadius?: string;\n" +
+  "    borderBottomLeftRadius?: string;\n" +
+  "    borderBottomRightRadius?: string;\n" +
+  "    borderTopLeftRadius?: string;\n" +
+  "    borderTopRightRadius?: string;\n" +
+  "    borderWidth?: string;\n" +
+  "    borderStyle?: string;\n" +
+  "    borderColor?: string;\n" +
+  "    children?: React.ReactNode;\n" +
+  "    padding?: string;\n" +
+  "    paddingLeft?: string;\n" +
+  "    paddingRight?: string;\n" +
+  "    paddingTop?: string;\n" +
+  "    paddingBottom?: string;\n" +
+  "    margin?: string;\n" +
+  "    marginLeft?: string;\n" +
+  "    marginRight?: string;\n" +
+  "    marginTop?: string;\n" +
+  "    marginBottom?: string;\n" +
+  "    minHeight?: string;\n" +
+  "    minWidth?: string;\n" +
+  "    maxWidth?: string;\n" +
+  "    maxHeight?: string;\n" +
+  "    className?: string;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '    backgroundColor: "white",\n' +
+  '    minHeight: "10rem",\n' +
+  '    padding: "16px",\n' +
+  '    borderRadius: "0",\n' +
+  '    borderColor: "#f2f2f2",\n' +
+  '    borderStyle: "solid",\n' +
+  '    borderWidth: "1px",\n' +
+  '    marginTop: "0",\n' +
+  "};\n" +
+  "\n" +
+  "export const Container = (props: Props) => {\n" +
+  "    const { className, children } = props;\n" +
+  "    return (\n" +
+  "        <div\n" +
+  "            style={{\n" +
+  "                ...props,\n" +
+  "            }}\n" +
+  "            className={className}\n" +
+  "        >\n" +
+  "            {children}\n" +
+  "        </div>\n" +
+  "    );\n" +
+  "};\n" +
+  "\n" +
+  "Container.defaultProps = defaultProps;\n";
 
-const defaultProps = {
-  gap: "0",
-  isCol: true,
-  numCols: "2",
-  numRows: "2",
-  gapX: "0",
-  gapY: "0",
-  minHeight: "10rem",
-  borderRadius: "16px",
-  borderColor: "#f2f2f2",
-  borderStyle: "solid",
-  borderWidth: "1px",
-  marginTop: "1rem",
-  padding: "16px",
-  backgroundColor: "white",
-  showBorder: true,
-  children: undefined,
-};
+export const button =
+  'import React from "react";\n' +
+  'import { Button as AntButton } from "antd";\n' +
+  'import { SizeType } from "antd/lib/config-provider/SizeContext";\n' +
+  "declare const ButtonTypes: [\n" +
+  '    "primary",\n' +
+  '    "link",\n' +
+  '    "text",\n' +
+  '    "ghost",\n' +
+  '    "default",\n' +
+  '    "dashed",\n' +
+  "    undefined\n" +
+  "];\n" +
+  "declare type ButtonType = typeof ButtonTypes[number];\n" +
+  "\n" +
+  "interface Props {\n" +
+  "    size?: SizeType;\n" +
+  "    type?: ButtonType;\n" +
+  "    color?: string;\n" +
+  "    text?: string;\n" +
+  "    backgroundColor?: string;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '    size: "middle",\n' +
+  '    type: "primary",\n' +
+  '    color: "",\n' +
+  '    text: "Button",\n' +
+  '    backgroundColor: "",\n' +
+  "};\n" +
+  "\n" +
+  "export const Button = (props: Props) => {\n" +
+  "    const { size, type, color, text, backgroundColor } = props;\n" +
+  "\n" +
+  "    return (\n" +
+  "        <AntButton size={size} type={type} style={{ color, backgroundColor }}>\n" +
+  "            {text}\n" +
+  "        </AntButton>\n" +
+  "    );\n" +
+  "};\n" +
+  "\n" +
+  "Button.defaultProps = defaultProps;\n";
 
-export const Grid = (props: Props) => {
-  const {
-    isCol,
-    numCols,
-    numRows,
-    gapX,
-    gapY,
-    children,
-    showBorder,
-    padding,
-    margin,
-    borderRadius,
-    paddingTop,
-    paddingRight,
-    paddingLeft,
-    paddingBottom,
-    marginTop,
-    marginRight,
-    marginLeft,
-    marginBottom,
-    borderBottomLeftRadius,
-    borderBottomRightRadius,
-    borderTopLeftRadius,
-    borderTopRightRadius,
-    borderWidth,
-  } = props;
+export const input =
+  'import React from "react";\n' +
+  'import { Form, Input as InputAntd } from "antd";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "    placeholder?: string;\n" +
+  "    label?: string;\n" +
+  "    showLabel?: boolean;\n" +
+  "    isVertical?: boolean;\n" +
+  "    showPlaceHolder?: boolean;\n" +
+  "    color?: string;\n" +
+  "    isPassword?: boolean;\n" +
+  "}\n" +
+  "\n" +
+  "const defaultProps = {\n" +
+  '    placeholder: "Place holder",\n' +
+  "    isVertical: true,\n" +
+  "    showPlaceHolder: true,\n" +
+  '    label: "Label",\n' +
+  "    showLabel: true,\n" +
+  '    color: "black",\n' +
+  "    isPassword: false,\n" +
+  "};\n" +
+  "\n" +
+  "export const Input = (props: Props) => {\n" +
+  "    const {\n" +
+  "        isVertical,\n" +
+  "        showLabel,\n" +
+  "        label,\n" +
+  "        showPlaceHolder,\n" +
+  "        placeholder,\n" +
+  "        color,\n" +
+  "        isPassword,\n" +
+  "    } = props;\n" +
+  "    return (\n" +
+  "        <div>\n" +
+  "            <Form.Item>\n" +
+  '                <div className={isVertical ? "" : "flex items-center"}>\n' +
+  "                    {showLabel && (\n" +
+  '                        <label className="mr-4 font-bold" style={{ color }}>\n' +
+  "                            {label}:\n" +
+  "                        </label>\n" +
+  "                    )}\n" +
+  "                    {isPassword ? (\n" +
+  "                        <InputAntd.Password\n" +
+  '                            placeholder={showPlaceHolder ? placeholder : ""}\n' +
+  "                        />\n" +
+  "                    ) : (\n" +
+  "                        <InputAntd\n" +
+  '                            placeholder={showPlaceHolder ? placeholder : ""}\n' +
+  "                        />\n" +
+  "                    )}\n" +
+  "                </div>\n" +
+  "            </Form.Item>\n" +
+  "        </div>\n" +
+  "    );\n" +
+  "};\n" +
+  "\n" +
+  "Input.defaultProps = defaultProps;\n";
 
-  const layout = isCol
-    ? {
-        gridTemplateColumns: 'repeat(\${numCols}, minmax(0, 1fr))',
-      }
-    : {
-        gridTemplateRows: 'repeat(\${numRows}, minmax(0, 1fr))',
-        gridAutoFlow: "column",
-      };
-  return (
-    <div
-      className="grid"
-      style={{
-        ...props,
-        ...layout,
-        columnGap: '\${gapX}px',
-        rowGap: '\${gapY}px',
-        padding: '\${padding}px',
-        paddingTop: '\${paddingTop}px',
-        paddingBottom: '\${paddingBottom}px',
-        paddingLeft: '\${paddingLeft}px',
-        paddingRight: '\${paddingRight}px',
-        margin: '\${margin}px',
-        marginTop: '\${marginTop}px',
-        marginBottom: '\${marginBottom}px',
-        marginLeft: '\${marginLeft}px',
-        marginRight: '\${marginRight}px',
-        borderRadius: '\${borderRadius}px',
-        borderTopLeftRadius: '\${borderTopLeftRadius}px',
-        borderTopRightRadius: '\${borderTopRightRadius}px',
-        borderBottomLeftRadius: '\${borderBottomLeftRadius}px',
-        borderBottomRightRadius: '\${borderBottomRightRadius}px',
-        borderWidth: showBorder ? '\${borderWidth}px' : "0",
-      }}
-    >
-      {children}
-    </div>
-  );
-};
-
-Grid.defaultProps = defaultProps;
-`;
-
-export const container = `
-import React from "react";
-
-interface Props {
-  backgroundColor?: string;
-  width?: string;
-  height?: string;
-  borderRadius?: string;
-  borderBottomLeftRadius?: string;
-  borderBottomRightRadius?: string;
-  borderTopLeftRadius?: string;
-  borderTopRightRadius?: string;
-  borderWidth?: string;
-  borderStyle?: string;
-  borderColor?: string;
-  children?: React.ReactNode;
-  padding?: string;
-  paddingLeft?: string;
-  paddingRight?: string;
-  paddingTop?: string;
-  paddingBottom?: string;
-  margin?: string;
-  marginLeft?: string;
-  marginRight?: string;
-  marginTop?: string;
-  marginBottom?: string;
-  minHeight?: string;
-  minWidth?: string;
-  maxWidth?: string;
-  maxHeight?: string;
-  className?: string;
-}
-
-const defaultProps = {
-  backgroundColor: "white",
-  minHeight: "10rem",
-  padding: "16px",
-  borderRadius: "1rem",
-  borderColor: "#f2f2f2",
-  borderStyle: "solid",
-  borderWidth: "1px",
-  marginTop: "1rem",
-};
-
-export const Container = (props: Props) => {
-  const { className, children } = props;
-  return (
-    <div
-      style={{
-        ...props,
-      }}
-      className={className}
-    >
-      {children}
-    </div>
-  );
-};
-
-Container.defaultProps = defaultProps;
-  `;
-
-export const button = `
-import React from "react";
-import { Button as AntButton } from "antd";
-import { SizeType } from "antd/lib/config-provider/SizeContext";
-declare const ButtonTypes: [
-  "primary",
-  "link",
-  "text",
-  "ghost",
-  "default",
-  "dashed",
-  undefined
-];
-declare type ButtonType = (typeof ButtonTypes)[number];
-
-interface Props {
-  size?: SizeType;
-  type?: ButtonType;
-  color?: string;
-  text?: string;
-  backgroundColor?: string;
-}
-
-const defaultProps = {
-  size: "middle",
-  type: "primary",
-  color: "",
-  text: "Button",
-  backgroundColor: "",
-};
-
-export const Button = (props: Props) => {
-  const { size, type, color, text, backgroundColor } = props;
-
-  return (
-    <AntButton
-      size={size}
-      type={type}
-      style={{ color, backgroundColor }}
-    >
-      {text}
-    </AntButton>
-  );
-};
-
-Button.defaultProps = defaultProps;
-  `;
-
-export const input = `
-import React from "react";
-import { Form, Input as InputAntd } from "antd";
-
-interface Props {
-  placeholder?: string;
-  label?: string;
-  showLabel?: boolean;
-  isVertical?: boolean;
-  showPlaceHolder?: boolean;
-  color?: string;
-  isPassword?: boolean;
-}
-
-const defaultProps = {
-  placeholder: "Place holder",
-  isVertical: true,
-  showPlaceHolder: true,
-  label: "Label",
-  showLabel: true,
-  color: "black",
-  isPassword: false,
-};
-
-export const Input = (props: Props) => {
-  const {
-    isVertical,
-    showLabel,
-    label,
-    showPlaceHolder,
-    placeholder,
-    color,
-    isPassword,
-  } = props;
-  return (
-    <div>
-      <Form.Item>
-        <div className={isVertical ? "" : "flex items-center"}>
-          {showLabel && (
-            <label className="mr-4 font-bold" style={{ color }}>
-              {label}:
-            </label>
-          )}
-          {isPassword ? (
-            <InputAntd.Password
-              placeholder={showPlaceHolder ? placeholder : ""}
-            />
-          ) : (
-            <InputAntd placeholder={showPlaceHolder ? placeholder : ""} />
-          )}
-        </div>
-      </Form.Item>
-    </div>
-  );
-};
-
-Input.defaultProps = defaultProps;
-  `;
-
-export const paragraph = `
-import React from "react";
-
-interface Props {
-  text?: string;
-  fontSize?: number;
-  isBold?: boolean;
-  isItalic?: boolean;
-  isUnderline?: boolean;
-}
-
-export const Paragraph = ({
-  text = "Paragraph",
-  fontSize,
-  isBold,
-  isItalic,
-  isUnderline,
-}: Props) => {
-  return (
-    <p
-     
-      className='m-0 \${isBold ? "font-bold" : ""} \${isItalic ? "italic" : ""} \${
-  isUnderline ? "underline" : ""
-}'
-      style={{ fontSize }}
-    >
-      {text}
-    </p>
-  );
-};
-  `;
+export const paragraph =
+  'import React from "react";\n' +
+  "\n" +
+  "interface Props {\n" +
+  "    text?: string;\n" +
+  "    fontSize?: number;\n" +
+  "    isBold?: boolean;\n" +
+  "    isItalic?: boolean;\n" +
+  "    isUnderline?: boolean;\n" +
+  "}\n" +
+  "\n" +
+  "export const Paragraph = ({\n" +
+  '    text = "Paragraph",\n' +
+  "    fontSize,\n" +
+  "    isBold,\n" +
+  "    isItalic,\n" +
+  "    isUnderline,\n" +
+  "}: Props) => {\n" +
+  "    return (\n" +
+  "        <p\n" +
+  '            className={`m-0 ${isBold ? "font-bold" : ""} ${\n' +
+  '                isItalic ? "italic" : ""\n' +
+  '            } ${isUnderline ? "underline" : ""} `}\n' +
+  "            style={{ fontSize }}\n" +
+  "        >\n" +
+  "            {text}\n" +
+  "        </p>\n" +
+  "    );\n" +
+  "};\n";
 
 export const text =
   'import React from "react";\n' +
@@ -522,6 +514,7 @@ export const breadcrumbs =
 
 export const image =
   'import React from "react";\n' +
+  'import { Image as AntImage } from "antd";\n' +
   "\n" +
   "interface Props {\n" +
   "    src?: string;\n" +
@@ -538,7 +531,7 @@ export const image =
   "\n" +
   "    return (\n" +
   "        <div>\n" +
-  "            <Image width={width} src={src} />\n" +
+  "            <AntImage width={width} src={src} />\n" +
   "        </div>\n" +
   "    );\n" +
   "};\n" +

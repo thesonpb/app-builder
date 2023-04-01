@@ -1,10 +1,11 @@
 import axios from "axios";
 import Cookie from "js-cookie";
+import { beUrl } from "../constants/baseUrl";
 
 const token = Cookie.get("access_token");
 
 export default axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: beUrl,
   headers: token
     ? {
         "Content-type": "application/json",

@@ -231,9 +231,10 @@ function PagePreview({
           onClick={() => {
             if (canEditPage()) navigate(`/create-page/${id}`);
           }}
-          className="object-cover object-center"
           src={`${beUrl}/resources/images/${previewImage}`}
           alt={name}
+          className="object-center object-cover"
+          // style={{ width: "100%", height: "100%" }}
         />
       </div>
       <div className="pt-2 flex items-center justify-between">

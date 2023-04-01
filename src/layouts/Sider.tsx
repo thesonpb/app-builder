@@ -20,10 +20,9 @@ interface Shortcut {
   id: number;
 }
 interface Props {
-  setType: Function;
   setVisible: Function;
 }
-function Sider({ setType, setVisible }: Props) {
+function Sider({ setVisible }: Props) {
   const navigate = useNavigate();
   const { isAddToShortcut, setAddToShortcut } = useContext(AppContext);
   const { pathname } = useLocation();
@@ -143,7 +142,6 @@ function Sider({ setType, setVisible }: Props) {
           className="w-full select-none flex items-center justify-between rounded-md text-light p-4 hover:bg-lightGray cursor-pointer"
           style={{ border: "1px solid #525866" }}
           onClick={() => {
-            setType("PAGE");
             setVisible(true);
           }}
         >

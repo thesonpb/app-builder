@@ -1,6 +1,7 @@
 import httpCommon from "../common/http-common";
 import axios from "axios";
 import Cookie from "js-cookie";
+import { beUrl } from "../constants/baseUrl";
 
 let http = httpCommon;
 
@@ -8,7 +9,7 @@ class Base {
   getToken() {
     const token = Cookie.get("access_token");
     http = axios.create({
-      baseURL: "http://localhost:8080",
+      baseURL: beUrl,
       headers: token
         ? {
             "Content-type": "application/json",

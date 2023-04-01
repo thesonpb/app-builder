@@ -7,10 +7,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { Mousewheel, Pagination, Autoplay, Navigation } from "swiper";
+import { Autoplay, Mousewheel, Pagination } from "swiper";
 import TemplateCard from "../../components/cards/TemplateCard";
 import { useQuery } from "react-query";
 import ProofModel from "../../app/models/Proof";
+import { TEMPLATES } from "../../app/constants/templates";
 
 const CustomSwiper = styled(Swiper)`
   height: 100vh;
@@ -237,7 +238,7 @@ function Feature() {
 function TemplateContentPreview() {
   return (
     <div className="flex flex-col items-center justify-center">
-      <h1 className="text-4xl tracking-tight font-extrabold text-white">
+      <h1 className="text-4xl tracking-tight font-extrabold text-white mb-12">
         Made by Component Craft
       </h1>
       <Swiper
@@ -246,42 +247,19 @@ function TemplateContentPreview() {
         pagination={{
           clickable: true,
         }}
-        navigation={true}
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
         }}
         loop={true}
-        modules={[Autoplay, Navigation]}
+        modules={[Autoplay]}
         className="mySwipersub h-full w-screen"
       >
-        <SwiperSlide>
-          <TemplateCard item={1} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <TemplateCard item={1} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <TemplateCard item={1} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <TemplateCard item={1} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <TemplateCard item={1} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <TemplateCard item={1} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <TemplateCard item={1} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <TemplateCard item={1} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <TemplateCard item={1} />
-        </SwiperSlide>
+        {Object.keys(TEMPLATES)?.map((item) => (
+          <SwiperSlide key={TEMPLATES[item].id}>
+            <TemplateCard item={TEMPLATES[item]} />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

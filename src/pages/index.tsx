@@ -18,7 +18,6 @@ const { Content } = Layout;
 function Pages() {
   const { user } = useUser();
   const { pathname } = useLocation();
-  const [type, setType] = useState("");
   const [visible, setVisible] = useState(false);
   const isCreateScreen = pathname.includes("/create-page");
   const isProfilePage = pathname.includes("/profile");
@@ -30,7 +29,7 @@ function Pages() {
           {pathname !== "/" && !isCreateScreen && <Header />}
           <Layout>
             {!isCreateScreen && user?.id && !isProfilePage && (
-              <Sider setType={setType} setVisible={setVisible} />
+              <Sider setVisible={setVisible} />
             )}
             <Layout>
               <Content
@@ -62,11 +61,7 @@ function Pages() {
           </Layout>
         </Layout>
         {visible && (
-          <PopupSelectTemplate
-            visible={visible}
-            type={type}
-            setVisible={setVisible}
-          />
+          <PopupSelectTemplate visible={visible} setVisible={setVisible} />
         )}
         <Outlet />
       </PageBuilderProvider>

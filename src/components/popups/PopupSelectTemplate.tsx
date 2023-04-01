@@ -7,10 +7,10 @@ import Page from "../../app/models/Page";
 import { PageBuilderContext } from "../../app/context/PageBuilderContext";
 import { useQuery } from "react-query";
 import { defaultJson } from "../../app/constants/pageJson";
+import { TEMPLATES } from "../../app/constants/templates";
 
 interface Props {
   visible: boolean;
-  type: string;
   setVisible: Function;
 }
 
@@ -20,15 +20,11 @@ const CustomModal = styled(Modal)`
   }
 `;
 
-export default function PopupSelectTemplate({
-  visible,
-  type,
-  setVisible,
-}: Props) {
+export default function PopupSelectTemplate({ visible, setVisible }: Props) {
   const { setCurrentProjectName, setCurrentProjectId } =
     useContext(PageBuilderContext);
   const navigate = useNavigate();
-  const [selectedTemplate, setSelectedTemplate] = useState<number>(-1);
+  const [selectedTemplate, setSelectedTemplate] = useState("");
   const [projectName, setProjectName] = useState<string>("Untitled");
 
   const { data: listCurrentPageName } = useQuery(
@@ -50,7 +46,7 @@ export default function PopupSelectTemplate({
             key="back"
             onClick={() => {
               setVisible(false);
-              setSelectedTemplate(-1);
+              setSelectedTemplate("");
             }}
           >
             Cancel
@@ -66,11 +62,13 @@ export default function PopupSelectTemplate({
                 setCurrentProjectName(projectName);
                 const res = await Page.createPage({
                   name: projectName,
-                  json: defaultJson,
+                  json: selectedTemplate
+                    ? TEMPLATES[selectedTemplate].json
+                    : defaultJson,
                 });
                 setCurrentProjectId(res);
-                navigate(`/create-${type.toLowerCase()}/${res}`);
-                setSelectedTemplate(-1);
+                navigate(`/create-page/${res}`);
+                setSelectedTemplate("");
               }
             }}
           >
@@ -81,13 +79,7 @@ export default function PopupSelectTemplate({
       onCancel={() => setVisible(false)}
     >
       <div className="pt-6">
-        <Form.Item
-          label={
-            <div className="text-light">
-              {type === "PAGE" ? "Page name" : "App name"}
-            </div>
-          }
-        >
+        <Form.Item label={<div className="text-light">Page name</div>}>
           <Input
             defaultValue={projectName}
             onChange={(e) => setProjectName(e.target.value)}
@@ -95,7 +87,6 @@ export default function PopupSelectTemplate({
           />
         </Form.Item>
         <TemplatePreview
-          type={type}
           selectedTemplate={selectedTemplate}
           setSelectedTemplate={setSelectedTemplate}
         />

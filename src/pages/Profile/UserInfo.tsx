@@ -44,6 +44,7 @@ function UserInfo({ form, userData, refetch }: any) {
     onSuccess: () => {
       refetch();
       setEdit(false);
+      form.setFieldsValue({ oldPassword: "", newPassword: "" });
       message.success("User updated successfully!");
     },
     onError: (e: any) => {
@@ -132,7 +133,6 @@ function UserInfo({ form, userData, refetch }: any) {
                 </label>
               }
               required={false}
-              rules={[{ required: true, message: "Old password is required!" }]}
             >
               <CustomPassword size="large" placeholder="Old password" />
             </Form.Item>
@@ -144,7 +144,6 @@ function UserInfo({ form, userData, refetch }: any) {
                 </label>
               }
               required={false}
-              rules={[{ required: true, message: "New password is required!" }]}
             >
               <CustomPassword size="large" placeholder="New password" />
             </Form.Item>
