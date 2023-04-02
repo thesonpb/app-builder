@@ -31,7 +31,7 @@ import { exportVueCode } from "../app/common/componentConvertVue";
 import ReactIcon from "../app/icons/ReactIcon";
 import VueIcon from "../app/icons/VueIcon";
 import ArchiveIcon from "../app/icons/ArchiveIcon";
-import { feUrl } from "../app/constants/baseUrl";
+import { beUrl, feUrl } from "../app/constants/baseUrl";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -413,7 +413,15 @@ function EditorHeader() {
             placement="bottomRight"
           >
             <div>
-              <Button className="w-8 h-8 rounded-full bg-amber-500 border-none"></Button>
+              {user?.photos ? (
+                <img
+                  className="w-8 h-8 rounded-full bg-white border-none"
+                  src={`${beUrl}/resources/images/${user?.photos}`}
+                  alt="avatar"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-white border-none" />
+              )}
             </div>
           </Dropdown>
         )}

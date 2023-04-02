@@ -238,34 +238,42 @@ function PagePreview({
         />
       </div>
       <div className="pt-2 flex items-center justify-between">
-        <div
-          className="flex gap-x-2 items-center"
-          onClick={() => {
-            if (canEditPage()) navigate(`/create-page/${id}`);
-          }}
-        >
+        <div className="flex gap-x-2 items-center">
           <div
             className="text-green-400"
             onClick={() => {
-              if (!canEditPage()) navigate(`/profile/${userId}`);
+              if (canEditPage() && user?.id === userId)
+                navigate(`/create-page/${id}`);
+              else navigate(`/profile/${userId}`);
             }}
           >
-            {canEditPage() ? <FileIcon /> : displayAvatar()}
+            {canEditPage() && user?.id === userId ? (
+              <FileIcon />
+            ) : (
+              displayAvatar()
+            )}
           </div>
           <div>
             <div
               className="text-sm font-medium text-light truncate"
               style={{ maxWidth: "200px" }}
+              onClick={() => {
+                if (canEditPage()) navigate(`/create-page/${id}`);
+              }}
             >
               {name}
             </div>
             <div
               className="text-xs text-gray-400"
               onClick={() => {
-                if (!canEditPage()) navigate(`/profile/${userId}`);
+                if (canEditPage() && user?.id === userId)
+                  navigate(`/create-page/${id}`);
+                else navigate(`/profile/${userId}`);
               }}
             >
-              {canEditPage() ? formatTime(modifiedAt) : creatorName}
+              {canEditPage() && user?.id === userId
+                ? formatTime(modifiedAt)
+                : creatorName}
             </div>
           </div>
         </div>

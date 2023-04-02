@@ -7,6 +7,7 @@ import { useUser } from "../app/hooks";
 import { AppContext } from "../app/context/AppContext";
 import Auth from "../app/models/Auth";
 import LogoIcon from "../app/icons/LogoIcon";
+import { beUrl } from "../app/constants/baseUrl";
 
 function Header() {
   const { setUser } = useContext(AppContext);
@@ -68,7 +69,15 @@ function Header() {
             placement="bottomRight"
           >
             <div>
-              <Button className="w-8 h-8 rounded-full bg-amber-500 border-none"></Button>
+              {user?.photos ? (
+                <img
+                  className="w-8 h-8 rounded-full bg-white border-none"
+                  src={`${beUrl}/resources/images/${user?.photos}`}
+                  alt="avatar"
+                />
+              ) : (
+                <div className="w-8 h-8 rounded-full bg-white border-none" />
+              )}
             </div>
           </Dropdown>
         )}

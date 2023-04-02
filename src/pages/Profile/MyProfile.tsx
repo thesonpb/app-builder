@@ -101,7 +101,7 @@ function MyProfile({ id }: any) {
         <div className="relative h-80">
           {user?.cover ? (
             <img
-              className="w-full h-60 object-cover"
+              className="w-full h-60 object-cover bg-white"
               src={`${beUrl}/resources/images/${user?.cover}`}
               alt="cover"
             />
@@ -144,10 +144,10 @@ function MyProfile({ id }: any) {
               <img
                 src={`${beUrl}/resources/images/${user?.photos}`}
                 alt="avatar"
-                className="object-cover object-center rounded-full w-40 h-40"
+                className="object-cover object-center rounded-full w-40 h-40 bg-white"
               />
             ) : (
-              <div className="border-solid border border-white rounded-full w-40 h-40 bg-blue-400" />
+              <div className="border-solid border border-white rounded-full w-40 h-40 bg-white" />
             )}
           </CustomUpload>
         </div>
