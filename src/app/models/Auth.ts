@@ -4,7 +4,6 @@ import Cookie from "js-cookie";
 
 const catchError = (error: any) => {
   let message;
-  //TODO: check mã lỗi và throw ra message
   switch (error.response.data.message) {
     case "Bad credentials":
       message = "Incorrect username or password!";

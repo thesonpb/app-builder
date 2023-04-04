@@ -75,7 +75,9 @@ function Login({ isOpenLogin, setOpenLogin }: Props) {
       setForgetPassword(false);
     },
     onError: (e: any) => {
-      message.error(e);
+      if (e.response.data.error === "Not Found")
+        message.error("Email not exist!");
+      else message.error("Error occured!");
     },
   });
 
