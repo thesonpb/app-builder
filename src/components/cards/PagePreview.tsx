@@ -11,6 +11,7 @@ import Page from "../../app/models/Page";
 import BookmarkFillIcon from "../../app/icons/BookmarkFillIcon";
 import { AppContext } from "../../app/context/AppContext";
 import RenamePageModal from "../popups/RenamePageModal";
+import { copyToClipboard } from "../../app/common/commonFunctiton";
 
 function PagePreview({
   id,
@@ -60,8 +61,13 @@ function PagePreview({
       }/${year}`;
     }
   };
-  const copyToClipBoard = () => {
-    navigator.clipboard.writeText(`${feUrl}/page/${id}`);
+  const copyToClipBoard = async () => {
+    try {
+      await copyToClipboard(`${feUrl}/page/${id}`);
+      console.log("Text copied to the clipboard!");
+    } catch (error) {
+      console.error(error);
+    }
     message.success("Link copied!");
   };
   const canEditPage = () => {

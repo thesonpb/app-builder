@@ -20,10 +20,10 @@ const CustomSwiper = styled(Swiper)`
 function Logo({ setOpenLogin, setOpenSignup }: any) {
   return (
     <>
-      <h1 className="select-none text-light text-9xl font-extrabold my-0">
+      <h1 className="text-center select-none text-light text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-extrabold my-0">
         Component Craft
       </h1>
-      <h1 className="select-none text-light text-3xl font-normal">
+      <h1 className="select-none text-light text-2xl lg:text-3xl font-normal text-center">
         Design beautiful web pages effortlessly
       </h1>
       <div className="flex gap-x-2">
@@ -242,10 +242,18 @@ function TemplateContentPreview() {
         Made by Component Craft
       </h1>
       <Swiper
-        slidesPerView={3}
+        slidesPerView={1}
         spaceBetween={30}
         pagination={{
           clickable: true,
+        }}
+        breakpoints={{
+          768: {
+            slidesPerView: 2,
+          },
+          1024: {
+            slidesPerView: 3,
+          },
         }}
         autoplay={{
           delay: 2500,
@@ -270,31 +278,44 @@ function Homepage() {
   const [isOpenSignup, setOpenSignup] = useState(false);
   return (
     <div>
-      <CustomSwiper
-        mousewheel={true}
-        direction={"vertical"}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Mousewheel, Pagination]}
-        className="mySwiper"
-      >
-        <SwiperSlide>
-          <div className="h-screen bg-dark flex flex-col items-center justify-center">
-            <Logo setOpenLogin={setOpenLogin} setOpenSignup={setOpenSignup} />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="h-screen bg-dark flex items-center">
-            <Feature />
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="h-screen bg-dark flex items-center justify-center">
-            <TemplateContentPreview />
-          </div>
-        </SwiperSlide>
-      </CustomSwiper>
+      <div className="hidden lg:block">
+        <CustomSwiper
+          mousewheel={true}
+          direction={"vertical"}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Mousewheel, Pagination]}
+          className="mySwiper"
+        >
+          <SwiperSlide>
+            <div className="h-screen bg-dark flex flex-col items-center justify-center">
+              <Logo setOpenLogin={setOpenLogin} setOpenSignup={setOpenSignup} />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="h-screen bg-dark flex items-center">
+              <Feature />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="h-screen bg-dark flex items-center justify-center">
+              <TemplateContentPreview />
+            </div>
+          </SwiperSlide>
+        </CustomSwiper>
+      </div>
+      <div className="lg:hidden">
+        <div className="min-screen bg-dark flex flex-col items-center justify-center">
+          <Logo setOpenLogin={setOpenLogin} setOpenSignup={setOpenSignup} />
+        </div>
+        <div className="min-screen bg-dark flex items-center">
+          <Feature />
+        </div>
+        <div className="min-screen bg-dark flex items-center justify-center">
+          <TemplateContentPreview />
+        </div>
+      </div>
       {isOpenLogin && (
         <Login isOpenLogin={isOpenLogin} setOpenLogin={setOpenLogin} />
       )}

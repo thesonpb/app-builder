@@ -32,6 +32,7 @@ import ReactIcon from "../app/icons/ReactIcon";
 import VueIcon from "../app/icons/VueIcon";
 import ArchiveIcon from "../app/icons/ArchiveIcon";
 import { beUrl, feUrl } from "../app/constants/baseUrl";
+import { copyToClipboard } from "../app/common/commonFunctiton";
 
 const CustomSelect = styled(Select)`
   .ant-select-selector {
@@ -109,8 +110,13 @@ const SharePopup = ({ pageId }: SharePopupProps) => {
       }));
     setOptionsUser(temp);
   });
-  const copyToClipBoard = () => {
-    navigator.clipboard.writeText(`${feUrl}/page/${pageId}`);
+  const copyToClipBoard = async () => {
+    try {
+      await copyToClipboard(`${feUrl}/page/${pageId}`);
+      console.log("Text copied to the clipboard!");
+    } catch (error) {
+      console.error(error);
+    }
     message.success("Link copied!");
   }; // @ts-ignore
   return (

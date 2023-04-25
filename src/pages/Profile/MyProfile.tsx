@@ -10,6 +10,7 @@ import EditIcon from "../../app/icons/EditIcon";
 import UserInfo from "./UserInfo";
 import SavedPage from "./SavedPage";
 import { CopyOutlined } from "@ant-design/icons";
+import { copyToClipboard } from "../../app/common/commonFunctiton";
 
 const CustomUpload = styled(Upload)`
   .ant-upload {
@@ -91,8 +92,13 @@ function MyProfile({ id }: any) {
       message.error("Đã có lỗi xảy ra");
     }
   };
-  const copyToClipBoard = () => {
-    navigator.clipboard.writeText(`${feUrl}/profile/${id}`);
+  const copyToClipBoard = async () => {
+    try {
+      await copyToClipboard(`${feUrl}/profile/${id}`);
+      console.log("Text copied to the clipboard!");
+    } catch (error) {
+      console.error(error);
+    }
     message.success("Link copied!");
   };
   return (

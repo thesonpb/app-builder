@@ -20,7 +20,8 @@ const CustomInput = styled(Input)`
 `;
 
 const CustomPassword = styled(Input.Password)`
-  :where(.css-dev-only-do-not-override-sk7ap8).ant-input-affix-wrapper,
+  background: #495057 !important;
+  border: none;
   .ant-input {
     background: #495057 !important;
     border: none !important;

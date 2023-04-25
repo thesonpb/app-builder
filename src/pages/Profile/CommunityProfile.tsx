@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import User from "../../app/models/User";
 import styled from "styled-components";
 import PublicPageOfUser from "./PublicPageOfUser";
+import { copyToClipboard } from "../../app/common/commonFunctiton";
 
 const CustomImg = styled.img`
   position: absolute;
@@ -27,8 +28,13 @@ function CommunityProfile({ id }: any) {
       initialData: {},
     }
   );
-  const copyToClipBoard = () => {
-    navigator.clipboard.writeText(`${feUrl}/profile/${id}`);
+  const copyToClipBoard = async () => {
+    try {
+      await copyToClipboard(`${feUrl}/profile/${id}`);
+      console.log("Text copied to the clipboard!");
+    } catch (error) {
+      console.error(error);
+    }
     message.success("Link copied!");
   };
   return (

@@ -72,6 +72,10 @@
     min-height: calc(100vh - 64px) !important;
 }
 
+.min-screen {
+    min-height: 100vh !important;
+}
+
 .modal-confirm .ant-modal-content {
     background: #343a40;
 }

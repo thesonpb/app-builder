@@ -11,6 +11,7 @@ import Page from "../app/models/Page";
 import MoreIcon from "../app/icons/MoreIcon";
 import { feUrl } from "../app/constants/baseUrl";
 import { AppContext } from "../app/context/AppContext";
+import { copyToClipboard } from "../app/common/commonFunctiton";
 
 const { Sider: AntSider } = Layout;
 
@@ -46,8 +47,13 @@ function Sider({ setVisible }: Props) {
   });
 
   const renderShortcut = ({ name, id }: Shortcut) => {
-    const copyToClipBoard = () => {
-      navigator.clipboard.writeText(`${feUrl}/page/${id}`);
+    const copyToClipBoard = async () => {
+      try {
+        await copyToClipboard(`${feUrl}/page/${id}`);
+        console.log("Text copied to the clipboard!");
+      } catch (error) {
+        console.error(error);
+      }
       message.success("Link copied!");
     };
     const items: MenuProps["items"] = [
