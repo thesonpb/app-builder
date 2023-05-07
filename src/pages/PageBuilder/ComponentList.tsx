@@ -150,7 +150,7 @@ const items = [
       },
       {
         id: 10,
-        name: "Divier",
+        name: "Divider",
         isContainer: false,
         icon: <DividerIcon />,
         renderItem: Divider,
